@@ -1,4 +1,4 @@
-package com.a603.ofcourse;
+package com.a603.ofcourse.domain.member.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

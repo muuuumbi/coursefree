@@ -1,4 +1,4 @@
-package com.a603.ofcourse;
+package com.a603.ofcourse.domain.couple.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "member_couple")
-public class MemberCouple {
+public class Couple {
     @Id
     @Column(name = "member_couple_id", nullable = false)
     private Integer id;

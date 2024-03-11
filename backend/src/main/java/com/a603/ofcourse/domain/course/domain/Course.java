@@ -1,20 +1,17 @@
-package com.a603.ofcourse;
+package com.a603.ofcourse.domain.course.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Entity
-@Table(name = "course")
 public class Course {
     @Id
-    @Column(name = "course_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 8)
@@ -36,5 +33,4 @@ public class Course {
     @Size(max = 10)
     @Column(name = "represent_station", length = 10)
     private String representStation;
-
 }

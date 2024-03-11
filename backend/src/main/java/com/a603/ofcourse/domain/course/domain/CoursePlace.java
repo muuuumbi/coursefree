@@ -1,4 +1,4 @@
-package com.a603.ofcourse;
+package com.a603.ofcourse.domain.course.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "course_place")
 public class CoursePlace {
