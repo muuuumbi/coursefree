@@ -1,28 +1,45 @@
 package com.a603.ofcourse.domain.course.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.a603.ofcourse.domain.couple.domain.Couple;
+import com.a603.ofcourse.domain.member.domain.Member;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "my_course")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MyCourse {
     @Id
     @Column(name = "my_course_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Column(name = "member_id", nullable = false)
-    private Integer memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    @NotNull
-    @Column(name = "course_id", nullable = false)
-    private Integer courseId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
 
+    public MyCourse(Member member, Course course) {
+        addRelatedMember(member);
+        addRelatedCourse(course);
+    }
+
+    private void addRelatedMember(Member member) {
+        this.member = member;
+        member.getMyCourseList().add(this);
+    }
+
+    private void addRelatedCourse(Course course) {
+        this.course = course;
+        course.getMyCourseList().add(this);
+    }
 }

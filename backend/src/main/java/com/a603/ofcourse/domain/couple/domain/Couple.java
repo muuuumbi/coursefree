@@ -1,21 +1,27 @@
 package com.a603.ofcourse.domain.couple.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.a603.ofcourse.domain.place.domain.PlaceReview;
+import com.a603.ofcourse.domain.schedule.domain.Schedule;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 @Getter
-@Setter
 @Entity
-@Table(name = "member_couple")
+@Table(name = "couple")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Couple {
     @Id
     @Column(name = "member_couple_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
@@ -32,5 +38,8 @@ public class Couple {
 
     @Column(name = "d_day")
     private Integer dDay;
+
+    @OneToMany(mappedBy = "couple", fetch = FetchType.LAZY)
+    private List<Schedule> scheduleList = new ArrayList<>();
 
 }
