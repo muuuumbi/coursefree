@@ -1,4 +1,4 @@
-package com.a603.ofcourse;
+package com.a603.ofcourse.domain.place.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
