@@ -1,5 +1,6 @@
 package com.a603.ofcourse.domain.member.domain;
 
+import com.a603.ofcourse.domain.couple.domain.Couple;
 import com.a603.ofcourse.domain.course.domain.CourseReview;
 import com.a603.ofcourse.domain.course.domain.MyCourse;
 import jakarta.persistence.*;
@@ -39,4 +40,13 @@ public class Member {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<CourseReview> courseReviewList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "member")
+    private Profile profile;
+
+    @OneToOne(mappedBy = "member")
+    private Couple coupleAsMember;
+
+    @OneToOne(mappedBy = "mate")
+    private Couple coupleAsMate;
 }

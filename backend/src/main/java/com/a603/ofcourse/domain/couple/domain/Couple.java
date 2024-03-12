@@ -1,5 +1,6 @@
 package com.a603.ofcourse.domain.couple.domain;
 
+import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.place.domain.PlaceReview;
 import com.a603.ofcourse.domain.schedule.domain.Schedule;
 import jakarta.persistence.*;
@@ -24,14 +25,6 @@ public class Couple {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Column(name = "member_id", nullable = false)
-    private Integer memberId;
-
-    @NotNull
-    @Column(name = "mate_id", nullable = false)
-    private Integer mateId;
-
     @Size(max = 10)
     @Column(name = "couple_nickname", length = 10)
     private String coupleNickname;
@@ -42,4 +35,22 @@ public class Couple {
     @OneToMany(mappedBy = "couple", fetch = FetchType.LAZY)
     private List<Schedule> scheduleList = new ArrayList<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mate_id")
+    private Member mate;
+
+    public Couple(
+            String coupleNickname,
+            Integer dDay,
+            Member member,
+            Member mate) {
+        this.coupleNickname = coupleNickname;
+        this.dDay = dDay;
+        this.member = member;
+        this.mate = mate;
+    }
 }

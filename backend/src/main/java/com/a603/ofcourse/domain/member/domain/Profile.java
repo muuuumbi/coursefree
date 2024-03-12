@@ -18,10 +18,6 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Column(name = "member_id", nullable = false)
-    private Integer memberId;
-
     @Size(max = 10)
     @Column(name = "nickname", length = 10)
     private String nickname;
@@ -38,4 +34,20 @@ public class Profile {
     @Column(name = "image", length = 256)
     private String image;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public Profile(
+            String nickname,
+            String ageRange,
+            String mbti,
+            String image,
+            Member member) {
+        this.nickname = nickname;
+        this.ageRange = ageRange;
+        this.mbti = mbti;
+        this.image = image;
+        this.member = member;
+    }
 }

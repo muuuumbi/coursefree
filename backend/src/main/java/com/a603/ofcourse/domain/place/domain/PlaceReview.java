@@ -1,5 +1,6 @@
 package com.a603.ofcourse.domain.place.domain;
 
+import com.a603.ofcourse.global.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -13,7 +14,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "place_review")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PlaceReview {
+public class PlaceReview extends BaseEntity {
     @Id
     @Column(name = "place_review_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +23,6 @@ public class PlaceReview {
     @Lob
     @Column(name = "content")
     private String content;
-
-    @Column(name = "reg_date")
-    private Instant regDate;
-
-    @Column(name = "mod_date")
-    private Instant modDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")

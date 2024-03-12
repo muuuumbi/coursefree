@@ -1,6 +1,7 @@
 package com.a603.ofcourse.domain.course.domain;
 
 import com.a603.ofcourse.domain.member.domain.Member;
+import com.a603.ofcourse.global.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -14,7 +15,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "course_review")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CourseReview {
+public class CourseReview extends BaseEntity {
     @Id
     @Column(name = "post_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +24,7 @@ public class CourseReview {
     @Lob
     @Column(name = "content")
     private String content;
-    // TODO: 게시글 수정 코드
-
-    @Column(name = "reg_date")
-    private Instant regDate;
-
-    @Column(name = "mod_date")
-    private Instant modDate;
+    // TODO: 게시글 수정 기능용 setter 방식 정해야함
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
