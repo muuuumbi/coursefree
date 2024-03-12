@@ -1,7 +1,7 @@
 package com.a603.ofcourse.domain.course.domain;
 
+import com.a603.ofcourse.domain.couple.domain.Couple;
 import com.a603.ofcourse.domain.member.domain.Member;
-import com.a603.ofcourse.global.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -9,22 +9,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
-
 @Getter
+@Setter
 @Entity
-@Table(name = "course_review")
+@Table(name = "my_course")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CourseReview extends BaseEntity {
+public class MyCourse {
     @Id
-    @Column(name = "post_id", nullable = false)
+    @Column(name = "my_course_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Lob
-    @Column(name = "content")
-    private String content;
-    // TODO: 게시글 수정 기능용 setter 방식 정해야함
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -34,19 +28,18 @@ public class CourseReview extends BaseEntity {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    public CourseReview(String content, Member member, Course course) {
-        this.content = content;
+    public MyCourse(Member member, Course course) {
         addRelatedMember(member);
         addRelatedCourse(course);
     }
 
     private void addRelatedMember(Member member) {
         this.member = member;
-        member.getCourseReviewList().add(this);
+        member.getMyCourseList().add(this);
     }
 
     private void addRelatedCourse(Course course) {
         this.course = course;
-        course.getCourseReviewList().add(this);
+        course.getMyCourseList().add(this);
     }
 }

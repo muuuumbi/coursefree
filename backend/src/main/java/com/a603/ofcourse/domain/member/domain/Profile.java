@@ -1,26 +1,22 @@
 package com.a603.ofcourse.domain.member.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "profile")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Profile {
     @Id
     @Column(name = "profile_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @NotNull
-    @Column(name = "member_id", nullable = false)
-    private Integer memberId;
 
     @Size(max = 10)
     @Column(name = "nickname", length = 10)
@@ -38,4 +34,20 @@ public class Profile {
     @Column(name = "image", length = 256)
     private String image;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public Profile(
+            String nickname,
+            String ageRange,
+            String mbti,
+            String image,
+            Member member) {
+        this.nickname = nickname;
+        this.ageRange = ageRange;
+        this.mbti = mbti;
+        this.image = image;
+        this.member = member;
+    }
 }

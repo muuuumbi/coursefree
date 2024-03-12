@@ -1,20 +1,26 @@
 package com.a603.ofcourse.domain.member.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.a603.ofcourse.domain.couple.domain.Couple;
+import com.a603.ofcourse.domain.course.domain.CourseReview;
+import com.a603.ofcourse.domain.course.domain.MyCourse;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
-@Setter
 @Entity
 @Table(name = "member")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
     @Id
     @Column(name = "member_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 128)
@@ -29,4 +35,18 @@ public class Member {
     @Column(name = "role", length = 8)
     private String role;
 
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<MyCourse> myCourseList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<CourseReview> courseReviewList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "member")
+    private Profile profile;
+
+    @OneToOne(mappedBy = "member")
+    private Couple coupleAsMember;
+
+    @OneToOne(mappedBy = "mate")
+    private Couple coupleAsMate;
 }
