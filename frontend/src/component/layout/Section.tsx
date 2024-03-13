@@ -9,6 +9,10 @@ const Section = styled.section`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  .swiper-pagination-bullet-active {
+    background-color: var(--primary) !important;
+  }
 `
 
 export default Section

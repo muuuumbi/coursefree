@@ -11,114 +11,47 @@ export default css`
     --fullWidth: 450px;
     overflow-y: hidden;
   }
-
-  html,
+  /* reset */
   body,
   div,
-  span,
-  applet,
-  object,
-  iframe,
+  dl,
+  dt,
+  dd,
+  ul,
+  ol,
+  li,
   h1,
   h2,
   h3,
   h4,
   h5,
   h6,
+  pre,
+  code,
+  form,
+  fieldset,
+  legend,
+  textarea,
   p,
   blockquote,
-  pre,
-  a,
-  abbr,
-  acronym,
-  address,
-  big,
-  cite,
-  code,
-  del,
-  dfn,
-  em,
-  img,
-  ins,
-  kbd,
-  q,
-  s,
-  samp,
-  small,
-  strike,
-  strong,
-  sub,
-  sup,
-  tt,
-  var,
-  b,
-  u,
-  i,
-  center,
-  dl,
-  dt,
-  dd,
-  ol,
-  ul,
-  li,
-  fieldset,
-  form,
-  label,
-  legend,
-  table,
-  caption,
-  tbody,
-  tfoot,
-  thead,
-  tr,
   th,
   td,
-  article,
-  aside,
-  canvas,
-  details,
-  embed,
-  figure,
-  figcaption,
-  footer,
-  header,
-  hgroup,
-  menu,
-  nav,
-  output,
-  ruby,
-  section,
-  summary,
-  time,
-  mark,
-  audio,
-  video {
+  input,
+  select,
+  textarea,
+  button {
     margin: 0;
     padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
   }
-  /* HTML5 display-role reset for older browsers */
-  article,
-  aside,
-  details,
-  figcaption,
-  figure,
-  footer,
-  header,
-  hgroup,
-  menu,
-  nav,
-  section {
-    display: block;
+  fieldset,
+  img {
+    border: 0 none;
   }
-  body {
-    line-height: 1;
-  }
+  dl,
+  ul,
   ol,
-  ul {
+  menu,
+  li {
     list-style: none;
   }
   blockquote,
@@ -132,24 +65,77 @@ export default css`
     content: '';
     content: none;
   }
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 100%;
+    vertical-align: middle;
+  }
+  button {
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+  }
   table {
     border-collapse: collapse;
     border-spacing: 0;
   }
-  button {
-    border: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
-    overflow: visible;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    line-height: normal;
+  body {
+    -webkit-text-size-adjust: none;
+  } /* 뷰표트 변환시 폰트크기 자동확대 방지 */
+  input[type='text'],
+  input[type='password'],
+  input[type='submit'],
+  input[type='search'] {
+    -webkit-appearance: none;
+    border-radius: 0;
   }
+  input:checked[type='checkbox'] {
+    background-color: #666;
+    -webkit-appearance: checkbox;
+  }
+  button,
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'],
+  input[type='file'] {
+    -webkit-appearance: button;
+    border-radius: 0;
+  }
+  input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+  body {
+    background: #fff;
+  }
+  body,
+  th,
+  td,
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+  } /* color값은 디자인가이드에 맞게사용 */
   a {
-    color: inherit;
-    text-decoration: inherit;
+    text-decoration: none;
+  }
+  a:active,
+  a:hover {
+    text-decoration: none;
+  }
+  address,
+  caption,
+  cite,
+  code,
+  dfn,
+  em,
+  var {
+    font-style: normal;
+    font-weight: normal;
   }
   .App {
     text-align: center;
@@ -165,17 +151,11 @@ export default css`
     appearance: none;
   }
   body {
+    overflow: -moz-scrollbars-none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer, Edge */
+    scrollbar-width: none; /* Firefox */
     overflow: hidden;
     touch-action: none;
-    @font-face {
-      font-family: 'IBMPlexSansKR-Regular';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff')
-        format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-
-    font-family: 'IBMPlexSansKR-Regular';
   }
   a {
     -webkit-tap-highlight-color: transparent;
@@ -192,5 +172,8 @@ export default css`
   }
   .swiper-slide-active {
     opacity: 1;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 `

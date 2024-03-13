@@ -23,7 +23,7 @@ export default function HotArticle() {
   }
 
   return (
-    <FlexBox h="85%">
+    <FlexBox h="90%">
       <Swiper
         modules={[Pagination]}
         spaceBetween={5}
