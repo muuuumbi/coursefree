@@ -1,27 +1,44 @@
 package com.a603.ofcourse.domain.course.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.a603.ofcourse.domain.place.domain.Place;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Entity
 @Table(name = "course_place")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CoursePlace {
     @Id
     @Column(name = "course_place_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Column(name = "course_id", nullable = false)
-    private Integer courseId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
 
-    @NotNull
-    @Column(name = "place_id2", nullable = false)
-    private Integer placeId2;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
+    private Place place;
+
+    public CoursePlace(Course course, Place place) {
+        addRelateCourse(course);
+        addRelatedPlace(place);
+    }
+
+    private void addRelateCourse(Course course) {
+        this.course = course;
+        course.getCoursePlaceList().add(this);
+    }
+
+    private void addRelatedPlace(Place place) {
+        this.place = place;
+        place.getCoursePlaceList().add(this);
+    }
 
 }
