@@ -3,12 +3,11 @@ package com.a603.ofcourse.domain.member.domain;
 import com.a603.ofcourse.domain.couple.domain.Couple;
 import com.a603.ofcourse.domain.course.domain.CourseReview;
 import com.a603.ofcourse.domain.course.domain.MyCourse;
+import com.a603.ofcourse.domain.member.domain.enums.Role;
+import com.a603.ofcourse.domain.member.domain.enums.Type;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 public class Member {
     @Id
     @Column(name = "member_id", nullable = false)
@@ -27,13 +28,15 @@ public class Member {
     @Column(name = "user_id", length = 128)
     private String userId;
 
+    @Enumerated(EnumType.STRING)
     @Size(max = 8)
     @Column(name = "type", length = 8)
-    private String type;
+    private Type type;
 
+    @Enumerated(EnumType.STRING)
     @Size(max = 8)
     @Column(name = "role", length = 8)
-    private String role;
+    private Role role;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MyCourse> myCourseList = new ArrayList<>();

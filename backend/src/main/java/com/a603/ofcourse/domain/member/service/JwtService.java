@@ -6,5 +6,5 @@ import java.security.Key;
 
 @Service
 public class JwtService {
-    private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+//    private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 }
