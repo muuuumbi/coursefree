@@ -14,3 +14,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
+jwt:
+  access:
+    token:
+      expiration:
+        seconds: 3600
+  refresh:
+    token:
+      expiration:
+        seconds: 604800
+  token:
+    secret-key: itsepguyitsepguyitsepgyitsitsits

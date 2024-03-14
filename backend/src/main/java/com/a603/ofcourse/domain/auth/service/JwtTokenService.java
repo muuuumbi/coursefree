@@ -166,14 +166,24 @@ public class JwtTokenService implements InitializingBean {
     /*
     작성자 : 김은비
     작성일자  : 2024-03-13
-    작성내용 : 클라이언트 쿠키에 리프레시토튼 저장
+    작성내용 : 클라이언트 쿠키에 리프레시토큰을 추가하여 클라이언트에게 전달
      */
     public void addRefreshTokenToCookie(String refreshToken, HttpServletResponse response){
+        //리프레시 토큰의 만료 기간
         Long age = refreshTokenExpirationInSeconds;
+        //리프레시 토큰의 값이 저장된 쿠키 생성
         Cookie cookie = new Cookie("refresh_token", refreshToken);
+        //쿠키의 경로를 /로 설정하여 모든 경로에서 이 쿠크에 접근할 수 있도록 함
         cookie.setPath("/");
+        //쿠키의 만료기간 설정 (초 단위로 설정해야 하고 대부분 이렇게 사용하기 때문)
         cookie.setMaxAge(age.intValue());
+        //쿠키를 HTTP 전용으로 설정 (클라이언트 측 스크립트에서 쿠키에 접근할 수 없도록 하기 위함 - 서버와 클라이언트 간만 주고 받을 수 있음)
         cookie.setHttpOnly(true);
+        //생성된 쿠키를 HTTP 응답에 추가 (클라이언트의 요청에 리프레시 토큰이 쿠키로 전송)
         response.addCookie(cookie);
+
+        /*
+        레디스에 추가
+         */
     }
 }
