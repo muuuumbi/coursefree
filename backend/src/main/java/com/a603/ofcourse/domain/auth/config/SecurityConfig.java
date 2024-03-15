@@ -33,8 +33,8 @@ public class SecurityConfig {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : Spring Security의 AuthenticationManager 객체 빈 생성
+     * @return AuthenticationManager
      */
     @Bean
     public AuthenticationManager authenticationManager(
@@ -44,8 +44,9 @@ public class SecurityConfig {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : Spring Security의 보안 구성을 설정 + securityFilterChain 객체 빈 생성
+     * @param HttpSecurity
+     * @return RefreshTokenResponse
      */
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http) throws Exception{
@@ -85,8 +86,8 @@ public class SecurityConfig {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
-    작성내용 : 특정 경로에 대한 보안 검사 무시
+    작성내용 : (추가구성)특정 경로에 대한 보안 검사 무시
+     * @return WebSecurityCustomizer
     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){

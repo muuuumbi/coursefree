@@ -34,8 +34,10 @@ public class JwtFilter extends GenericFilterBean {
 
     /*
     작성자 : 김은비
-    작성일자 : 2024-03-13
     작성내용 : HTTP 요청을 필터링하고 처리. 이 Filter에서 액세스토큰이 유효한지 확인 후 securityContext에 계정정보 저장
+     * @param ServletRequest
+     * @param ServletResponse
+     * @param FilterChain
      */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -74,6 +76,8 @@ public class JwtFilter extends GenericFilterBean {
     작성자 : 김은비
     작성일자 : 2024-03-13
     작성내용 : HTTP 요청에서 토큰을 추출. 인증된 사용자의 인증 토큰을 검증하거나 처리하는 데 사용
+    * @param HttpServletRequest
+    * @return String (token 값)
     */
     private String resolveToken(HttpServletRequest request){
         //1. HTTP 요청 헤더에서 AUTHORIZATION_HEADER 값을 가져옴 (보통 인증 토큰을 포함하고 있음)

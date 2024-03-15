@@ -23,8 +23,9 @@ public class KakaoOauthService {
 
     /*
     작성자 : 김은비
-    작성일자 : 2024-03-13
     작성내용 : AccessToken을 사용하여 KaKao API의 사용자 정보 엔드포인트를 호출하고, 응답 본문을 Map<String, Object>로 변환하여 반환
+     * @param String accessToken
+     * @return Map<String, Object>
      */
     public Map<String, Object> getMemberAttributesByToken(String accessToken){
         //1. WebClient 생성 -> 리액티브 웹 요청을 만들고 소비할 수 있는 클라이언트
@@ -33,23 +34,26 @@ public class KakaoOauthService {
                 .get()
                 //3. 요청할 URI 설정 -> KaKao API의 사용자 정보를 가져오는 엔드포인트
                 .uri("https://kapi.kakao.com/v2/user/me")
-                //4. 설정도니 요청을 실행하고 응답을 받음
+                //4. 요청에 헤더를 추가하여 인증 처리.(액세스 토큰을 Bearer 토근으로 설정하여 인증 수행)
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(accessToken))
+                //5. 설정도니 요청을 실행하고 응답을 받음
                 .retrieve()
-                //5. 응답 본문을 Mono(0 또는 1개의 요소를 갖는 비동기 시퀀스)로 변환. 여기서는 Map<String, Object> 타입으로 변환
+                //6. 응답 본문을 Mono(0 또는 1개의 요소를 갖는 비동기 시퀀스)로 변환. 여기서는 Map<String, Object> 타입으로 변환
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
-                //6. Mono의 값을 동기적으로 블록킹하여 결과를 반환
+                //7. Mono의 값을 동기적으로 블록킹하여 결과를 반환
                 .block();
     }
 
     /*
     작성자 : 김은비
-    작성일자 : 2024-03-13
-    작성내용 : 카카오API에서 가져온 유저정보를 DB에 저장
+    작성내용 : 카카오API에서 가져온 유저정보를 이미 회원이면 그냥 반환, 아직 회원이 아니면 DB에 저장
+     * @param String accest
+     * @return Member
      */
     public Member getMemberProfileByToken(String accessToken){
         Map<String, Object> memberAttributesByToken = getMemberAttributesByToken(accessToken);
         KakaoInfo kakaoInfo = new KakaoInfo(memberAttributesByToken);
-        String userId = kakaoInfo.toString() + kakaoInfo.getEmail();
+        String userId = kakaoInfo.getId().toString();
         Optional<Member> member = memberRepository.findByUserId(userId);
         //회원이면
         if (member.isPresent()) {

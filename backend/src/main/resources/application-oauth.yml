@@ -1,0 +1,13 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: {client-id(Rest Api key)}
+            redirect-uri: "http://localhost:8080/login/oauth/{provider}"
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - profile_image

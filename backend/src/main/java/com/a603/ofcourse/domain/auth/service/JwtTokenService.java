@@ -39,7 +39,6 @@ public class JwtTokenService implements InitializingBean {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 빈 주입받은 후 실행되는 메서드. 빈이 초기화 될 때 secretKey를 이용하여 실제 키를 생성
      */
     @Override
@@ -50,8 +49,9 @@ public class JwtTokenService implements InitializingBean {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 액세스토큰 생성
+     * @param String payload (memberId)
+     * @return accessToken
      */
     public String createAccessToken(String payload){
         //페이로드를 포함한 액세스 토큰을 생성
@@ -60,10 +60,13 @@ public class JwtTokenService implements InitializingBean {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 리프레시토큰 생성
+     * @param String payload (memberId)
+     * @param HttpServletReponse
+     * @return refreshToken
      */
-    public String createRefreshToken(){
+    public String createRefreshToken(String payload){
+        /* ----기존 코드----
         //1. 길이가 7인 바이트 배열 생성.(랜덤한 바이트 값으로 초기화됨 -> 보안성 증대)
         byte[] array = new byte[7];
         //2. 새로운 Random 객체를 생성하여 랜덤한 바이트 값을 채움
@@ -72,12 +75,16 @@ public class JwtTokenService implements InitializingBean {
         String generatedString = new String(array, StandardCharsets.UTF_8);
         //4. 새로운 리프레시 토큰 생성
         return createToken(generatedString, refreshTokenExpirationInSeconds);
+         */
+        return createToken(payload, refreshTokenExpirationInSeconds);
     }
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 주어진 페이로드를 포함한 토큰을 생성
+     * @param String payload (memberId)
+     * @param expireLength
+     * @return Jwts
      */
     public String createToken(String payload, long expireLength) {
         //1. 페이로드를 포함한 클레임 객체 생성
@@ -98,8 +105,9 @@ public class JwtTokenService implements InitializingBean {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 주어진 토큰에서 페이로드를 추출하여 서브젝트를 반환
+     * @param String token
+     * @return String memberId
      */
     public String getPayload(String token){
         try{
@@ -122,8 +130,9 @@ public class JwtTokenService implements InitializingBean {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 토큰이 유효한지를 검증하고 유효한 경우에는 만료 여부를 확인하여 결과를 반환
+     * @param String token
+     * @return boolean
      */
     public boolean validateToken(String token){
         try{
@@ -141,8 +150,9 @@ public class JwtTokenService implements InitializingBean {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 주어진 키를 Base64로 인코딩
+     * @param String secretKey
+     * @return String (인코딩된 키)
      */
     private String encodeBase64SecretKey(String secretKey){
         //UTF-8로 인코딩한 후 바이트 배열로 전환된 것을 Base64로 인코딩
@@ -151,8 +161,9 @@ public class JwtTokenService implements InitializingBean {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 인코딩된 문자열에서 키 추출
+     * @param String base64EncodedSecretKey (인코딩된 시크릿키)
+     * @return Key
      */
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey){
         //1. Base64로 인코딩된 문자열을 바이트 배열로 디코딩
@@ -165,8 +176,9 @@ public class JwtTokenService implements InitializingBean {
 
     /*
     작성자 : 김은비
-    작성일자  : 2024-03-13
     작성내용 : 클라이언트 쿠키에 리프레시토큰을 추가하여 클라이언트에게 전달
+     * @param refreshToken
+     * @param HttpServletResponse
      */
     public void addRefreshTokenToCookie(String refreshToken, HttpServletResponse response){
         //리프레시 토큰의 만료 기간

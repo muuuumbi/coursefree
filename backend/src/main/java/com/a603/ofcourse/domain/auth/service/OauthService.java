@@ -7,6 +7,7 @@ import com.a603.ofcourse.domain.member.exception.MemberErrorCode;
 import com.a603.ofcourse.domain.member.exception.MemberException;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import com.a603.ofcourse.domain.member.service.MemberService;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,10 @@ public class OauthService {
 
     /*
     작성자 : 김은비
-    작성일자 : 2024-03-13
     작성내용 : 카카오 로그인
+     * @param String
+     * @param HttpServletReponse
+     * @return accessToken
      */
     public String loginWithKakao(String accessToken, HttpServletResponse response){
         //이미 가입돼 있는 회원 or 신규회원 멤버
@@ -35,13 +38,15 @@ public class OauthService {
 
     /*
     작성자 : 김은비
-    작성일자 : 2024-03-13
     작성내용 : 액세스 토큰, 리프레시 토큰 생성
+     * @param Integer memberId
+     * @param HttpServletReponse
+     * @return accessToken
      */
     public String getTokens(Integer memberId, HttpServletResponse response){
         //1. 사용자 아이디로 액세스토큰 생성
         final String accessToken = jwtTokenService.createAccessToken(memberId.toString());
-        final String refreshToken = jwtTokenService.createRefreshToken();
+        final String refreshToken = jwtTokenService.createRefreshToken(memberId.toString());
 
         Member member = memberRepository.findById(memberId).get();
         /*
@@ -54,20 +59,20 @@ public class OauthService {
 
     /*
     작성자 : 김은비
-    작성일자 : 2024-03-13
     작성내용 : 리프레시 토큰으로 액세스토큰 새로 갱신
+     * @param refreshToken
+     * @return accessToken
      */
     public String refreshAccessToken(String refreshToken){
+        // 리프래시 토큰으로 유저 정보 받아오고 만약 유저가 없다면 이용불가한 리프레싵 토큰 오류 호출
+        Member member = memberRepository.findByUserId(
+                jwtTokenService.getPayload(refreshToken))
+                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_REFRESH_TOKEN));
 
-        /*
-        리프래시 토큰으로 유저 정보 받아오고 만약 유저가 없다면 이용불가한 리프레싵 토큰 오류 호출
-         */
-
-        if(!jwtTokenService.validateToken(refreshToken)){
-            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
-        }
+//        if(!jwtTokenService.validateToken(refreshToken)){
+//            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
+//        }
         //유저 정보로 액세스 토큰 생성
-        return jwtTokenService.createAccessToken();
+        return jwtTokenService.createAccessToken(member.getId().toString());
     }
-
 }

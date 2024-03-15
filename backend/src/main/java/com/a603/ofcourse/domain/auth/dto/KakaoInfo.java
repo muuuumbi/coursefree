@@ -2,6 +2,7 @@ package com.a603.ofcourse.domain.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -12,10 +13,8 @@ import java.util.Map;
 @AllArgsConstructor
 public class KakaoInfo {
     private Long id;
-    private String email;
 
     public KakaoInfo(Map<String, Object> attributes){
         this.id = Long.valueOf(attributes.get("id").toString());
-        this.email = attributes.get("email") != null ? attributes.get("email").toString() : "";
     }
 }
