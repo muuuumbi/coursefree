@@ -1,35 +1,35 @@
 import styled from '@emotion/styled'
 
-import FlexBox from '@component/layout/FlexBox'
-import Spacing from '@component/layout/Spacing'
-
 import BackPageButton from './BackPageButton'
 import TextBox from './TextBox'
 
+import FlexBox from '@component/layout/FlexBox'
+
 type TitleBar = {
-  hasBackPage: boolean
+  hasBackPage?: boolean
   title: string
 }
 
 const Container = styled.div`
   width: 100%;
-  height: 4rem;
-  padding: 1rem;
-  font-family: 'IBMPlexSansKR-Regular';
+  height: 2rem;
+  padding: 1.2rem 1.2rem 0 1.2rem;
   display: flex;
   align-items: center;
+  justify-content: center;
+  position: relative;
+  /* border-bottom: 1px solid #f3f3f3; */
 `
 /**
- *
- * @param title이름
+ *@param hasBackPage 뒤로가기 기능 유무
+ * @param title title 이름
  */
 export default function TitleBar({ hasBackPage = false, title }: TitleBar) {
   return (
     <Container>
-      <FlexBox w="100%" h="100%" a="center">
-        {hasBackPage && <BackPageButton />}
-        <Spacing d="horizontal" size="1rem" />
-        <TextBox typography="t4" fontWeight="bold">
+      <FlexBox w="100%" a="center" j="center">
+        {hasBackPage && <BackPageButton left="-40px" top="37%" />}
+        <TextBox typography="t5" fontWeight="bold">
           {title}
         </TextBox>
       </FlexBox>

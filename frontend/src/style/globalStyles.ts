@@ -1,10 +1,11 @@
 import { css } from '@emotion/react'
 
+import { addStyle } from './addStyle'
 import { colorPalette } from './colorPalette'
 
 export default css`
   ${colorPalette}
-
+  ${addStyle}
   :root {
     --dimmed-zindex: 10;
     --alert-zindex: 11;
@@ -118,7 +119,6 @@ export default css`
   button {
     font-size: 14px;
     line-height: 1.5;
-    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   } /* color값은 디자인가이드에 맞게사용 */
   a {
     text-decoration: none;
@@ -137,14 +137,7 @@ export default css`
     font-style: normal;
     font-weight: normal;
   }
-  .App {
-    text-align: center;
-    max-width: 450px;
-    margin: 0 auto; /* 중앙 정렬을 위해 가운데 정렬 */
-    background-color: white;
-    height: calc(var(--vh, 1vh) * 100);
-    position: relative;
-  }
+
   input {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -156,6 +149,14 @@ export default css`
     scrollbar-width: none; /* Firefox */
     overflow: hidden;
     touch-action: none;
+    @font-face {
+      font-family: 'IBMPlexSansKR-Regular';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff')
+        format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    font-family: 'IBMPlexSansKR-Regular';
   }
   a {
     -webkit-tap-highlight-color: transparent;
@@ -175,5 +176,13 @@ export default css`
   }
   ::-webkit-scrollbar {
     display: none;
+  }
+  .App {
+    max-width: 450px;
+    margin: 0 auto; /* 중앙 정렬을 위해 가운데 정렬 */
+    background-color: white;
+    height: calc(var(--vh, 1vh) * 100);
+    position: relative;
+    font-family: 'IBMPlexSansKR-Regular';
   }
 `

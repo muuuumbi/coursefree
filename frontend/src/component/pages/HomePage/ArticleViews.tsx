@@ -11,7 +11,7 @@ export type ArticleFilterType = 'latest' | 'popular'
 
 export default function ArticleViews() {
   const [filter, setFilter] = useState<ArticleFilterType>('latest')
-  function onClickFilterHandler(e) {
+  function onClickFilterHandler() {
     if (filter === 'latest') setFilter('popular')
     else if (filter === 'popular') setFilter('latest')
   }
