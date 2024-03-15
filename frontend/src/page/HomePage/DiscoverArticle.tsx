@@ -23,7 +23,7 @@ export default function DiscoverArticle() {
         <Spacing size="10px" d="horizontal" />
         전국 데이트 코스 TOP 5❣
       </TextBox>
-      <Spacing size="10px" />
+      <Spacing size="5px" />
       <TopFiveCourseCarousel />
       {/* 최신순, 조회순 게시글 조회 */}
       <ArticleViews />

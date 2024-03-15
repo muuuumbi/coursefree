@@ -14,9 +14,9 @@ export default function CourseCard({ img }: CourseCard) {
   return (
     <CourseCardContainer img={img}>
       <BackDrop opacity={0.3} />
-      <FlexBox h="150px">
+      <FlexBox h="120px">
         <CourseCardTitle fontWeight="bold" typography="t4">
-          청계천 따라 걸으며 사랑 지수도 UP!
+          청계천 알뜰살뜰 데이트 코스
         </CourseCardTitle>
         <CourseCardWriter typography="t8" color="grey">
           Course By 역삼동멀캠규

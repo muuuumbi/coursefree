@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import initMockAPI from './mocks'
 
+import ArticleDetailPage from '@page/ArticleDetailPage'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
@@ -25,6 +26,7 @@ function App() {
               <Route index element={<HotArticle />} />
               <Route path="discover" element={<DiscoverArticle />} />
             </Route>
+            <Route path="/article" element={<ArticleDetailPage />} />
           </Routes>
         </BrowserRouter>
       </div>
