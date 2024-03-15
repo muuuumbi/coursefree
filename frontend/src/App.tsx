@@ -6,6 +6,7 @@ import ArticleDetailPage from '@page/ArticleDetailPage'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
+import MyCoursePage from '@page/MyCoursePage'
 
 initMockAPI()
 
@@ -27,6 +28,7 @@ function App() {
               <Route path="discover" element={<DiscoverArticle />} />
             </Route>
             <Route path="/article" element={<ArticleDetailPage />} />
+            <Route path="/myCourse" element={<MyCoursePage />} />
           </Routes>
         </BrowserRouter>
       </div>

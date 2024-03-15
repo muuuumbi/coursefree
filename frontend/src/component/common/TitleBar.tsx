@@ -13,10 +13,10 @@ type TitleBar = {
 const Container = styled.div`
   width: 100%;
   height: 2rem;
-  padding: 1.2rem 1.2rem 0 1.2rem;
-  display: flex;
+  padding: 0.6rem;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   position: relative;
   /* border-bottom: 1px solid #f3f3f3; */
 `
