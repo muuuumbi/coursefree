@@ -1,6 +1,7 @@
 import kiss from '@asset/kiss.jfif'
 import { Avatar, WrapItem } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import { memo } from 'react'
 
 import TextBox from '@component/common/TextBox'
 import FlexBox from '@component/layout/FlexBox'
@@ -10,7 +11,7 @@ const Container = styled(FlexBox)({
   // borderTop: '1px solid #f3f3f3',
 })
 
-export default function ArticleUserProfile() {
+export default memo(function ArticleUserProfile() {
   return (
     <Container>
       <FlexBox a="center" w="100%" p="10px">
@@ -30,4 +31,4 @@ export default function ArticleUserProfile() {
       </FlexBox>
     </Container>
   )
-}
+})

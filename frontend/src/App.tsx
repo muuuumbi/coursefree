@@ -21,6 +21,7 @@ function App() {
   return (
     <>
       <div className="App">
+        <span id="bottomSheet"></span>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}>

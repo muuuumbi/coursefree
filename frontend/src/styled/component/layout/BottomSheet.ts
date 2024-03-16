@@ -8,17 +8,17 @@ interface Container extends ComponentProps<'div'> {
 export const Container = styled.div<Container>(
   {
     backgroundColor: 'white',
-    width: '100%',
+    maxWidth: '450px',
     borderTopLeftRadius: '8px',
     borderTopRightRadius: '8px',
-    position: 'absolute',
-    // position: 'fixed',
+    // position: 'absolute',
+    position: 'fixed',
     boxShadow: '0 0 5px 1px rgba(0, 0, 0, 0.5)',
     willChange: 'transform',
     overflow: 'hidden',
     zIndex: 999,
     transition: 'transform 150ms ease-out',
-    overscrollBehavior: 'contain',
+    // overscrollBehavior: 'contain',
   },
   ({ height }) => ({ height: height, bottom: `-${height}` }),
 )

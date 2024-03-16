@@ -5,7 +5,7 @@ export const BottomSheetAnimation = {
     return [{ bottom: `-${height}` }, { bottom: 0 }]
   },
   down: function (height: CSSProperties['height']) {
-    return [{ bottom: `-${height}` }, { bottom: 0 }]
+    return [{ bottom: 0 }, { bottom: `-${height}` }]
   },
   options: {
     duration: 150,

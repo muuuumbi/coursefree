@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import FlexBox from './FlexBox'
@@ -43,7 +44,7 @@ const ArticleFooterNav = styled.button`
   }
 `
 
-export default function FooterLinkWithIcon({
+export default memo(function FooterLinkWithIcon({
   icon,
   to,
   type = 'normal',
@@ -76,4 +77,4 @@ export default function FooterLinkWithIcon({
       )}
     </>
   )
-}
+})

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { memo } from 'react'
 
 import TextBox from '@component/common/TextBox'
 import TitleBar from '@component/common/TitleBar'
@@ -10,10 +11,10 @@ const Container = styled.header`
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 2;
+  z-index: 1;
 `
 
-export default function ArticleTitle() {
+export default memo(function ArticleTitle() {
   return (
     <Container>
       <FlexBox w={'100%'} t="center" h="auto" display="block">
@@ -27,4 +28,4 @@ export default function ArticleTitle() {
       </FlexBox>
     </Container>
   )
-}
+})

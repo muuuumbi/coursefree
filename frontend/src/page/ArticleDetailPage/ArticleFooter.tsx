@@ -3,6 +3,7 @@ import {
   faLocationDot,
   faShare,
 } from '@fortawesome/free-solid-svg-icons'
+import { memo } from 'react'
 
 import Button from '@component/common/Button'
 import FlexBox from '@component/layout/FlexBox'
@@ -12,9 +13,9 @@ import { Container } from '@styled/component/layout/Footer'
 
 interface ArticleFooter {
   onClick: any
-  id: number
+  id?: number
 }
-export default function ArticleFooter({ onClick, id }: ArticleFooter) {
+export default memo(function ArticleFooter({ onClick, id }: ArticleFooter) {
   return (
     <Container>
       <FlexBox w={'100%'} h="100%" a="center" j="space-around">
@@ -36,4 +37,4 @@ export default function ArticleFooter({ onClick, id }: ArticleFooter) {
       </FlexBox>
     </Container>
   )
-}
+})

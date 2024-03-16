@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import ArticleCommentSheet from './ArticleCommentSheet'
 import ArticleFooter from './ArticleFooter'
 import ArticleTitle from './ArticleTitle'
@@ -9,9 +11,8 @@ import Section from '@component/layout/Section'
 
 import useBottomSheetState from '@hook/useBottomSheetState'
 
-export default function ArticleDetailPage() {
-  const { bottomSheetState, onClickBottomSheetHandler, requestId } =
-    useBottomSheetState(1)
+export default memo(function ArticleDetailPage() {
+  const { bottomSheetState, onClickBottomSheetHandler } = useBottomSheetState(1)
   return (
     <>
       <Section>
@@ -22,9 +23,9 @@ export default function ArticleDetailPage() {
         {/* 게시물 정보 */}
         <ArticleInfoByPlace />
       </Section>
-      <ArticleFooter onClick={onClickBottomSheetHandler} id={requestId} />
+      <ArticleFooter onClick={onClickBottomSheetHandler} />
       {/* BottomSheet */}
-      {bottomSheetState && <ArticleCommentSheet height="97%" />}
+      {bottomSheetState && <ArticleCommentSheet height="70%" />}
     </>
   )
-}
+})

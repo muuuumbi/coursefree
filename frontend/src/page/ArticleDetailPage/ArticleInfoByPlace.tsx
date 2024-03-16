@@ -1,12 +1,13 @@
 import kiss from '@asset/kiss.jfif'
 import { Image } from '@chakra-ui/react'
+import { memo } from 'react'
 
 import ArticleNavigation from './ArticleNavigation'
 
 import TextBox from '@component/common/TextBox'
 import FlexBox from '@component/layout/FlexBox'
 
-export default function ArticleInfoByPlace() {
+export default memo(function ArticleInfoByPlace() {
   return (
     <>
       <ArticleNavigation />
@@ -40,4 +41,4 @@ export default function ArticleInfoByPlace() {
       </FlexBox>
     </>
   )
-}
+})
