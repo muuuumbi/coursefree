@@ -1,0 +1,15 @@
+services:
+  backend:
+    image: parkseheon/a603-backend
+    container_name: coursefree
+    environment:
+      USE_PROFILE: ${USE_PROFILE}
+    ports:
+      - 8081:8081
+    networks:
+      - coursefree
+
+networks:
+  coursefree:
+    external: true
+
