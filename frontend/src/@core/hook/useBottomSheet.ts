@@ -25,7 +25,7 @@ export function useBottomSheet(handler) {
     // Effect 내부 변수 선언
     let startY = null // handleTouch 이벤트 발생 시 할당 될 터치 시작 Y좌표 값 선언만 해놓기
     const sheetRef = sheet.current // 실제 참조중인 bottomSheet 컴포넌트 태그
-    const handleRef = handle.current // 실제 참조중인 bottomSheetHandle 컴포넌트 태그
+    const handleRef = sheet.current // 실제 참조중인 bottomSheetHandle 컴포넌트 태그
     const initHeight = sheetRef.offsetHeight // bottomSheet의 초기 높이값
 
     // 컴포넌트가 150ms에 걸쳐 위로 올라오는 애니메이션 적용
