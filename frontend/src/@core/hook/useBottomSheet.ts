@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { useSetRecoilState } from 'recoil'
 
 import { BottomSheetAnimation } from '@util/animation'
-
-import { bottomSheetShowState } from '@recoil/bottomSheetAtom'
 
 /**
  * Handle Container의 터치로 bottomsheet 전체의 높이를 통제한다.
@@ -17,11 +14,11 @@ import { bottomSheetShowState } from '@recoil/bottomSheetAtom'
  *  터치를 멈출 때의 y좌표를 통해, 원래의 height로 돌아갈지, height를 0으로 만들지 판단.
  */
 
-export function useBottomSheet() {
+export function useBottomSheet(handler) {
   // 변수 선언 및 state 관리
   const sheet = useRef<HTMLDivElement>(null) // bottomSheet를 참조할 Ref객체
   const handle = useRef<HTMLDivElement>(null) // bottomSheetHandler (실제로 터치를 통해 높이를 조절하는 영역)를 참조할 Ref객체
-  const setBottomSheetState = useSetRecoilState(bottomSheetShowState) // bottomSheet의 open/close를 조절할 전역 상태
+  // const setBottomSheetState = useSetRecoilState(bottomSheetShowState) // bottomSheet의 open/close를 조절할 전역 상태
 
   // DOM노드 참조 및 이벤트핸들러 등록
   useEffect(() => {
@@ -32,6 +29,7 @@ export function useBottomSheet() {
     const initHeight = sheetRef.offsetHeight // bottomSheet의 초기 높이값
 
     // 컴포넌트가 150ms에 걸쳐 위로 올라오는 애니메이션 적용
+
     sheetRef.animate(
       BottomSheetAnimation.up(initHeight),
       BottomSheetAnimation.options,
@@ -62,10 +60,16 @@ export function useBottomSheet() {
       if (endY < 400) sheetRef.style.setProperty('transform', `translateY(0px)`)
       // 일정 값 이하로 스크롤이 내려가면 아래로 내려가고 언마운트 처리
       else {
-        sheetRef.style.setProperty('transform', `translateY(${initHeight}px)`)
-        setTimeout(() => {
-          setBottomSheetState(false)
-        }, 150)
+        // sheetRef.style.setProperty('transform', `translateY(${initHeight}px)`)
+        // setTimeout(() => {
+        //   setBottomSheetState(false)
+        // }, 150)
+
+        const unmountAni = sheetRef.animate(
+          BottomSheetAnimation.down(initHeight),
+          BottomSheetAnimation.options,
+        )
+        unmountAni.onfinish = handler
       }
     }
 

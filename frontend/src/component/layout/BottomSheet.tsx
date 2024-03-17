@@ -17,18 +17,15 @@ import BackDrop from './Backdrop'
  */
 export default function BottomSheet({
   children,
-  title = 'bottomSheet'
+  title = 'bottomSheet',
+  handler
 }: BottomSheet) {
- 
-  const  { sheet, handle} = useBottomSheet()
-  const [bottomSheetState, setBottomSheetState] =
-  useRecoilState(bottomSheetShowState)
-  function onClickBackDropHandler() {
-    setBottomSheetState(!bottomSheetState)
-  }
+
+  const  { sheet, handle} = useBottomSheet(handler)
+
   return (
    <BottomSheetPortal> 
-    <BackDrop onClick={onClickBackDropHandler}> 
+    <BackDrop onClick={handler}> 
     </BackDrop> 
       <Container ref={sheet}>
     <HandleBarContainer ref={handle} >
@@ -43,9 +40,7 @@ export default function BottomSheet({
   )
 }
 
-import { bottomSheetShowState } from '@recoil/bottomSheetAtom'
 import ReactDom from 'react-dom'
-import { useRecoilState } from 'recoil'
 
 const BottomSheetPortal = ({ children }) => {
   const el = document.getElementById('bottomSheet')
