@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSetRecoilState } from 'recoil'
 
 import { BottomSheetAnimation } from '@util/animation'
@@ -17,7 +17,7 @@ import { bottomSheetShowState } from '@recoil/bottomSheetAtom'
  *  터치를 멈출 때의 y좌표를 통해, 원래의 height로 돌아갈지, height를 0으로 만들지 판단.
  */
 
-export function useBottomSheet(height: CSSProperties['height']) {
+export function useBottomSheet() {
   // 변수 선언 및 state 관리
   const sheet = useRef<HTMLDivElement>(null) // bottomSheet를 참조할 Ref객체
   const handle = useRef<HTMLDivElement>(null) // bottomSheetHandler (실제로 터치를 통해 높이를 조절하는 영역)를 참조할 Ref객체
@@ -33,7 +33,7 @@ export function useBottomSheet(height: CSSProperties['height']) {
 
     // 컴포넌트가 150ms에 걸쳐 위로 올라오는 애니메이션 적용
     sheetRef.animate(
-      BottomSheetAnimation.up(height),
+      BottomSheetAnimation.up(initHeight),
       BottomSheetAnimation.options,
     )
 

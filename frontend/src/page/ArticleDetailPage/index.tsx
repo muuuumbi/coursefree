@@ -25,7 +25,7 @@ export default memo(function ArticleDetailPage() {
       </Section>
       <ArticleFooter onClick={onClickBottomSheetHandler} />
       {/* BottomSheet */}
-      {bottomSheetState && <ArticleCommentSheet height="70%" />}
+      {bottomSheetState && <ArticleCommentSheet />}
     </>
   )
 })

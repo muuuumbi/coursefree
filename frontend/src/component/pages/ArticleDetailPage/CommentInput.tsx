@@ -15,7 +15,7 @@ const Container = styled.div`
   bottom: 0px; // 높이의 100% 만큼 마이너스
   border-top: 1px solid #f3f3f3;
   background-color: white;
-  height: 10%;
+  height: 3rem;
 `
 
 export default function CommentInput() {
