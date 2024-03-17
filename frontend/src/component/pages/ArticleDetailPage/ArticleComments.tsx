@@ -15,7 +15,7 @@ export default function ArticleComments() {
   const dummy = [1, 2, 3, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
   // dummy = []
   return (
-    <FlexBox a="center" d="column" css={ArticleCommentBox}>
+    <FlexBox d="column" css={ArticleCommentBox}>
       {dummy.length != 0 ? (
         dummy.map((_, i) => <Comment key={i} />)
       ) : (
