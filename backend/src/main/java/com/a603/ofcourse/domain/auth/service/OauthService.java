@@ -65,8 +65,8 @@ public class OauthService {
      */
     public String refreshAccessToken(String refreshToken){
         // 리프래시 토큰으로 유저 정보 받아오고 만약 유저가 없다면 이용불가한 리프레싵 토큰 오류 호출
-        Member member = memberRepository.findByUserId(
-                jwtTokenService.getPayload(refreshToken))
+        Member member = memberRepository.findBySocialId(
+                (Long) jwtTokenService.getPayload(refreshToken).get("social_id"))
                 .orElseThrow(() -> new CustomException(ErrorCode.INVALID_REFRESH_TOKEN));
 
 //        if(!jwtTokenService.validateToken(refreshToken)){

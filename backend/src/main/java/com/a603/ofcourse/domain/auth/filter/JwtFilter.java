@@ -50,14 +50,14 @@ public class JwtFilter extends GenericFilterBean {
 
         //3. 토큰이 존재하고 유효하면
         if (StringUtils.hasText(jwt) && jwtTokenService.validateToken(jwt)) {
-            //3-1. 토큰 payload에 있는 memberId 가져오기
-            Integer memberId = Integer.valueOf(jwtTokenService.getPayload(jwt));
-            //3-2. memebrId로 member 객체 가져오기
-            Member member = memberRepository.findById(memberId)
+            //3-1. 토큰 payload에 있는 socialId 가져오기
+            Long socialId = (Long)jwtTokenService.getPayload(jwt).get("social_id");
+            //3-2. socialId로 member 객체 가져오기
+            Member member = memberRepository.findBySocialId(socialId)
                     .orElseThrow(() ->
                             new MemberException(MemberErrorCode.MEMBER_DOES_NOT_EXISTS));
             //3-3. profile 객체 가져오기
-            Profile profile = profileRepository.findByMemberId(memberId);
+            Profile profile = profileRepository.findByMemberId(member.getId());
             //3-4. userDetails 객체 생성
             UserDetails userDetails = MemberPrincipal.create(member, profile);
             //3-5. 인증 객체 생성 + 사용자의 권한 정보 설정

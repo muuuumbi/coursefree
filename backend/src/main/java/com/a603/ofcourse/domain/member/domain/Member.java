@@ -16,17 +16,14 @@ import java.util.List;
 @Entity
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
-@AllArgsConstructor
 public class Member {
     @Id
     @Column(name = "member_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 128)
-    @Column(name = "user_id", length = 128)
-    private String userId;
+    @Column(name = "social_id", nullable = false)
+    private Long socialId;
 
     @Enumerated(EnumType.STRING)
     @Size(max = 8)
@@ -52,4 +49,15 @@ public class Member {
 
     @OneToOne(mappedBy = "mate")
     private Couple coupleAsMate;
+
+    @Builder
+    public Member(
+            Long socialId,
+            Type type,
+            Role role
+    ){
+        this.socialId = socialId;
+        this.type = type;
+        this.role = role;
+    }
 }

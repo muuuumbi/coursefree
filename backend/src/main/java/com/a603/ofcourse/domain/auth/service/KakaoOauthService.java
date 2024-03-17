@@ -53,8 +53,9 @@ public class KakaoOauthService {
     public Member getMemberProfileByToken(String accessToken){
         Map<String, Object> memberAttributesByToken = getMemberAttributesByToken(accessToken);
         KakaoInfo kakaoInfo = new KakaoInfo(memberAttributesByToken);
-        String userId = kakaoInfo.getId().toString();
-        Optional<Member> member = memberRepository.findByUserId(userId);
+        Long longSocialId = kakaoInfo.getId();
+        String socialId = longSocialId.toString();
+        Optional<Member> member = memberRepository.findBySocialId(longSocialId);
         //회원이면
         if (member.isPresent()) {
             //반환
@@ -63,7 +64,7 @@ public class KakaoOauthService {
         } else {
             //DB저장 후 반환
             return memberRepository.save(Member.builder()
-                    .userId(userId)
+                    .socialId(longSocialId)
                     .type(Type.KAKAO)
                     .role(Role.MEMBER)
                     .build());

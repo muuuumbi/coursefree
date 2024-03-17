@@ -93,6 +93,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer(){
         return web ->
                 web.ignoring()
+//                        .requestMatchers("/**");
                         .requestMatchers("/login/**", "/token/refresh");
     }
 }
