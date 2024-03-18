@@ -8,7 +8,8 @@ interface Container extends ComponentProps<'div'> {
 export const Container = styled.div<Container>(
   {
     backgroundColor: 'white',
-    minWidth: '100vw',
+    width: '100%',
+    maxWidth: '450px',
     borderTopLeftRadius: '8px',
     borderTopRightRadius: '8px',
     // position: 'absolute',

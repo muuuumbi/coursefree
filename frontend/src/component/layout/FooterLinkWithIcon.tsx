@@ -21,6 +21,7 @@ type FooterLinkWithIcon = {
 }
 
 const FooterNavLink = styled(NavLink)`
+  width: 4rem;
   svg {
     width: 1.5rem;
     height: 1.5rem;

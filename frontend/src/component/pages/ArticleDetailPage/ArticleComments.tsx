@@ -8,7 +8,7 @@ import FlexBox from '@component/layout/FlexBox'
 const ArticleCommentBox = css`
   overflow-y: scroll;
   height: 500px;
-  padding-bottom: 20px;
+  padding-bottom: 3rem;
 `
 /** @jsxImportSource @emotion/react */
 export default function ArticleComments() {

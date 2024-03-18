@@ -13,7 +13,7 @@ import BackDrop from './Backdrop'
 /**
  * @param children: bottomSheet 내부에 담길 다양한 컨텐츠의 컴포넌트
  * @param title : bottomSheet에 담길 컨텐츠의 제목
- * @returns 
+ * @param handler : bottomSheet의 렌더링 state를 변경하는 setter 함수
  */
 export default function BottomSheet({
   children,

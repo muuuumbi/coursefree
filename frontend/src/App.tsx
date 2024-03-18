@@ -6,7 +6,10 @@ import ArticleDetailPage from '@page/ArticleDetailPage'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
+import MakeCoursePage from '@page/MakeCoursePage'
 import MyCoursePage from '@page/MyCoursePage'
+import RecommendPage from '@page/RecommendPage'
+import SelfMakePage from '@page/SelfMakePage'
 
 initMockAPI()
 
@@ -21,7 +24,12 @@ function App() {
   return (
     <>
       <div className="App">
-        <span id="bottomSheet"></span>
+        <div
+          id="bottomSheet"
+          style={{
+            width: '100%',
+          }}
+        ></div>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}>
@@ -30,6 +38,9 @@ function App() {
             </Route>
             <Route path="/article" element={<ArticleDetailPage />} />
             <Route path="/myCourse" element={<MyCoursePage />} />
+            <Route path="/makeCourse" element={<MakeCoursePage />} />
+            <Route path="makeCourse/recommend" element={<RecommendPage />} />
+            <Route path="makeCourse/selfmake" element={<SelfMakePage />} />
           </Routes>
         </BrowserRouter>
       </div>
