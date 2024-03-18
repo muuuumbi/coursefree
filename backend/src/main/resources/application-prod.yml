@@ -14,3 +14,6 @@ spring:
         jdbc:
           time_zone: Asia/Seoul
     show-sql: true
+
+server:
+  port: 8081
