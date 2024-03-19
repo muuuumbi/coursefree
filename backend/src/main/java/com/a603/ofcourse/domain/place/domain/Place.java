@@ -31,6 +31,7 @@ public class Place {
 
     private String imageUrl;
 
+    @Enumerated(EnumType.STRING)
     private PlaceCategory placeCategory;
 
     private Integer reviewCount;
