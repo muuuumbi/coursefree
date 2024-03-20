@@ -4,7 +4,9 @@ import com.a603.ofcourse.domain.course.dto.request.AddCourseReviewRequestDto;
 import com.a603.ofcourse.domain.course.dto.request.UpdateCourseReviewRequestDto;
 import com.a603.ofcourse.domain.course.dto.response.CourseReviewResponseDto;
 import com.a603.ofcourse.domain.course.service.CourseReviewService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +18,10 @@ public class CourseReviewController {
     private final CourseReviewService courseReviewService;
 
     @PostMapping("/write")
-    public ResponseEntity<Void> addNewCourseReview(@RequestBody AddCourseReviewRequestDto addCourseReviewRequestDto) {
-        courseReviewService.addNewCourseReview("token", addCourseReviewRequestDto);
+    public ResponseEntity<Integer> addNewCourseReview(@RequestBody AddCourseReviewRequestDto addCourseReviewRequestDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .build();
+                .body(courseReviewService.addNewCourseReview(addCourseReviewRequestDto));
     }
 
     @GetMapping("/{id}")

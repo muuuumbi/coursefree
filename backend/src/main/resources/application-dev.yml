@@ -2,6 +2,11 @@ spring:
   config:
     import:
       - optional:file:.env[.properties]
+  datasource:
+    url: jdbc:mysql://localhost:3306/coursefree?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: a603
+    password: lmx14987
 
   data:
     redis:
@@ -11,7 +16,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
