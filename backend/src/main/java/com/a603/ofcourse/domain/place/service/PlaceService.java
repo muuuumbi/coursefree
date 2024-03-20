@@ -4,6 +4,8 @@ import com.a603.ofcourse.domain.place.domain.Place;
 import com.a603.ofcourse.domain.place.dto.PlaceDto;
 import com.a603.ofcourse.domain.place.dto.request.SearchPlaceByPointsRequestDto;
 import com.a603.ofcourse.domain.place.dto.response.SearchPlaceResponseDto;
+import com.a603.ofcourse.domain.place.exception.PlaceErrorCode;
+import com.a603.ofcourse.domain.place.exception.PlaceException;
 import com.a603.ofcourse.domain.place.repository.PlaceRepository;
 import com.a603.ofcourse.global.domain.Points;
 import org.springframework.stereotype.Service;
@@ -73,6 +75,11 @@ public class PlaceService {
                 * Math.sin(dLon/2);
         double tmp2 = 2 * Math.atan2(Math.sqrt(tmp1), Math.sqrt(1-tmp1));
         return Points.EARTH_RADIUS * tmp2;    // Distance in m
+    }
+
+    public Place findById(Integer placeId) {
+        return placeRepository.findById(placeId).orElseThrow(
+                () -> new PlaceException(PlaceErrorCode.PLACE_DOES_NOT_EXISTS));
     }
 
 }
