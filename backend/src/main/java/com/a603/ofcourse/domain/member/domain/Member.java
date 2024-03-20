@@ -34,9 +34,6 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MyCourse> myCourseList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<CourseReview> courseReviewList = new ArrayList<>();
-
     @OneToOne(mappedBy = "member")
     private Profile profile;
 

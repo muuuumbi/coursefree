@@ -1,5 +1,6 @@
 package com.a603.ofcourse.domain.course.domain;
 
+import com.a603.ofcourse.domain.course.enums.CourseCategory;
 import com.a603.ofcourse.domain.schedule.domain.Schedule;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -21,9 +22,8 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 8)
-    @Column(name = "course_category", length = 8)
-    private String courseCategory;
+    @Enumerated(EnumType.STRING)
+    private CourseCategory courseCategory;
 
     @Size(max = 30)
     @Column(name = "title", length = 30)
@@ -54,7 +54,7 @@ public class Course {
     private List<Schedule> scheduleList = new ArrayList<>();
 
     @Builder
-    public Course(String courseCategory,
+    public Course(CourseCategory courseCategory,
                   String title,
                   String imageUrl,
                   String hashKey,
