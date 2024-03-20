@@ -26,13 +26,9 @@ public class Member {
     private Long socialId;
 
     @Enumerated(EnumType.STRING)
-    @Size(max = 8)
-    @Column(name = "type", length = 8)
     private Type type;
 
     @Enumerated(EnumType.STRING)
-    @Size(max = 8)
-    @Column(name = "role", length = 8)
     private Role role;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)

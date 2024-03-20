@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk-alpine AS builder
 
-# env
+# .env
 ENV USE_PROFILE USE_PROFILE
 
 # necessary files copy
