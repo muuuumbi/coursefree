@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -54,7 +55,7 @@ public class SecurityConfig {
         return http.cors(withDefaults())
 
                 //2. CSRF 보호를 비활성화
-                .csrf((csrf) -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
 
                 //3. HTTP 요청에 대한 권한 설정
                 .authorizeHttpRequests((authorize) -> authorize
@@ -69,10 +70,10 @@ public class SecurityConfig {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 //5. 폼 기반 로그인 비활성화 -> 사용자 정의된 인증 방식(JWT)을 사용하기 위해
-                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.disable())
+                .formLogin(AbstractHttpConfigurer::disable)
 
                 //6. HTTP 기본 인증을 비활성화 -> 사용자 정의된 인증 방식(JWT)을 사용하기 위해
-                .httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.disable())
+                .httpBasic(AbstractHttpConfigurer::disable)
 
                 //7. JWT Filer를 UsernamePasswordAuthenticationFilter 앞에 추가 -> JWT 토큰을 사용하여 인증을 수행
                 .addFilterBefore(new JwtFilter(jwtTokenService, memberRepository, profileRepository), UsernamePasswordAuthenticationFilter.class)

@@ -36,7 +36,7 @@ public class KakaoOauthService {
                 .uri("https://kapi.kakao.com/v2/user/me")
                 //4. 요청에 헤더를 추가하여 인증 처리.(액세스 토큰을 Bearer 토근으로 설정하여 인증 수행)
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(accessToken))
-                //5. 설정도니 요청을 실행하고 응답을 받음
+                //5. 설정된 요청을 실행하고 응답을 받음
                 .retrieve()
                 //6. 응답 본문을 Mono(0 또는 1개의 요소를 갖는 비동기 시퀀스)로 변환. 여기서는 Map<String, Object> 타입으로 변환
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
@@ -54,20 +54,12 @@ public class KakaoOauthService {
         Map<String, Object> memberAttributesByToken = getMemberAttributesByToken(accessToken);
         KakaoInfo kakaoInfo = new KakaoInfo(memberAttributesByToken);
         Long longSocialId = kakaoInfo.getId();
-        String socialId = longSocialId.toString();
         Optional<Member> member = memberRepository.findBySocialId(longSocialId);
-        //회원이면
-        if (member.isPresent()) {
-            //반환
-            return member.get();
-            //회원 아니면
-        } else {
-            //DB저장 후 반환
-            return memberRepository.save(Member.builder()
-                    .socialId(longSocialId)
-                    .type(Type.KAKAO)
-                    .role(Role.MEMBER)
-                    .build());
-        }
+        //회원이면 반환, 회원 아니면 DB저장 후 반환
+        return member.orElseGet(() -> memberRepository.save(Member.builder()
+                .socialId(longSocialId)
+                .type(Type.KAKAO)
+                .role(Role.MEMBER)
+                .build()));
     }
 }
