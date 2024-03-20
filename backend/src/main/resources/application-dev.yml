@@ -3,19 +3,14 @@ spring:
     import:
       - optional:file:.env[.properties]
   datasource:
-    url: jdbc:h2:mem:a603
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    url: jdbc:mysql://localhost:3306/coursefree?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: a603
+    password: lmx14987
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
