@@ -29,7 +29,7 @@ public class CourseReviewService {
      * @param addCourseReviewRequestDto 작성할 리뷰 데이터
      */
     @Transactional
-    public void addNewCourseReview(String token, AddCourseReviewRequestDto addCourseReviewRequestDto) {
+    public int addNewCourseReview(AddCourseReviewRequestDto addCourseReviewRequestDto) {
         // TODO: 이 후 Member 쪽 구현되면 JWT에서 멤버 정보 뽑자
         // Member member = memberRepository.findById(JWTUtil.getMemberInfo(token).getId())
         //        .orElseThrow();
@@ -39,6 +39,12 @@ public class CourseReviewService {
 
         Course course = courseRepository.findById(addCourseReviewRequestDto.getCourseId())
                 .orElseThrow();
+
+        return courseReviewRepository.save(CourseReview.builder()
+                .authorNickname(authorNickname)
+                .course(course)
+                .content(addCourseReviewRequestDto.getContent())
+                .build()).getId();
     }
 
     /**
