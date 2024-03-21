@@ -69,6 +69,11 @@ public class CourseReviewService {
     }
 
     // TODO : 인기 순 조회, 최근 순 조회 구현
+    public List<CourseReviewResponseDto> findByPopularity() {
+
+        return null;
+    }
+
     // TODO : 추후 사용자 기반 인기 순 조회 추가
 
 
