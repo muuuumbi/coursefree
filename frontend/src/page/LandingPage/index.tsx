@@ -8,6 +8,14 @@ import Spacing from '@component/layout/Spacing'
 
 /** @jsxImportSource @emotion/react */
 export default function LandingPage() {
+  const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY
+  const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI
+  // oauth 요청 URL
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
+
+  const handleLogin = () => {
+    window.location.href = KAKAO_AUTH_URL
+  }
   return (
     <>
       <FlexBox d="column" p="1.2rem" j="center" a="center">
@@ -28,7 +36,7 @@ export default function LandingPage() {
         </TextBox>
 
         <Spacing size="150px" />
-        <Button color="black" bgColor="yellow" full>
+        <Button color="black" bgColor="yellow" full onClick={handleLogin}>
           카카오로 시작하기
         </Button>
       </FlexBox>
