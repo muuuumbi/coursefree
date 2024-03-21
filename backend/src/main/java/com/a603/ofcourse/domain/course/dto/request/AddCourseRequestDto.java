@@ -11,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddCourseRequestDto {
-    private Integer memberId;
     private String courseTitle;
     private List<Integer> placeIdList;
 }
