@@ -1,6 +1,6 @@
-package com.a603.ofcourse.domain.auth.service;
+package com.a603.ofcourse.domain.oauth.service;
 
-import com.a603.ofcourse.domain.auth.dto.KakaoInfo;
+import com.a603.ofcourse.domain.oauth.dto.KakaoInfo;
 import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.member.domain.enums.Role;
 import com.a603.ofcourse.domain.member.domain.enums.Type;

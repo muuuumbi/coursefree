@@ -1,8 +1,7 @@
-package com.a603.ofcourse.domain.auth.dto;
+package com.a603.ofcourse.domain.oauth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.Map;
 

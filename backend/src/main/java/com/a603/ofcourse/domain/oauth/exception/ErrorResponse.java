@@ -1,4 +1,4 @@
-package com.a603.ofcourse.domain.exception;
+package com.a603.ofcourse.domain.oauth.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

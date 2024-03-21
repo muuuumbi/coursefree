@@ -1,9 +1,9 @@
-package com.a603.ofcourse.domain.auth.config;
+package com.a603.ofcourse.domain.oauth.config;
 
 import com.a603.ofcourse.domain.member.domain.enums.Role;
-import com.a603.ofcourse.domain.auth.filter.JwtFilter;
-import com.a603.ofcourse.domain.auth.service.JwtTokenService;
-import com.a603.ofcourse.domain.exception.ExceptionHandlerFilter;
+import com.a603.ofcourse.domain.oauth.filter.JwtFilter;
+import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
+import com.a603.ofcourse.domain.oauth.exception.ExceptionHandlerFilter;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import com.a603.ofcourse.domain.member.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;

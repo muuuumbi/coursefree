@@ -1,4 +1,4 @@
-package com.a603.ofcourse.domain.auth.dto.request;
+package com.a603.ofcourse.domain.oauth.dto.request;
 
 import lombok.Getter;
 /*

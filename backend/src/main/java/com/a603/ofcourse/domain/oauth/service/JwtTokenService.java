@@ -1,16 +1,11 @@
-package com.a603.ofcourse.domain.auth.service;
+package com.a603.ofcourse.domain.oauth.service;
 
-import com.a603.ofcourse.domain.auth.dto.response.RefreshTokenResponse;
-import com.a603.ofcourse.domain.auth.repository.AuthRepository;
-import com.a603.ofcourse.domain.exception.CustomException;
-import com.a603.ofcourse.domain.exception.ErrorCode;
+import com.a603.ofcourse.domain.oauth.dto.response.RefreshTokenResponse;
+import com.a603.ofcourse.domain.oauth.repository.AuthRepository;
+import com.a603.ofcourse.domain.oauth.exception.OauthException;
+import com.a603.ofcourse.domain.oauth.exception.OauthErrorCode;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.io.Encoders;
-import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -103,7 +98,7 @@ public class JwtTokenService {
             return e.getClaims();
         }catch(JwtException e){
             //예외 방생 시 예외 알리기
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
+            throw new OauthException(OauthErrorCode.UNAUTHORIZED);
         }
     }
 
@@ -138,16 +133,5 @@ public class JwtTokenService {
                         .memberId(memberId)
                         .refreshToken(refreshToken)
                         .build());
-    }
-
-    /*
-    작성자 : 김은비
-    작성내용 : 클라이언트 쿠키에 리프레시토큰을 추가하여 클라이언트에게 전달
-     * @param refreshToken
-     * @param HttpServletResponse
-     */
-    public Long getSocialId(String accessToken){
-        Claims claims = getPayload(accessToken);
-        return (Long)claims.get("social_id");
     }
 }

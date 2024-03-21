@@ -1,9 +1,7 @@
-package com.a603.ofcourse.domain.auth.controller;
+package com.a603.ofcourse.domain.oauth.controller;
 
-import com.a603.ofcourse.domain.auth.dto.request.OauthRequest;
-import com.a603.ofcourse.domain.auth.dto.response.RefreshTokenResponse;
-import com.a603.ofcourse.domain.auth.service.OauthService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.a603.ofcourse.domain.oauth.dto.response.RefreshTokenResponse;
+import com.a603.ofcourse.domain.oauth.service.OauthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -63,39 +61,4 @@ public class OauthController {
 
         return ResponseEntity.ok().headers(headers).body(null);
     }
-    /*
-    작성자 : 김은비
-    작성내용 : 링크를 통한 커플 매칭
-     * @param
-     *
-     */
-
-    /*
-    작성자 : 김은비
-    작성내용 : 리프레시 토큰으로 액세스토큰 재발급
-     * @param HttpServletRequest
-     * @return RefreshTokenResponse
-     */
-//    public RefreshTokenResponse tokenRefresh(HttpServletRequest request){
-//        //1. 새로운 액세스 토큰을 담을 객체 생성
-//        RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse();
-//        //2. 클라이언트에서 전송된 쿠키를 가져오기
-//        Cookie[] list = request.getCookies();
-//        //3. 만약 쿠키가 null이면 유효하지 않은 리프레시 토큰 에러를 발생
-//        if(list == null){
-//            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
-//        }
-//        //4. 쿠키 배열에서 이름이 "refresh_token"인 쿠키를 찾기
-//        Cookie refreshTokenCookie = Arrays.stream(list).filter(cookie -> cookie.getName().equals("refresh_token"))
-//                .collect(Collectors.toList()).get(0);
-//        //5. 가져온 리프레시 토큰 쿠키가 null이면 유효하지 않은 리프레시 토큰 에러 발생
-//        if(refreshTokenCookie == null){
-//            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
-//        }
-//        //6. 새로운 액세스 토큰 생성
-//        String accessToken = oauthService.refreshAccessToken(refreshTokenCookie.getValue());
-//        //7. 새로운 액세스 토큰을 response 객체에 설정
-//        refreshTokenResponse.setAccessToken(accessToken);
-//        return refreshTokenResponse;
-//    }
 }

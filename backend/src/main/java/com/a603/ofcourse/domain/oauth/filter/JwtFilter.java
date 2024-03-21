@@ -1,16 +1,15 @@
-package com.a603.ofcourse.domain.auth.filter;
+package com.a603.ofcourse.domain.oauth.filter;
 
-import com.a603.ofcourse.domain.auth.models.MemberPrincipal;
-import com.a603.ofcourse.domain.auth.service.JwtTokenService;
-import com.a603.ofcourse.domain.exception.CustomException;
-import com.a603.ofcourse.domain.exception.ErrorCode;
+import com.a603.ofcourse.domain.oauth.models.MemberPrincipal;
+import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
+import com.a603.ofcourse.domain.oauth.exception.OauthException;
+import com.a603.ofcourse.domain.oauth.exception.OauthErrorCode;
 import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.member.domain.Profile;
 import com.a603.ofcourse.domain.member.exception.MemberErrorCode;
 import com.a603.ofcourse.domain.member.exception.MemberException;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import com.a603.ofcourse.domain.member.repository.ProfileRepository;
-import com.a603.ofcourse.domain.member.service.MemberService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +65,7 @@ public class JwtFilter extends GenericFilterBean {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } else {
             //4. 유효한 토큰이 아닌 경우 에러 발생
-            throw new CustomException(ErrorCode.INVALID_ACCESS_TOKEN);
+            throw new OauthException(OauthErrorCode.INVALID_ACCESS_TOKEN);
         }
         //5. 다음 필터로 요청을 전달
         filterChain.doFilter(servletRequest, servletResponse);

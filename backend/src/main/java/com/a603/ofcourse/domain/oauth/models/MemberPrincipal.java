@@ -1,4 +1,4 @@
-package com.a603.ofcourse.domain.auth.models;
+package com.a603.ofcourse.domain.oauth.models;
 
 import com.a603.ofcourse.domain.member.domain.enums.Role;
 import com.a603.ofcourse.domain.member.domain.Member;
