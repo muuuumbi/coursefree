@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { useState } from 'react'
 
 import ArticleCommentSheet from './ArticleCommentSheet'
 import ArticleFooter from './ArticleFooter'
@@ -9,7 +9,7 @@ import ArticleUserProfile from '@page/ArticleDetailPage/ArticleUserProfile'
 
 import Section from '@component/layout/Section'
 
-export default memo(function ArticleDetailPage() {
+export default function ArticleDetailPage() {
   const [bottomSheetState, setBottomSheetState] = useState(false)
   function bottomSheetHandler() {
     setBottomSheetState(!bottomSheetState)
@@ -29,4 +29,4 @@ export default memo(function ArticleDetailPage() {
       {bottomSheetState && <ArticleCommentSheet handler={bottomSheetHandler} />}
     </>
   )
-})
+}

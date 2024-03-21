@@ -5,7 +5,7 @@ import { Typography, typographyMap } from '@style/typography'
 
 interface T_Input extends ComponentProps<'input'> {
   typography?: Typography
-  width: CSSProperties['width']
+  width?: CSSProperties['width']
 }
 /**
  * @param typography 지정된 텍스트 크기

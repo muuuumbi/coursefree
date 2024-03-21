@@ -10,22 +10,20 @@ interface TextProps {
   display?: CSSProperties['display']
   textAlign?: CSSProperties['textAlign']
   fontWeight?: CSSProperties['fontWeight']
-
+  hasBottomLine?: boolean
   padding?: CSSProperties['padding']
 }
 /**
  * @param typography
  * @param color
  * @param display
- * @param textAlign
  * @param fontWeight
  * @param padding
  */
 const TextBox = styled.span<TextProps>(
-  ({ color = 'black', display, textAlign, fontWeight, padding }) => ({
+  ({ color = 'black', display, fontWeight, padding }) => ({
     color: colors[color],
     display,
-    textAlign,
     padding,
     fontWeight,
   }),

@@ -6,7 +6,11 @@ import { subwayColorMap } from '@style/subwayColorMap'
 
 const Container = css`
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 10px;
+  height: 18px;
+  width: 18px;
+  color: white;
+  margin-left: 5px;
 `
 type Props = {
   children: string
@@ -19,7 +23,6 @@ export default function SubwayLineIcon({ children, line }: Props) {
     <FlexBox
       a="center"
       j="center"
-      p="10px"
       css={Container}
       style={{ backgroundColor: subwayColorMap[line] }}
     >

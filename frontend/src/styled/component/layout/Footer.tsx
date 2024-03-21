@@ -8,4 +8,6 @@ export const Container = styled.footer`
   width: inherit;
   bottom: 0;
   background-color: #f8f9fa;
+  /* position: fixed; */
+  z-index: 2;
 `

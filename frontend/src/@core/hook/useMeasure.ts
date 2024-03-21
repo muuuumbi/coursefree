@@ -1,15 +1,16 @@
-// DOM노드를 입력 받아 해당 DOM 노드의 너비와 높이를 구하는 훅
-import { RefObject, useLayoutEffect, useRef } from 'react'
+// DOM노드를 가리키는 ref객체를 입력 받아 해당 DOM 노드의 너비와 높이를 구하는 훅
+import { useLayoutEffect, useRef, useState } from 'react'
 
-export default function useMeasure(ref: RefObject<HTMLElement>) {
-  const widthRef = useRef(0)
-  const heightRef = useRef(0)
+export default function useMeasure() {
+  const ref = useRef(null)
+  const [widthState, setWidthState] = useState(0)
+  const [heightState, setHeightState] = useState(0)
 
   useLayoutEffect(() => {
     const { width, height } = ref.current.getBoundingClientRect()
-    widthRef.current = width
-    heightRef.current = height
+    setWidthState(width)
+    setHeightState(height)
   }, [])
 
-  return { widthRef, heightRef }
+  return { widthState, heightState, ref }
 }

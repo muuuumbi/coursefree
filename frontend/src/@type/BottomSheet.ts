@@ -2,7 +2,8 @@ import { CSSProperties } from 'react'
 
 export type BottomSheet = {
   height?: CSSProperties['height']
-  title: string
+  title?: string
   children?: React.ReactNode
-  handler: any
+  handler?: any
+  backDrop?: boolean
 }
