@@ -37,10 +37,6 @@ public class Course {
     @Column(name = "hash_key", length = 256)
     private String hashKey;
 
-    @Size(max = 10)
-    @Column(name = "represent_station", length = 10)
-    private String representStation;
-
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<MyCourse> myCourseList = new ArrayList<>();
 
@@ -57,12 +53,14 @@ public class Course {
     public Course(CourseCategory courseCategory,
                   String title,
                   String imageUrl,
-                  String hashKey,
-                  String representStation) {
+                  String hashKey) {
         this.courseCategory = courseCategory;
         this.title = title;
         this.imageUrl = imageUrl;
         this.hashKey = hashKey;
-        this.representStation = representStation;
+    }
+
+    public void updateHashKey(String hashKey) {
+        this.hashKey = hashKey;
     }
 }
