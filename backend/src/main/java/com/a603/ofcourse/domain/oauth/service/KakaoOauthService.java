@@ -1,13 +1,20 @@
 package com.a603.ofcourse.domain.oauth.service;
 
-import com.a603.ofcourse.domain.oauth.dto.KakaoInfo;
+import com.a603.ofcourse.domain.oauth.dto.KakaoUserInfo;
 import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.member.domain.enums.Role;
 import com.a603.ofcourse.domain.member.domain.enums.Type;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Map;
@@ -19,7 +26,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class KakaoOauthService {
+
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
+    private String KAKAO_CLIENT_ID;
+
+    @Value("${spring.security.oauth2.client.registration.kakao.client-secret}")
+    private String KAKAO_CLIENT_SECRET;
+
+    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
+    private String KAKAO_REDIRECT_URL;
+
+    private final String ACCESS_TOKEN_URI = "https://kauth.kakao.com/oauth/token";
+
+    private final String USER_INFO_URI = "https://kapi.kakao.com/v2/user/me";
+
     private final MemberRepository memberRepository;
+
+    @Autowired
+    private WebClient webClient;
 
     /*
     작성자 : 김은비
@@ -29,18 +53,17 @@ public class KakaoOauthService {
      */
     public Map<String, Object> getMemberAttributesByToken(String accessToken){
         //1. WebClient 생성 -> 리액티브 웹 요청을 만들고 소비할 수 있는 클라이언트
-        return WebClient.create()
-                //2. HTTP GET 요청을 설정
+        return webClient
                 .get()
-                //3. 요청할 URI 설정 -> KaKao API의 사용자 정보를 가져오는 엔드포인트
-                .uri("https://kapi.kakao.com/v2/user/me")
-                //4. 요청에 헤더를 추가하여 인증 처리.(액세스 토큰을 Bearer 토근으로 설정하여 인증 수행)
+                //2. 요청할 URI 설정 -> KaKao API의 사용자 정보를 가져오는 엔드포인트
+                .uri(USER_INFO_URI)
+                //3. 요청에 헤더를 추가하여 인증 처리.(액세스 토큰을 Bearer 토근으로 설정하여 인증 수행)
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(accessToken))
-                //5. 설정된 요청을 실행하고 응답을 받음
+                //4. 설정된 요청을 실행하고 응답을 받음
                 .retrieve()
-                //6. 응답 본문을 Mono(0 또는 1개의 요소를 갖는 비동기 시퀀스)로 변환. 여기서는 Map<String, Object> 타입으로 변환
+                //5. 응답 본문을 Mono(0 또는 1개의 요소를 갖는 비동기 시퀀스)로 변환. 여기서는 Map<String, Object> 타입으로 변환
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
-                //7. Mono의 값을 동기적으로 블록킹하여 결과를 반환
+                //6. Mono의 값을 동기적으로 블록킹하여 결과를 반환
                 .block();
     }
 
@@ -52,8 +75,9 @@ public class KakaoOauthService {
      */
     public Member getMemberProfileByToken(String accessToken){
         Map<String, Object> memberAttributesByToken = getMemberAttributesByToken(accessToken);
-        KakaoInfo kakaoInfo = new KakaoInfo(memberAttributesByToken);
-        Long longSocialId = kakaoInfo.getId();
+        System.out.println("길이는 " + memberAttributesByToken.size());
+        KakaoUserInfo kakaoUserInfo = new KakaoUserInfo(memberAttributesByToken);
+        Long longSocialId = kakaoUserInfo.getId();
         Optional<Member> member = memberRepository.findBySocialId(longSocialId);
         //회원이면 반환, 회원 아니면 DB저장 후 반환
         return member.orElseGet(() -> memberRepository.save(Member.builder()
@@ -61,5 +85,35 @@ public class KakaoOauthService {
                 .type(Type.KAKAO)
                 .role(Role.MEMBER)
                 .build()));
+    }
+
+    /*
+    작성자 : 김은비
+    작성내용 : 인가코드를 활용해서 Kakao API의 사용자 인증 엔드포인트를 호출하여 반환되는 값 중 accessToken 뽑아서 반환
+    * @param code(인가코드)
+    * @return accessToken
+    */
+    public String getKakaoAccessTokenByCode(String code){
+        //x-www-form-urlencoded 형식으로 보내기 위해 생성
+        MultiValueMap<String, String> bodyParams = new LinkedMultiValueMap<>();
+        bodyParams.add("grant_type", "authorization_code");
+        bodyParams.add("client_id", KAKAO_CLIENT_ID);
+        bodyParams.add("redirect_uri", KAKAO_REDIRECT_URL);
+        bodyParams.add("code", code);
+
+        Map<String, Object> AttributesByCode = webClient.post()
+                //1. 요청할 uri 설정
+                .uri(ACCESS_TOKEN_URI)
+                //2.보낼 값들 설정
+                .body(BodyInserters.fromFormData(bodyParams))
+                .header("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
+                //3. 요청 실행 후 응답 받기
+                .retrieve()
+                //4. 응답 본문을 Mono -> Map<String. Object>로 변환해서 가져옴
+                .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+                //5. 결과 반환
+                .block();
+        //Map 중 access_token 값 빼서 반환
+        return String.valueOf(AttributesByCode.get("access_token"));
     }
 }
