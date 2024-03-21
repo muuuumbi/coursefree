@@ -5,6 +5,8 @@ import initMockAPI from './mocks'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
+import MyPage from '@page/MyPage/index'
+import Log from '@page/MyPage/log'
 
 initMockAPI()
 
@@ -24,6 +26,10 @@ function App() {
             <Route path="/" element={<HomePage />}>
               <Route index element={<HotArticle />} />
               <Route path="discover" element={<DiscoverArticle />} />
+            </Route>
+            <Route path="/mypage" element={<MyPage/>}>
+            </Route>
+            <Route path="/mypage/log" element={<Log/>}>
             </Route>
           </Routes>
         </BrowserRouter>
