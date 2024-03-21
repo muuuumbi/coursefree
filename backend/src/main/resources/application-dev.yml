@@ -55,9 +55,5 @@ jwt:
   token:
     secret-key: ${JWT_SECRET}
 
-logging:
-  level:
-    org.springframework.data.redis: debug
-
 server:
   port: 8081
