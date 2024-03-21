@@ -1,11 +1,10 @@
-package com.a603.ofcourse.domain.auth.service;
+package com.a603.ofcourse.domain.oauth.service;
 
-import com.a603.ofcourse.domain.auth.dto.response.RefreshTokenResponse;
-import com.a603.ofcourse.domain.auth.repository.AuthRepository;
-import com.a603.ofcourse.domain.exception.CustomException;
-import com.a603.ofcourse.domain.exception.ErrorCode;
+import com.a603.ofcourse.domain.oauth.dto.response.RefreshTokenResponse;
+import com.a603.ofcourse.domain.oauth.repository.AuthRepository;
+import com.a603.ofcourse.domain.oauth.exception.OauthException;
+import com.a603.ofcourse.domain.oauth.exception.OauthErrorCode;
 import com.a603.ofcourse.domain.member.domain.Member;
-import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -80,7 +79,7 @@ public class OauthService {
         //2. redis에서 리프레시 토큰 가져오기
         RefreshTokenResponse refreshTokenResponse = authRepository.findById(memberId.toString())
                 //refreshToken이 없으면 에러 코드 전송
-                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_REFRESH_TOKEN));
+                .orElseThrow(() -> new OauthException(OauthErrorCode.INVALID_REFRESH_TOKEN));
 
         return refreshTokenResponse;
     }

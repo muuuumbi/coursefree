@@ -1,6 +1,6 @@
-package com.a603.ofcourse.domain.auth.repository;
+package com.a603.ofcourse.domain.oauth.repository;
 
-import com.a603.ofcourse.domain.auth.dto.response.RefreshTokenResponse;
+import com.a603.ofcourse.domain.oauth.dto.response.RefreshTokenResponse;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,4 +1,4 @@
-package com.a603.ofcourse.domain.auth.dto.response;
+package com.a603.ofcourse.domain.oauth.dto.response;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

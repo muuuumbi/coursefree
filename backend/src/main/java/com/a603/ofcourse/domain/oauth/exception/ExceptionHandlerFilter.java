@@ -1,4 +1,4 @@
-package com.a603.ofcourse.domain.exception;
+package com.a603.ofcourse.domain.oauth.exception;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,10 +24,10 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
             try{
                 //1. fiterChain 객체를 사용하여 다음 필터로 요청을 전달
                 filterChain.doFilter(request, response);
-            }catch(CustomException e){
-                setErrorResponse(e.getErrorCode().getHttpStatus(), response, e);
+            }catch(OauthException e){
+                setErrorResponse(e.getSatausCode(), response, e);
             }catch(Exception e){
-                setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, response, e);
+                setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), response, e);
             }
     }
 
@@ -36,12 +36,12 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
     작성일자 : 2024-03-13
     작성내용 : 예외가 발생했을 때 클라이언트에게 적절한 에러 응답을 생성하여 전송
      */
-    public void setErrorResponse(HttpStatus status, HttpServletResponse response, Throwable e) throws IOException{
+    public void setErrorResponse(int status, HttpServletResponse response, Throwable e) throws IOException{
         //1. 예외 발생했음 명시
         logger.error("[ExceptionHandlerFilter] errMsg : " + e.getMessage());
 
         //2. 응답의 상태 코드 설정
-        response.setStatus(status.value());
+        response.setStatus(status);
         //3. 응답의 콘텐츠 타입을 설정 -> JSON 형식, 인코딩 설정
         response.setContentType("application/json; charset=UTF-8");
 
