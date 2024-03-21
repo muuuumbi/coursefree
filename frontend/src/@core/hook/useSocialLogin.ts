@@ -6,7 +6,7 @@ import { requestAuthorizationCode } from '@api/signUp'
 
 import { authState } from '@recoil/authAtom'
 
-export default function useSocialLogin() {
+export default function useSocialLogin(type) {
   // recoil에 전역으로 저장할 로그인 상태
   const [userInfo, setUserInfo] = useRecoilState(authState)
   const navigate = useNavigate()
@@ -19,7 +19,7 @@ export default function useSocialLogin() {
   // Access Token 받아오기
   function getAccessToken() {
     try {
-      const response = requestAuthorizationCode(KAKAO_CODE, 'kakao')
+      const response = requestAuthorizationCode(KAKAO_CODE, type)
       // 받아온 액세스 토큰와 리프레시 토큰을 스토리지에 담기
       const accessToken = response.data.accessToken
       const refreshToken = response.data.refreshToken
