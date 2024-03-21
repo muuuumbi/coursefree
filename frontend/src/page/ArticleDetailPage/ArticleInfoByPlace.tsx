@@ -6,7 +6,7 @@ import ArticleNavigation from './ArticleNavigation'
 import TextBox from '@component/common/TextBox'
 import FlexBox from '@component/layout/FlexBox'
 
-export default function ArticleInfoByPlace() {
+export default (function ArticleInfoByPlace() {
   return (
     <>
       <ArticleNavigation />
@@ -40,4 +40,4 @@ export default function ArticleInfoByPlace() {
       </FlexBox>
     </>
   )
-}
+})

@@ -32,7 +32,7 @@ export default function HotArticle() {
           <ArticleCard onClick={onClickBottomSheetHandler} />
         </SwiperSlide>
       </Swiper>
-      {bottomSheetState && <BottomSheet height="600px" />}
+      {bottomSheetState && <BottomSheet title="gigi" height="600px" />}
     </FlexBox>
   )
 }

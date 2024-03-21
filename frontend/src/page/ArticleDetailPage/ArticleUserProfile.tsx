@@ -10,7 +10,7 @@ const Container = styled(FlexBox)({
   // borderTop: '1px solid #f3f3f3',
 })
 
-export default function ArticleUserProfile() {
+export default (function ArticleUserProfile() {
   return (
     <Container>
       <FlexBox a="center" w="100%" p="10px">
@@ -30,4 +30,4 @@ export default function ArticleUserProfile() {
       </FlexBox>
     </Container>
   )
-}
+})

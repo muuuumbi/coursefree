@@ -6,6 +6,16 @@ import ArticleDetailPage from '@page/ArticleDetailPage'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
+import MakeCoursePage from '@page/MakeCoursePage'
+import SelectMakingWay from '@page/MakeCoursePage/SelectMakingWay'
+import MyCoursePage from '@page/MyCoursePage'
+import RecommendPage from '@page/RecommendPage'
+import RecommendResult from '@page/RecommendPage/RecommendResult'
+import RecommendSearch from '@page/RecommendPage/RecommendSearch'
+import SelfMakePage from '@page/SelfMakePage'
+import SelfMakeCurrent from '@page/SelfMakePage/SelfMakeCurrent'
+import SelfMakePlaceSearch from '@page/SelfMakePage/SelfMakePlaceSearch'
+import SelfMakeSearch from '@page/SelfMakePage/SelfMakeSearch'
 
 initMockAPI()
 
@@ -20,13 +30,47 @@ function App() {
   return (
     <>
       <div className="App">
+        <div
+          id="bottomSheet"
+          style={{
+            width: '100%',
+          }}
+        ></div>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomePage />}>
-              <Route index element={<HotArticle />} />
-              <Route path="discover" element={<DiscoverArticle />} />
+            <Route path="/">
+              <Route index element={<>LandingPage</>}></Route>
+
+              <Route path="onBoarding" element={<>onBoardingPage</>}></Route>
+
+              <Route path="home" element={<HomePage />}>
+                <Route index element={<HotArticle />} />
+                <Route path="discover" element={<DiscoverArticle />} />
+              </Route>
+
+              <Route path="article" element={<ArticleDetailPage />} />
+
+              <Route path="myCourse" element={<MyCoursePage />} />
+
+              <Route path="makeCourse" element={<MakeCoursePage />}>
+                <Route index element={<SelectMakingWay />} />
+
+                <Route path="recommend" element={<RecommendPage />}>
+                  <Route index element={<RecommendSearch />} />
+                  <Route path="result" element={<RecommendResult />} />
+                </Route>
+
+                <Route path="selfMake" element={<SelfMakePage />}>
+                  <Route index element={<SelfMakeSearch />} />
+                  <Route path="current" element={<SelfMakeCurrent />} />
+                  <Route path="search" element={<SelfMakePlaceSearch />} />
+                </Route>
+              </Route>
+
+              {/* MyPage */}
+
+              {/* Favorite */}
             </Route>
-            <Route path="/article" element={<ArticleDetailPage />} />
           </Routes>
         </BrowserRouter>
       </div>

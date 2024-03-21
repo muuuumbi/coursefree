@@ -2,10 +2,10 @@ import { CSSProperties } from 'react'
 
 export const BottomSheetAnimation = {
   up: function (height: CSSProperties['height']) {
-    return [{ bottom: `-${height}` }, { bottom: 0 }]
+    return [{ bottom: `-${height}px` }, { bottom: 0 }]
   },
   down: function (height: CSSProperties['height']) {
-    return [{ bottom: `-${height}` }, { bottom: 0 }]
+    return [{ bottom: 0 }, { bottom: `-${height}px` }]
   },
   options: {
     duration: 150,

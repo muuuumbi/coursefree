@@ -1,19 +1,10 @@
-import styled from '@emotion/styled'
-
 import TextBox from '@component/common/TextBox'
 import TitleBar from '@component/common/TitleBar'
 import FlexBox from '@component/layout/FlexBox'
 
-const Container = styled.header`
-  width: 100%;
-  border-bottom: 1px solid #f3f3f3;
-  position: sticky;
-  top: 0;
-  background-color: white;
-  z-index: 2;
-`
+import { Container } from '@styled/page/ArticleTitle'
 
-export default function ArticleTitle() {
+export default (function ArticleTitle() {
   return (
     <Container>
       <FlexBox w={'100%'} t="center" h="auto" display="block">
@@ -27,4 +18,4 @@ export default function ArticleTitle() {
       </FlexBox>
     </Container>
   )
-}
+})

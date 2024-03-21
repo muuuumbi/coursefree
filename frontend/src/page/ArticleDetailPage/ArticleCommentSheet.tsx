@@ -4,11 +4,11 @@ import ArticleComments from '@component/pages/ArticleDetailPage/ArticleComments'
 import CommentInput from '@component/pages/ArticleDetailPage/CommentInput'
 
 interface ArticleCommentSheet {
-  height: any
+  handler: any
 }
-export default function ArticleCommentSheet({ height }: ArticleCommentSheet) {
+export default function ArticleCommentSheet({ handler }: ArticleCommentSheet) {
   return (
-    <BottomSheet height={height} title="댓글">
+    <BottomSheet title="댓글" handler={handler}>
       <FlexBox d="column" h="90%">
         <ArticleComments />
         <CommentInput />
