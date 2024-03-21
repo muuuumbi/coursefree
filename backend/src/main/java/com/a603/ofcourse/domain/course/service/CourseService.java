@@ -4,6 +4,7 @@ import com.a603.ofcourse.domain.course.domain.Course;
 import com.a603.ofcourse.domain.course.domain.CoursePlace;
 import com.a603.ofcourse.domain.course.dto.request.AddCourseRequestDto;
 import com.a603.ofcourse.domain.course.repository.CoursePlaceRepository;
+import com.a603.ofcourse.domain.course.repository.CourseRepository;
 import com.a603.ofcourse.domain.place.domain.Place;
 import com.a603.ofcourse.domain.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class CourseService {
     private final PlaceService placeService;
+    private final CourseRepository courseRepository;
     private final CoursePlaceRepository coursePlaceRepository;
 
     /**
@@ -24,13 +26,15 @@ public class CourseService {
      * @date 2024-03-20
      * @description 코스를 생성
      **/
-    public void addCourse(AddCourseRequestDto requestDto) {
+    @Transactional
+    public Integer addCourse(AddCourseRequestDto requestDto) {
         Course newCourse = Course.builder()
                 .title(requestDto.getCourseTitle())
                 .hashKey("")
                 .build();
         String hashKey = addPlaceInCourse(newCourse, requestDto.getPlaceIdList());
         newCourse.updateHashKey(hashKey);
+        return courseRepository.save(newCourse).getId();
     }
 
     /**
