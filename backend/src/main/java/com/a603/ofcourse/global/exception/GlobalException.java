@@ -1,15 +1,15 @@
-package com.a603.ofcourse.domain.global.exception;
+package com.a603.ofcourse.global.exception;
 
 import lombok.Getter;
 
 @Getter
 public class GlobalException extends RuntimeException {
-    private final int satausCode;
+    private final int statusCode;
     private final String errorCode;
     private final String message;
 
     public GlobalException(ErrorCode errorCode){
-        this.satausCode = errorCode.getStatusCode();
+        this.statusCode = errorCode.getStatusCode();
         this.errorCode = errorCode.getErrorCode();
         this.message = errorCode.getMessage();
     }

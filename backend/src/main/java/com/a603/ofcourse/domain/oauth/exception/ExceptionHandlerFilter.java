@@ -25,7 +25,7 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
                 //1. fiterChain 객체를 사용하여 다음 필터로 요청을 전달
                 filterChain.doFilter(request, response);
             }catch(OauthException e){
-                setErrorResponse(e.getSatausCode(), response, e);
+                setErrorResponse(e.getStatusCode(), response, e);
             }catch(Exception e){
                 setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), response, e);
             }

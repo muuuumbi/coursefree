@@ -1,6 +1,6 @@
 package com.a603.ofcourse.domain.place.exception;
 
-import com.a603.ofcourse.domain.global.exception.ErrorCode;
+import com.a603.ofcourse.global.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter

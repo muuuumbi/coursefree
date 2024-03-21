@@ -1,8 +1,7 @@
 package com.a603.ofcourse.domain.oauth.exception;
 
-import com.a603.ofcourse.domain.global.exception.ErrorCode;
+import com.a603.ofcourse.global.exception.ErrorCode;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 public enum OauthErrorCode implements ErrorCode {
