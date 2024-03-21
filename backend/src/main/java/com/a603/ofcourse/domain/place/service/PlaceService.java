@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PlaceService {
-    private PlaceRepository placeRepository;
+    private final PlaceRepository placeRepository;
 
     /**
      * @author 손현조
