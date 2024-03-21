@@ -6,6 +6,7 @@ import ArticleDetailPage from '@page/ArticleDetailPage'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
+import LandingPage from '@page/LandingPage'
 import MakeCoursePage from '@page/MakeCoursePage'
 import SelectMakingWay from '@page/MakeCoursePage/SelectMakingWay'
 import MyCoursePage from '@page/MyCoursePage'
@@ -39,7 +40,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/">
-              <Route index element={<>LandingPage</>}></Route>
+              <Route index element={<LandingPage />}></Route>
 
               <Route path="onBoarding" element={<>onBoardingPage</>}></Route>
 
