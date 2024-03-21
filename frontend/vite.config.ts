@@ -54,6 +54,7 @@ export default defineConfig({
       { find: '@recoil', replacement: '/src/recoil' },
       { find: '@style', replacement: '/src/style' },
       { find: '@styled', replacement: '/src/styled' },
+      { find: '@mocks', replacement: '/src/mocks' },
       { find: 'node_modules', replacement: '/node_modules' },
     ],
   },

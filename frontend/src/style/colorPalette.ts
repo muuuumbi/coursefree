@@ -8,6 +8,8 @@ export const colorPalette = css`
     --white: #fff;
     --black: #212121;
     --grey: #f0efef;
+
+    --gray: #888888;
     --pink50: #fff5f7;
     --pink100: #fed7e2;
     --pink200: #fbb6ce;
@@ -29,6 +31,7 @@ export const colors = {
   white: 'var(--white)',
   black: 'var(--black)',
   grey: 'var(--grey)',
+  gray: 'var(--gray)',
   pink50: 'var(--pink50)',
   pink100: 'var(--pink100)',
   pink200: 'var(--pink200)',

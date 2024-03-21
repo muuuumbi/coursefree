@@ -22,6 +22,7 @@ const Button = styled.button<T_Button>(
     borderRadius: '6px',
     padding: '10px',
     color: 'white',
+    minWidth: '50px',
   },
 
   // 화면 전체를 채울거면 width : 100%

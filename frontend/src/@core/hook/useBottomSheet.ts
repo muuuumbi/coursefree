@@ -1,71 +1,71 @@
 import { useEffect, useRef } from 'react'
-import { useSetRecoilState } from 'recoil'
 
-import { bottomSheetShowState } from '@recoil/bottomSheetAtom'
+import { BottomSheetAnimation } from '@util/animation'
 
-// const BOTTOM_SHEET_HEIGHT = window.innerHeight - MIN_Y // 바텀시트의 세로 길이
+export function useBottomSheet(handler: () => void) {
+  // 변수 선언 및 state 관리
+  const sheet = useRef<HTMLDivElement>(null) // bottomSheet를 참조할 Ref객체
+  const handle = useRef<HTMLDivElement>(null) // bottomSheetHandler (실제로 터치를 통해 높이를 조절하는 영역)를 참조할 Ref객체
 
-/**
- * touchStart
- *  터치한 순간의 y좌표를 기록한다 = initY
- * touchMove
- *  터치 상태로 움직이면 이벤트 객체에 현재 y좌표가 기록된다.
- *  현재 내 손의 y좌표와 initY의 차이를 비교하고 그만큼 bottomsheet의 height를 낯추거나, 높인다.
- *  initY보다 더 높은 위치로는 터치 불가능.
- * touchEnd
- *  터치를 멈출 때의 y좌표를 통해, 원래의 height로 돌아갈지, height를 0으로 만들지 판단.
- */
-
-export function useBottomSheet() {
-  const sheet = useRef<HTMLDivElement>(null)
-  const setBottomSheetState = useSetRecoilState(bottomSheetShowState)
-
-  // Touch Event 핸들러들을 등록한다.
+  // DOM노드 참조 및 이벤트핸들러 등록
   useEffect(() => {
-    let initY = null
+    // Effect 내부 변수 선언
+    let startY = null // handleTouch 이벤트 발생 시 할당 될 터치 시작 Y좌표 값 선언만 해놓기
+    const sheetRef = sheet.current // 실제 참조중인 bottomSheet 컴포넌트
+    const handleRef = sheet.current // 실제 참조중인 bottomSheetHandle 컴포넌트
+    const initHeight = sheetRef.offsetHeight // bottomSheet의 초기 높이값
 
-    const sheetRef = sheet.current
+    // 컴포넌트가 150ms에 걸쳐 위로 올라오는 애니메이션 적용
 
-    const initHeight = sheetRef.offsetHeight
+    sheetRef.animate(
+      BottomSheetAnimation.up(initHeight),
+      BottomSheetAnimation.options,
+    )
 
     const handleTouchStart = (e: TouchEvent) => {
-      initY = e.touches[0].clientY
+      // 터치 시작!
+      e.stopPropagation()
+      startY = e.touches[0].clientY // 터치가 일어난 지점의 Y좌표
     }
+
     const handleTouchMove = (e: TouchEvent) => {
+      e.stopPropagation()
       // sheet 위치 갱신.
-      const currentY = e.touches[0].clientY
-      const diff = currentY - initY
-      if (currentY >= initY) {
-        sheetRef.style.setProperty('transform', `translateY(${diff}px)`)
+      const currentY = e.touches[0].clientY // 현재 사용자의 손이 스크롤되고 있는 Y좌표
+      const diff = currentY - startY
+      if (diff >= 0) {
+        // 스크롤 시작
+        sheetRef.style.setProperty('transform', `translateY(${diff}px)`) // 스크롤된 만큼 bottomSheet의 Y축 위치를 조절
       }
     }
 
     const handleTouchEnd = (e: TouchEvent) => {
+      e.stopPropagation()
       const endY = e.changedTouches[0].clientY
 
-      initY = endY
       // 일정 값 이상으로 스크롤이 안내려가면 다시 원점 복귀
-      if (endY < 400)
-        sheetRef.style.setProperty('transform', `translateY(${endY - initY}px)`)
+      if (endY < 400) sheetRef.style.setProperty('transform', `translateY(0px)`)
       // 일정 값 이하로 스크롤이 내려가면 아래로 내려가고 언마운트 처리
       else {
-        sheetRef.style.setProperty('transform', `translateY(${initHeight}px)`)
-        setTimeout(() => {
-          setBottomSheetState(false)
-        }, 150)
+        const unmountAni = sheetRef.animate(
+          BottomSheetAnimation.down(initHeight),
+          BottomSheetAnimation.options,
+        )
+
+        unmountAni.onfinish = handler
       }
     }
 
-    sheetRef.addEventListener('touchstart', handleTouchStart)
-    sheetRef.addEventListener('touchmove', handleTouchMove)
-    sheetRef.addEventListener('touchend', handleTouchEnd)
+    handleRef.addEventListener('touchstart', handleTouchStart)
+    handleRef.addEventListener('touchmove', handleTouchMove)
+    handleRef.addEventListener('touchend', handleTouchEnd)
 
     return () => {
-      sheetRef.removeEventListener('touchstart', handleTouchStart)
-      sheetRef.removeEventListener('touchmove', handleTouchMove)
-      sheetRef.removeEventListener('touchend', handleTouchEnd)
+      handleRef.removeEventListener('touchstart', handleTouchStart)
+      handleRef.removeEventListener('touchmove', handleTouchMove)
+      handleRef.removeEventListener('touchend', handleTouchEnd)
     }
   }, [])
 
-  return { sheet }
+  return { sheet, handle }
 }

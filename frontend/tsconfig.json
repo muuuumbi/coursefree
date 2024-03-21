@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": ["@emotion/react/types/css-prop", "kakao.maps.d.ts"], // cssprop
+    // "jsxImportSource": "@emotion/react",
 
     /* Linting */
     // "strict": true,
@@ -32,7 +34,8 @@
       "@recoil/*": ["./src/recoil/*"],
       "@style/*": ["./src/style/*"],
       "node_modules/*": ["./node_modules/*"],
-      "@styled/*": ["./src/styled/*"]
+      "@styled/*": ["./src/styled/*"],
+      "@mocks/*": ["./src/mocks/*"]
     }
   },
   "include": ["src"],

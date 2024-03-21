@@ -8,15 +8,14 @@ import { Container } from '@styled/component/pages/HomePage/HomeNavLink'
 export default function HomeNavLink() {
   return (
     <Container>
-      <Spacing d="horizontal" />
-      <NavLink to="/">
-        <TextBox typography="t2" color="grey" fontWeight="bold">
+      <NavLink to="." end>
+        <TextBox typography="t3" color="grey" fontWeight="bold">
           HOT
         </TextBox>
       </NavLink>
       <Spacing d="horizontal" />
       <NavLink to="discover">
-        <TextBox typography="t2" color="grey">
+        <TextBox typography="t3" color="grey">
           DISCOVER
         </TextBox>
       </NavLink>
