@@ -37,6 +37,10 @@ public class Course {
     @Column(name = "hash_key", length = 256)
     private String hashKey;
 
+    @OneToOne
+    @JoinColumn(name = "course_characteristic_id")
+    private CourseCharacteristic courseCharacteristic;
+
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<MyCourse> myCourseList = new ArrayList<>();
 
