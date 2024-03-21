@@ -1,6 +1,6 @@
 package com.a603.ofcourse.domain.oauth.service;
 
-import com.a603.ofcourse.domain.oauth.dto.response.RefreshTokenResponse;
+import com.a603.ofcourse.domain.oauth.redis.RefreshToken;
 import com.a603.ofcourse.domain.oauth.repository.AuthRepository;
 import com.a603.ofcourse.domain.oauth.exception.OauthException;
 import com.a603.ofcourse.domain.oauth.exception.OauthErrorCode;
@@ -27,7 +27,6 @@ public class JwtTokenService {
 
     @Value("${jwt.token.secret-key}")
     private String secretKey;
-    private static Key key;
 
     private final AuthRepository authRepository;
 
@@ -112,7 +111,7 @@ public class JwtTokenService {
         try{
             //1. 토큰을 파싱하여 클레임을 가져옴 (서명이 올바를 경우 클레임 추출)
             Jws<Claims> claimsJws = Jwts.parserBuilder()
-                    .setSigningKey(key)
+                    .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
                     .build()
                     .parseClaimsJws(token);
             //2. 현재 시간이 토큰의 만료 시간 이전이면 true 반환하고 아니면 false 반환
@@ -129,7 +128,7 @@ public class JwtTokenService {
      */
     public void saveRefreshTokenToRedis(Integer memberId, String refreshToken){
         //refreshToken 저장
-        authRepository.save(RefreshTokenResponse.builder()
+        authRepository.save(RefreshToken.builder()
                         .memberId(memberId)
                         .refreshToken(refreshToken)
                         .build());

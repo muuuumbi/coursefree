@@ -1,6 +1,7 @@
 package com.a603.ofcourse.domain.oauth.controller;
 
-import com.a603.ofcourse.domain.oauth.dto.response.RefreshTokenResponse;
+import com.a603.ofcourse.domain.oauth.redis.RefreshToken;
+import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
 import com.a603.ofcourse.domain.oauth.service.OauthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,13 +52,9 @@ public class OauthController {
      */
     @PostMapping("/auto-login")
     public HttpEntity<?> autoLogin(@RequestHeader(AUTHORIZATION_HEADER) String clientAccessToken){
-        //1. redis에서 리프레시 토큰을 가져옴
-        RefreshTokenResponse refreshTokenResponse = oauthService.getRefreshTokenFromRedis(clientAccessToken.substring(7));
-        //2. 리프레시 토큰을 사용하여 액세스 토큰을 갱신하고 액세스 토큰을 반환
-        String accessToken = oauthService.refreshAccessToken(refreshTokenResponse.getMemberId());
-        //3. HttpHeaders 객체
+        //HttpHeaders 객체에 리프레시 토큰으로 갱신된 액세스 토큰 넣기
         HttpHeaders headers = new HttpHeaders();
-        headers.set(AUTHORIZATION_HEADER, "Bearer " + accessToken);
+        headers.set(AUTHORIZATION_HEADER, "Bearer " + oauthService.refreshAccessToken(clientAccessToken.substring(7)));
 
         return ResponseEntity.ok().headers(headers).body(null);
     }
