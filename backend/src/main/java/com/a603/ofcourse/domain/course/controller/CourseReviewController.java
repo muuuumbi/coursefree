@@ -4,12 +4,12 @@ import com.a603.ofcourse.domain.course.dto.request.AddCourseReviewRequestDto;
 import com.a603.ofcourse.domain.course.dto.request.UpdateCourseReviewRequestDto;
 import com.a603.ofcourse.domain.course.dto.response.CourseReviewResponseDto;
 import com.a603.ofcourse.domain.course.service.CourseReviewService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,27 +18,21 @@ public class CourseReviewController {
     private final CourseReviewService courseReviewService;
 
     @PostMapping("/write")
-    public ResponseEntity<Integer> addNewCourseReview(@RequestBody AddCourseReviewRequestDto addCourseReviewRequestDto) {
+    public ResponseEntity<Integer> addNewCourseReview(@RequestHeader("Authorization") String token,
+            @RequestBody AddCourseReviewRequestDto addCourseReviewRequestDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(courseReviewService.addNewCourseReview(addCourseReviewRequestDto));
+                .body(courseReviewService.addNewCourseReview(token, addCourseReviewRequestDto));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CourseReviewResponseDto> findReviewById(@PathVariable Integer id) {
+    @GetMapping
+    public ResponseEntity<List<CourseReviewResponseDto>> findCourseReviewList(@RequestParam int courseId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(courseReviewService.findReviewById(id));
+                .body(courseReviewService.findCourseReviewList(courseId));
     }
 
-    @GetMapping()
-    public ResponseEntity<?> findAll() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(courseReviewService.findAll());
-    }
-
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<?> updateCourseReview(@RequestBody UpdateCourseReviewRequestDto updateCourseReviewRequestDto) {
         courseReviewService.updateCourseReview(updateCourseReviewRequestDto);
         return ResponseEntity

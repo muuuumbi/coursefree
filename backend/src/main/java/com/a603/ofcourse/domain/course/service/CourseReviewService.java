@@ -29,7 +29,7 @@ public class CourseReviewService {
      * @param addCourseReviewRequestDto 작성할 리뷰 데이터
      */
     @Transactional
-    public int addNewCourseReview(AddCourseReviewRequestDto addCourseReviewRequestDto) {
+    public int addNewCourseReview(String token, AddCourseReviewRequestDto addCourseReviewRequestDto) {
         // TODO: 이 후 Member 쪽 구현되면 JWT에서 멤버 정보 뽑자
         // Member member = memberRepository.findById(JWTUtil.getMemberInfo(token).getId())
         //        .orElseThrow();
@@ -48,34 +48,14 @@ public class CourseReviewService {
     }
 
     /**
-     * 리뷰 상세 조회 함수
-     * @param id 리뷰 아이디
-     * @return CourseReviewResponseDto 리뷰 상세 정보
-     */
-    public CourseReviewResponseDto findReviewById(Integer id) {
-        return courseReviewRepository.findById(id)
-                .orElseThrow()
-                .toResponse();
-    }
-
-    /**
      * 리뷰 글 전체 조회
      * @return List<CourseReviewResponseDto> 라뷰 전체 목록
      */
-    public List<CourseReviewResponseDto> findAll() {
-        return courseReviewRepository.findAll().stream()
+    public List<CourseReviewResponseDto> findCourseReviewList(int courseId) {
+        return courseReviewRepository.findByCourseId(courseId).stream()
                 .map(CourseReview::toResponse)
                 .toList();
     }
-
-    // TODO : 인기 순 조회, 최근 순 조회 구현
-    public List<CourseReviewResponseDto> findByPopularity() {
-
-        return null;
-    }
-
-    // TODO : 추후 사용자 기반 인기 순 조회 추가
-
 
     /**
      * 리뷰 수정 함수
