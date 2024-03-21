@@ -3,10 +3,7 @@ package com.a603.ofcourse.domain.member.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Entity
@@ -38,6 +35,7 @@ public class Profile {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
     public Profile(
             String nickname,
             String ageRange,

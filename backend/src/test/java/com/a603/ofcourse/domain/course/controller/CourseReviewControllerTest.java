@@ -4,6 +4,7 @@ import com.a603.ofcourse.domain.course.dto.request.AddCourseReviewRequestDto;
 import com.a603.ofcourse.domain.course.dto.response.CourseReviewResponseDto;
 import com.a603.ofcourse.domain.course.service.CourseReviewService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,13 +19,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CourseReviewControllerTest {
@@ -37,13 +36,15 @@ class CourseReviewControllerTest {
 
     private MockMvc mockMvc;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper;
 
     /**
      * mockMVC 컨트럴로 객체로 초기화
      */
     @BeforeEach
     void initMockMVC() {
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         mockMvc = MockMvcBuilders
                 .standaloneSetup(courseReviewController)
                 .build();
@@ -81,7 +82,7 @@ class CourseReviewControllerTest {
                 .id(1)
                 .authorNickname("test")
                 .content("test")
-                .regDate(LocalDateTime.of(2024, 3, 20, 9, 12))
+                .regDate(LocalDateTime.now())
                 .build();
 
         // stub
@@ -98,15 +99,50 @@ class CourseReviewControllerTest {
     }
 
     @Test
-    void findAll() {
+    void findAll() throws Exception {
+        // given
+        List<CourseReviewResponseDto> reviews = new ArrayList<>();
+        reviews.add(getReview(1));
+        reviews.add(getReview(2));
+        reviews.add(getReview(3));
 
+        // stub
+        BDDMockito.given(courseReviewService.findAll()).willReturn(reviews);
+
+        // when
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/course-review")
+                .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // then
+        BDDMockito.verify(courseReviewService).findAll();
     }
 
     @Test
-    void updateCourseReview() {
+    @DisplayName("리뷰 수정 테스트")
+    void updateCourseReview() throws Exception {
+
+
     }
 
     @Test
     void deleteCourseReview() {
+        // given
+
+        // stub
+
+        // when
+
+        // then
+
+    }
+
+    CourseReviewResponseDto getReview(Integer id) {
+        return CourseReviewResponseDto.builder()
+                .id(id)
+                .authorNickname("test")
+                .content("test")
+                .regDate(LocalDateTime.now())
+                .build();
     }
 }
