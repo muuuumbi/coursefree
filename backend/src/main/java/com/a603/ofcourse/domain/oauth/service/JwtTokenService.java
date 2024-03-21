@@ -5,6 +5,7 @@ import com.a603.ofcourse.domain.oauth.repository.AuthRepository;
 import com.a603.ofcourse.domain.oauth.exception.OauthException;
 import com.a603.ofcourse.domain.oauth.exception.OauthErrorCode;
 import io.jsonwebtoken.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Date;
 JWT 토큰 생성, 조회 관련 서비스
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class JwtTokenService {
     @Value("${jwt.access.token.expiration.seconds}")

@@ -72,3 +72,7 @@ springdoc:
 
 server:
   port: 8081
+
+invite:
+  link:
+    start: http://localhost:8081/couple/connect/
