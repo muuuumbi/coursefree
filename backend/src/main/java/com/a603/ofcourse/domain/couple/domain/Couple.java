@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class Couple {
 
     @Size(max = 10)
     @Column(name = "couple_nickname", length = 10)
+    @ColumnDefault("")
     private String coupleNickname;
 
     @Column(name = "d_day")

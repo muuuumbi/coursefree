@@ -41,6 +41,10 @@ public class Member {
     @OneToOne(mappedBy = "member",fetch = FetchType.LAZY)
     private MemberCouple memberCouple;
 
+    public void updateMemberCouple(MemberCouple memberCouple){
+        this.memberCouple = memberCouple;
+    }
+
     @Builder
     public Member(
             Long socialId,

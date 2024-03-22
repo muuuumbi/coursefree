@@ -55,16 +55,17 @@ class CourseControllerTest {
                 ));
 
         // stub
-        BDDMockito.given(courseService.addCourse(BDDMockito.any(AddCourseRequestDto.class))).willReturn(1);
+        BDDMockito.given(courseService.addCourse(BDDMockito.anyString(), BDDMockito.any(AddCourseRequestDto.class))).willReturn(BDDMockito.anyInt());
 
         // when
         mockMvc.perform(MockMvcRequestBuilders.post("/api/course/add")
+                        .header("Authorization", BDDMockito.anyString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request)
                         .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         // then
-        BDDMockito.verify(courseService).addCourse(BDDMockito.any(AddCourseRequestDto.class));
+        BDDMockito.verify(courseService).addCourse(BDDMockito.anyString(), BDDMockito.any(AddCourseRequestDto.class));
     }
 }
