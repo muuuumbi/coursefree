@@ -1,5 +1,6 @@
 package com.a603.ofcourse.domain.course.domain;
 
+import com.a603.ofcourse.domain.course.enums.CourseCategory;
 import com.a603.ofcourse.domain.schedule.domain.Schedule;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -13,7 +14,11 @@ import java.util.List;
 
 @Getter
 @Entity
-@Table(name = "course")
+@Table(
+        name = "course",
+        uniqueConstraints = {
+                @UniqueConstraint( columnNames = "hash_key")
+        })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Course {
     @Id
@@ -21,9 +26,8 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 8)
-    @Column(name = "course_category", length = 8)
-    private String courseCategory;
+    @Enumerated(EnumType.STRING)
+    private CourseCategory courseCategory;
 
     @Size(max = 30)
     @Column(name = "title", length = 30)
@@ -37,9 +41,9 @@ public class Course {
     @Column(name = "hash_key", length = 256)
     private String hashKey;
 
-    @Size(max = 10)
-    @Column(name = "represent_station", length = 10)
-    private String representStation;
+    @OneToOne
+    @JoinColumn(name = "course_characteristic_id")
+    private CourseCharacteristic courseCharacteristic;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<MyCourse> myCourseList = new ArrayList<>();
@@ -54,15 +58,17 @@ public class Course {
     private List<Schedule> scheduleList = new ArrayList<>();
 
     @Builder
-    public Course(String courseCategory,
+    public Course(CourseCategory courseCategory,
                   String title,
                   String imageUrl,
-                  String hashKey,
-                  String representStation) {
+                  String hashKey) {
         this.courseCategory = courseCategory;
         this.title = title;
         this.imageUrl = imageUrl;
         this.hashKey = hashKey;
-        this.representStation = representStation;
+    }
+
+    public void updateHashKey(String hashKey) {
+        this.hashKey = hashKey;
     }
 }
