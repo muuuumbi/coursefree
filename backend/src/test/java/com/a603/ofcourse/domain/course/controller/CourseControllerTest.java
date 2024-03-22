@@ -46,7 +46,6 @@ class CourseControllerTest {
     @Test
     @DisplayName("데이트 코스 제작 테스트")
     void addCourseTest() throws Exception {
-
         // given
         String request = objectMapper.writeValueAsString(
                 new AddCourseRequestDto(
@@ -55,16 +54,17 @@ class CourseControllerTest {
                 ));
 
         // stub
-        BDDMockito.given(courseService.addCourse(BDDMockito.any(AddCourseRequestDto.class))).willReturn(1);
+        BDDMockito.given(courseService.addCourse(BDDMockito.anyString(), BDDMockito.any(AddCourseRequestDto.class))).willReturn(BDDMockito.anyInt());
 
         // when
         mockMvc.perform(MockMvcRequestBuilders.post("/api/course/add")
+                        .header("Authorization", BDDMockito.anyString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request)
                         .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         // then
-        BDDMockito.verify(courseService).addCourse(BDDMockito.any(AddCourseRequestDto.class));
+        BDDMockito.verify(courseService).addCourse(BDDMockito.anyString(), BDDMockito.any(AddCourseRequestDto.class));
     }
 }
