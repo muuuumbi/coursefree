@@ -1,4 +1,3 @@
-// atoms.ts
 import { atom } from 'recoil';
 
 // 선택된 날짜 상태

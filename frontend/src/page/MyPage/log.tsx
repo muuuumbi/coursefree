@@ -8,7 +8,7 @@ import Section from '@component/layout/Section'
 import Spacing from '@component/layout/Spacing'
 import Calender from '@component/pages/MyPage/Log/Calendar';
 import Schedule from '@component/pages/MyPage/Log/Schedule';
-
+import TitleBar from '@component/common/TitleBar'
 
 function MyPage() {
   const [state, setState] = useState(false)
@@ -19,10 +19,11 @@ function MyPage() {
   return (
     <>
       <Section>
+        <TitleBar title="우리의 일정" hasBackPage />
         <Spacing size="0.5rem" />
-        <Calender/>
+        <Calender />
         <Outlet></Outlet>
-        <Schedule/>
+        <Schedule />
       </Section>
       <Footer />
       {state && (

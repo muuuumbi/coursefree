@@ -19,11 +19,11 @@ const Menu = () => {
         </NavLink>
       </Item>
       <Item>
-        {/* <NavLink to='/mypage/record' activeClassName='active'> */}
+        <NavLink to='/mypage/memory'>
           <FontAwesomeIcon icon={faHeart} size='5x' />
           <br />
           <p>우리의 기록</p>
-        {/* </NavLink> */}
+        </NavLink>
       </Item>
       <Item>
         {/* <NavLink to='/mypage/settings' activeClassName='active'> */}
