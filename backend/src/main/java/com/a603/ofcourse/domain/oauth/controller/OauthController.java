@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class OauthController {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private final OauthService oauthService;
+    private JwtTokenService jwtTokenService;
     private final KakaoOauthService kakaoOauthService;
 
     /*
@@ -55,9 +56,11 @@ public class OauthController {
      */
     @PostMapping("/auto-login")
     public HttpEntity<?> autoLogin(@RequestHeader(AUTHORIZATION_HEADER) String clientAccessToken){
-        //HttpHeaders 객체에 리프레시 토큰으로 갱신된 액세스 토큰 넣기
+        //1. accessToken에서 멤버아이디 가져오기
+        Integer memberId = (Integer) jwtTokenService.getPayload(clientAccessToken).get("member_id");
+        //2. HttpHeaders 객체에 리프레시 토큰으로 갱신된 액세스 토큰 넣기
         HttpHeaders headers = new HttpHeaders();
-        headers.set(AUTHORIZATION_HEADER, "Bearer " + oauthService.refreshAccessToken(clientAccessToken.substring(7)));
+        headers.set(AUTHORIZATION_HEADER, "Bearer " + oauthService.refreshAccessToken(memberId, clientAccessToken.substring(7)));
 
         return ResponseEntity.ok().headers(headers).body(null);
     }
