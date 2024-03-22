@@ -1,8 +1,9 @@
+import { AxiosResponse } from 'axios'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 
-import { requestAuthorizationCode } from '@api/signUp'
+import { requestAuthorizationCode } from '@api/User/socialLogin'
 
 import { authState } from '@recoil/authAtom'
 
@@ -19,7 +20,8 @@ export default function useSocialLogin(type) {
   // Access Token 받아오기
   function getAccessToken() {
     try {
-      const response = requestAuthorizationCode(KAKAO_CODE, type)
+      const response: Promise<AxiosResponse<any, any>> =
+        requestAuthorizationCode(KAKAO_CODE, type)
       // 받아온 액세스 토큰와 리프레시 토큰을 스토리지에 담기
       const accessToken = response.data.accessToken
       const refreshToken = response.data.refreshToken
@@ -31,7 +33,7 @@ export default function useSocialLogin(type) {
       // 그리고 페이지 전환
       navigate('/home')
     } catch (error) {
-      alert(e)
+      alert(error)
     }
   }
 

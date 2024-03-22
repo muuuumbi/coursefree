@@ -1,5 +1,5 @@
-import { baseAxios } from '.'
-import URL from './url'
+import { baseAxios } from '@api/index'
+import URL from '@api/url'
 
 /**
  *
@@ -7,7 +7,7 @@ import URL from './url'
  * @param type : 네이버, 카카오 등의 소셜 타입
  * @returns Promise 객체
  */
-export const requestAuthorizationCode = async (code, type) => {
+export const requestAuthorizationCode = async (code: string, type: string) => {
   return await baseAxios.post(`${URL.KAKAO_LOGIN}/${type}`, {
     AuthorizationCode: code,
   })
