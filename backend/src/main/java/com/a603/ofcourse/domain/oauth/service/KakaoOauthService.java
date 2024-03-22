@@ -1,16 +1,13 @@
 package com.a603.ofcourse.domain.oauth.service;
 
-import com.a603.ofcourse.domain.oauth.dto.KakaoUserInfo;
 import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.member.domain.enums.Role;
 import com.a603.ofcourse.domain.member.domain.enums.Type;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
+import com.a603.ofcourse.domain.oauth.dto.KakaoUserInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -36,14 +33,15 @@ public class KakaoOauthService {
     @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
     private String KAKAO_REDIRECT_URL;
 
-    private final String ACCESS_TOKEN_URI = "https://kauth.kakao.com/oauth/token";
+    @Value("${spring.security.oauth2.client.provider.kakao.token-uri}")
+    private String ACCESS_TOKEN_URI;
 
-    private final String USER_INFO_URI = "https://kapi.kakao.com/v2/user/me";
+    @Value("${spring.security.oauth2.client.provider.kakao.user-info-uri}")
+    private String USER_INFO_URI;
 
     private final MemberRepository memberRepository;
 
-    @Autowired
-    private WebClient webClient;
+    private final WebClient webClient;
 
     /*
     작성자 : 김은비
@@ -101,7 +99,7 @@ public class KakaoOauthService {
         bodyParams.add("redirect_uri", KAKAO_REDIRECT_URL);
         bodyParams.add("code", code);
 
-        Map<String, Object> AttributesByCode = webClient.post()
+        Map<String, Object> attributesByCode = webClient.post()
                 //1. 요청할 uri 설정
                 .uri(ACCESS_TOKEN_URI)
                 //2.보낼 값들 설정
@@ -114,6 +112,6 @@ public class KakaoOauthService {
                 //5. 결과 반환
                 .block();
         //Map 중 access_token 값 빼서 반환
-        return String.valueOf(AttributesByCode.get("access_token"));
+        return String.valueOf(attributesByCode.get("access_token"));
     }
 }
