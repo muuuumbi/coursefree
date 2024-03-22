@@ -58,7 +58,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 //3. HTTP 요청에 대한 권한 설정
-                .authorizeHttpRequests((authorize) -> authorize
+                .authorizeHttpRequests(authorize -> authorize
                         //3-1. 모든 사용자에게 허용
                         .requestMatchers("/login/**", "/token/refresh").permitAll()
                         //3-2. 멤버 역할 사용자에게만 허용
@@ -67,7 +67,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 //4. 세션 관리를 설정 -> 세션을 사용하지 않고 상태를 유지하는 않는 세션 생성 정책 사용
-                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 //5. 폼 기반 로그인 비활성화 -> 사용자 정의된 인증 방식(JWT)을 사용하기 위해
                 .formLogin(AbstractHttpConfigurer::disable)

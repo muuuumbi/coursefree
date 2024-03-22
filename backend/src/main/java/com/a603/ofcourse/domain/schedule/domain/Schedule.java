@@ -1,15 +1,13 @@
 package com.a603.ofcourse.domain.schedule.domain;
 
-import co.elastic.clients.util.DateTime;
 import com.a603.ofcourse.domain.couple.domain.Couple;
 import com.a603.ofcourse.domain.course.domain.Course;
-import com.a603.ofcourse.domain.place.domain.PlaceReview;
+import com.a603.ofcourse.domain.schedule.domain.enums.ScheduleState;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @ColumnDefault("todo")
     @Enumerated(EnumType.STRING)
     private ScheduleState scheduleState;
 

@@ -51,7 +51,7 @@ class CourseReviewControllerTest {
     }
 
     @Test
-    @DisplayName("리뷰 작성 테스트")
+    @DisplayName("코스 리뷰 작성 테스트")
     void addNewCourseReview() throws Exception {
         // given
         String request = objectMapper.writeValueAsString(AddCourseReviewRequestDto.builder()
@@ -60,46 +60,24 @@ class CourseReviewControllerTest {
                 .build());
 
         // stub
-        BDDMockito.given(courseReviewService.addNewCourseReview(BDDMockito.any())).willReturn(BDDMockito.anyInt());
+        BDDMockito.given(courseReviewService.addNewCourseReview(BDDMockito.anyString(), BDDMockito.any())).willReturn(BDDMockito.anyInt());
 
         // when
         mockMvc.perform(MockMvcRequestBuilders.post("/api/course-review/write")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(request)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", BDDMockito.anyString())
+                        .content(request)
                         .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn();
 
         // then
-        BDDMockito.verify(courseReviewService).addNewCourseReview(BDDMockito.any());
+        BDDMockito.verify(courseReviewService).addNewCourseReview(BDDMockito.anyString(), BDDMockito.any());
     }
 
     @Test
-    @DisplayName("리뷰 조회 테스트")
-    void findReviewById() throws Exception {
-        // given
-        CourseReviewResponseDto response = CourseReviewResponseDto.builder()
-                .id(1)
-                .authorNickname("test")
-                .content("test")
-                .regDate(LocalDateTime.now())
-                .build();
-
-        // stub
-        BDDMockito.given(courseReviewService.findReviewById(1)).willReturn(response);
-
-        // when
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/course-review/1")
-                        .with(csrf()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(objectMapper.writeValueAsString(response)));
-
-        // then
-        BDDMockito.verify(courseReviewService).findReviewById(1);
-    }
-
-    @Test
-    void findAll() throws Exception {
+    @DisplayName("코스 리뷰 조회 테스트")
+    void findCourseReviewList() throws Exception {
         // given
         List<CourseReviewResponseDto> reviews = new ArrayList<>();
         reviews.add(getReview(1));
@@ -107,15 +85,16 @@ class CourseReviewControllerTest {
         reviews.add(getReview(3));
 
         // stub
-        BDDMockito.given(courseReviewService.findAll()).willReturn(reviews);
+        BDDMockito.given(courseReviewService.findCourseReviewList(BDDMockito.anyInt())).willReturn(reviews);
 
         // when
         mockMvc.perform(MockMvcRequestBuilders.get("/api/course-review")
-                .with(csrf()))
+                        .param("courseId", "1")
+                        .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         // then
-        BDDMockito.verify(courseReviewService).findAll();
+        BDDMockito.verify(courseReviewService).findCourseReviewList(BDDMockito.anyInt());
     }
 
     @Test

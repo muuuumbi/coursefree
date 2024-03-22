@@ -7,8 +7,10 @@ import com.a603.ofcourse.domain.course.dto.request.UpdateCourseReviewRequestDto;
 import com.a603.ofcourse.domain.course.dto.response.CourseReviewResponseDto;
 import com.a603.ofcourse.domain.course.repository.CourseRepository;
 import com.a603.ofcourse.domain.course.repository.CourseReviewRepository;
-import com.a603.ofcourse.domain.member.domain.Member;
+import com.a603.ofcourse.domain.member.exception.MemberErrorCode;
+import com.a603.ofcourse.domain.member.exception.MemberException;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
+import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public class CourseReviewService {
     private final CourseReviewRepository courseReviewRepository;
     private final MemberRepository memberRepository;
     private final CourseRepository courseRepository;
+    private final JwtTokenService jwtTokenService;
 
     /**
      * 리뷰 작성 함수
@@ -30,12 +33,9 @@ public class CourseReviewService {
      */
     @Transactional
     public int addNewCourseReview(String token, AddCourseReviewRequestDto addCourseReviewRequestDto) {
-        // TODO: 이 후 Member 쪽 구현되면 JWT에서 멤버 정보 뽑자
-        // Member member = memberRepository.findById(JWTUtil.getMemberInfo(token).getId())
-        //        .orElseThrow();
-        Member member = memberRepository.findById(1)
-                .orElseThrow();
-        String authorNickname = member.getProfile().getNickname();
+        String authorNickname = memberRepository.findById((Integer) jwtTokenService.getPayload(token).get("member_id"))
+                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_DOES_NOT_EXISTS))
+                .getProfile().getNickname();
 
         Course course = courseRepository.findById(addCourseReviewRequestDto.getCourseId())
                 .orElseThrow();

@@ -1,9 +1,7 @@
 package com.a603.ofcourse.domain.course.domain;
 
-import com.a603.ofcourse.domain.couple.domain.Couple;
 import com.a603.ofcourse.domain.member.domain.Member;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
