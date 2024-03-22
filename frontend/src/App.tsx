@@ -9,6 +9,11 @@ import HotArticle from '@page/HomePage/HotArticle'
 import MakeCoursePage from '@page/MakeCoursePage'
 import SelectMakingWay from '@page/MakeCoursePage/SelectMakingWay'
 import MyCoursePage from '@page/MyCoursePage'
+import OnBoardingPage from '@page/OnBoardingPage'
+import SetGenderAge from '@page/OnBoardingPage/SetGenderAge'
+import SetMBTI from '@page/OnBoardingPage/SetMBTI'
+import SetMood from '@page/OnBoardingPage/SetMood'
+import SetNickName from '@page/OnBoardingPage/SetNickName'
 import RecommendPage from '@page/RecommendPage'
 import RecommendResult from '@page/RecommendPage/RecommendResult'
 import RecommendSearch from '@page/RecommendPage/RecommendSearch'
@@ -40,26 +45,27 @@ function App() {
           <Routes>
             <Route path="/">
               <Route index element={<>LandingPage</>}></Route>
-
-              <Route path="onBoarding" element={<>onBoardingPage</>}></Route>
-
+              <Route path="onBoarding" element={<OnBoardingPage />}>
+                <Route index element={<SetNickName />} />
+                <Route path="genderAge" element={<SetGenderAge />} />
+                <Route path="mbti" element={<SetMBTI />} />
+                <Route path="genderAge" element={<SetGenderAge />} />
+                <Route path="mood" element={<SetMood />} />
+              </Route>
               <Route path="home" element={<HomePage />}>
                 <Route index element={<HotArticle />} />
                 <Route path="discover" element={<DiscoverArticle />} />
               </Route>
-
               <Route path="article" element={<ArticleDetailPage />} />
-
               <Route path="myCourse" element={<MyCoursePage />} />
-
               <Route path="makeCourse" element={<MakeCoursePage />}>
                 <Route index element={<SelectMakingWay />} />
-
+                {/* 추천을 통해 제작 */}
                 <Route path="recommend" element={<RecommendPage />}>
                   <Route index element={<RecommendSearch />} />
                   <Route path="result" element={<RecommendResult />} />
                 </Route>
-
+                {/* 직접 제작 */}
                 <Route path="selfMake" element={<SelfMakePage />}>
                   <Route index element={<SelfMakeSearch />} />
                   <Route path="current" element={<SelfMakeCurrent />} />
