@@ -1,17 +1,16 @@
 package com.a603.ofcourse.domain.oauth.service;
 
-import com.a603.ofcourse.domain.oauth.dto.KakaoInfo;
 import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.member.domain.enums.Role;
 import com.a603.ofcourse.domain.member.domain.enums.Type;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
+import com.a603.ofcourse.domain.oauth.dto.KakaoInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Map;
-import java.util.Optional;
 
 /*
 카카오 AccessToken으로 유저 정보 가져와서 DB에 저장
@@ -54,12 +53,13 @@ public class KakaoOauthService {
         Map<String, Object> memberAttributesByToken = getMemberAttributesByToken(accessToken);
         KakaoInfo kakaoInfo = new KakaoInfo(memberAttributesByToken);
         Long longSocialId = kakaoInfo.getId();
-        Optional<Member> member = memberRepository.findBySocialId(longSocialId);
+
         //회원이면 반환, 회원 아니면 DB저장 후 반환
-        return member.orElseGet(() -> memberRepository.save(Member.builder()
-                .socialId(longSocialId)
-                .type(Type.KAKAO)
-                .role(Role.MEMBER)
-                .build()));
+        return memberRepository.findBySocialId(longSocialId)
+                .orElseGet(() -> memberRepository.save(Member.builder()
+                        .socialId(longSocialId)
+                        .type(Type.KAKAO)
+                        .role(Role.MEMBER)
+                        .build()));
     }
 }

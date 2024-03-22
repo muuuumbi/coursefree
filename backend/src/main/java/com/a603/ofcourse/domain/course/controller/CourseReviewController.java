@@ -18,8 +18,10 @@ public class CourseReviewController {
     private final CourseReviewService courseReviewService;
 
     @PostMapping("/write")
-    public ResponseEntity<Integer> addNewCourseReview(@RequestHeader("Authorization") String token,
-            @RequestBody AddCourseReviewRequestDto addCourseReviewRequestDto) {
+    public ResponseEntity<Integer> addNewCourseReview(
+            @RequestHeader("Authorization") String token,
+            @RequestBody AddCourseReviewRequestDto addCourseReviewRequestDto
+    ) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(courseReviewService.addNewCourseReview(token, addCourseReviewRequestDto));
@@ -33,7 +35,7 @@ public class CourseReviewController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateCourseReview(@RequestBody UpdateCourseReviewRequestDto updateCourseReviewRequestDto) {
+    public ResponseEntity<Void> updateCourseReview(@RequestBody UpdateCourseReviewRequestDto updateCourseReviewRequestDto) {
         courseReviewService.updateCourseReview(updateCourseReviewRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -41,7 +43,7 @@ public class CourseReviewController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCourseReview(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteCourseReview(@PathVariable Integer id) {
         courseReviewService.deleteCourseReview(id);
         return ResponseEntity
                 .status(HttpStatus.OK)

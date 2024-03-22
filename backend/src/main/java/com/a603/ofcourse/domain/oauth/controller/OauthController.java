@@ -26,8 +26,8 @@ public class OauthController {
      * @return accessToken(JWT)
      */
     @PostMapping("/login/oauth/{provider}")
-    public HttpEntity<?> login(@PathVariable String provider, @RequestHeader(AUTHORIZATION_HEADER) String kakaoAccessToken){
-        System.out.println("로그인 메서드 실행" + kakaoAccessToken);
+    public HttpEntity<Void> login(@PathVariable String provider, @RequestHeader(AUTHORIZATION_HEADER) String kakaoAccessToken){
+        log.info("로그인 메서드 실행 : {}", kakaoAccessToken);
         log.trace("kakaoAccessToken = {}", kakaoAccessToken);
         HttpHeaders headers = new HttpHeaders();
         switch(provider){
@@ -38,10 +38,10 @@ public class OauthController {
                 break;
             //provider가 지정되지 않은 경우
             default:
-                return ResponseEntity.badRequest().body(null);
+                return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok().headers(headers).body(null);
+        return ResponseEntity.ok().headers(headers).build();
     }
 
     /*
@@ -51,11 +51,11 @@ public class OauthController {
      * return 갱신된 accesToken
      */
     @PostMapping("/auto-login")
-    public HttpEntity<?> autoLogin(@RequestHeader(AUTHORIZATION_HEADER) String clientAccessToken){
+    public HttpEntity<Void> autoLogin(@RequestHeader(AUTHORIZATION_HEADER) String clientAccessToken){
         //HttpHeaders 객체에 리프레시 토큰으로 갱신된 액세스 토큰 넣기
         HttpHeaders headers = new HttpHeaders();
         headers.set(AUTHORIZATION_HEADER, "Bearer " + oauthService.refreshAccessToken(clientAccessToken.substring(7)));
 
-        return ResponseEntity.ok().headers(headers).body(null);
+        return ResponseEntity.ok().headers(headers).build();
     }
 }
