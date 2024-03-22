@@ -64,7 +64,7 @@ public class OauthService {
 
         //2. redis에서 리프레시 토큰 가져오기
         return authRepository.findById(memberId)
-                //유저 정보로 액세스 토큰 생성
+                //리프레시 토큰이 유효하면 유저 정보로 액세스 토큰 생성
                 .map(RefreshToken -> jwtTokenService.createAccessToken(memberId))
                 //refreshToken이 없으면 에러 코드 전송
                 .orElseThrow(() -> new OauthException(OauthErrorCode.INVALID_REFRESH_TOKEN));

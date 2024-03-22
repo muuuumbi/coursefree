@@ -10,10 +10,10 @@ import java.util.Map;
  */
 @Getter
 @AllArgsConstructor
-public class KakaoInfo {
+public class KakaoUserInfo {
     private Long id;
 
-    public KakaoInfo(Map<String, Object> attributes){
+    public KakaoUserInfo(Map<String, Object> attributes){
         this.id = Long.valueOf(attributes.get("id").toString());
     }
 }
