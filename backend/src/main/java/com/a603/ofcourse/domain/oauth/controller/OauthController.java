@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("")
+@RequestMapping("login")
 @Slf4j
 public class OauthController {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private final OauthService oauthService;
-    private JwtTokenService jwtTokenService;
+    private final JwtTokenService jwtTokenService;
     private final KakaoOauthService kakaoOauthService;
 
     /*
@@ -28,8 +28,9 @@ public class OauthController {
      * @param code (인가코드)
      * @return accessToken(JWT)
      */
-    @PostMapping("/login/oauth/{provider}")
-    public HttpEntity<Void> login(@PathVariable String provider, @RequestBody String code){
+    @PostMapping("/oauth/kakao")
+    public HttpEntity<Void> login(@RequestBody String code){
+        log.info(code);
         HttpHeaders headers = new HttpHeaders();
         //1. 인가코드로 카카오 액세스 토큰 반환
         String kakaoAccessToken = kakaoOauthService.getKakaoAccessTokenByCode(code);
@@ -47,7 +48,7 @@ public class OauthController {
      * @param clientAccessToken
      * return 갱신된 accesToken
      */
-    @PostMapping("/auto-login")
+    @PostMapping("/auto")
     public HttpEntity<Void> autoLogin(@RequestHeader(AUTHORIZATION_HEADER) String clientAccessToken){
         //1. accessToken에서 멤버아이디 가져오기
         Integer memberId = (Integer) jwtTokenService.getPayload(clientAccessToken).get("member_id");
