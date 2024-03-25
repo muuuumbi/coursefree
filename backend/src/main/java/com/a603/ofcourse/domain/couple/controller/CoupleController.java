@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/couple")
+@RequestMapping("/api/couple")
 public class CoupleController {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private final CoupleService coupleService;
     private final JwtTokenService jwtTokenService;
-    private final OauthService oauthService;
 
     /*
     작성자 : 김은비
@@ -36,14 +35,14 @@ public class CoupleController {
      * @return
      */
     @PostMapping("/connect/exist/{UUID}")
-    public ResponseEntity<?> connectCoupleWithMember(@PathVariable String UUID, @RequestHeader(AUTHORIZATION_HEADER) String accessToken){
+    public ResponseEntity<Void> connectCoupleWithMember(@PathVariable("UUID") String UUID, @RequestHeader(AUTHORIZATION_HEADER) String accessToken){
         //1. accessToken에서 초대받은 멤버아이디 가져오기
-        Integer visitorId = (Integer) jwtTokenService.getPayload(accessToken).get("member_id");
+        Integer visitorId = (Integer) jwtTokenService.getPayload(accessToken.substring(7)).get("member_id");
         //2. 초대한 사람의 멤버 아이디 가져오기
         Integer inviterId = coupleService.getInviterIdFromLink(UUID);
         //2. 커플 연동
         coupleService.connectCouple(visitorId, inviterId);
 
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 }

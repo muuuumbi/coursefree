@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("login")
+@RequestMapping("/api/login")
 @Slf4j
 public class OauthController {
     public static final String AUTHORIZATION_HEADER = "Authorization";
