@@ -6,6 +6,8 @@ import ArticleDetailPage from '@page/ArticleDetailPage'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
+import KakaoLoginPage from '@page/KakaoLoginPage'
+import LandingPage from '@page/LandingPage'
 import MakeCoursePage from '@page/MakeCoursePage'
 import SelectMakingWay from '@page/MakeCoursePage/SelectMakingWay'
 import MyCoursePage from '@page/MyCoursePage'
@@ -44,7 +46,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/">
-              <Route index element={<>LandingPage</>}></Route>
               <Route path="onBoarding" element={<OnBoardingPage />}>
                 <Route index element={<SetNickName />} />
                 <Route path="genderAge" element={<SetGenderAge />} />
@@ -52,6 +53,9 @@ function App() {
                 <Route path="genderAge" element={<SetGenderAge />} />
                 <Route path="mood" element={<SetMood />} />
               </Route>
+              <Route index element={<LandingPage />}></Route>
+              <Route path="oauth/kakao" element={<KakaoLoginPage />}></Route>
+
               <Route path="home" element={<HomePage />}>
                 <Route index element={<HotArticle />} />
                 <Route path="discover" element={<DiscoverArticle />} />
