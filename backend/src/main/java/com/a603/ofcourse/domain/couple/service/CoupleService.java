@@ -30,9 +30,8 @@ public class CoupleService {
 
     private final InviteLinkRepository inviteLinkRepository;
     private final CoupleRepository coupleRepository;
-    private MemberCoupleRepository memberCoupleRepository;
-    private MemberRepository memberRepository;
-    private OauthService oauthService;
+    private final MemberCoupleRepository memberCoupleRepository;
+    private final MemberRepository memberRepository;
 
     /*
     작성자 : 김은비
