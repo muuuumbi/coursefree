@@ -30,9 +30,8 @@ public class CoupleService {
 
     private final InviteLinkRepository inviteLinkRepository;
     private final CoupleRepository coupleRepository;
-    private MemberCoupleRepository memberCoupleRepository;
-    private MemberRepository memberRepository;
-    private OauthService oauthService;
+    private final MemberCoupleRepository memberCoupleRepository;
+    private final MemberRepository memberRepository;
 
     /*
     작성자 : 김은비
@@ -92,8 +91,10 @@ public class CoupleService {
         //초대된 사람과 초대한 사람이 모두 커플이 아닐 때
         if(!isCouple(visitorId) && !isCouple(inviterId)){
             //커플 객체 저장 후 해당 객체 아이디 반환
-            Couple couple = coupleRepository.save(Couple.builder().build());
-
+            Couple couple = coupleRepository.save(Couple.builder()
+                            .coupleNickname(visitorId + "and" + inviterId)
+                            .dDay(0)
+                    .build());
             //초대받은 사람
             memberCoupleRepository.save(new MemberCouple(couple, memberRepository.findById(visitorId)
                     .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_DOES_NOT_EXISTS))));
@@ -103,7 +104,7 @@ public class CoupleService {
         }
         //둘 중 하나라도 커플이면 연동 실패 오류
         else{
-            new CoupleException(CoupleErrorCode.ALREADY_COUPLE_MEMBER);
+            throw new CoupleException(CoupleErrorCode.ALREADY_COUPLE_MEMBER);
         }
     }
 }

@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("")
+@RequestMapping("/api/login")
 @Slf4j
 public class OauthController {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private final OauthService oauthService;
-    private JwtTokenService jwtTokenService;
+    private final JwtTokenService jwtTokenService;
     private final KakaoOauthService kakaoOauthService;
 
     /*
@@ -28,8 +28,8 @@ public class OauthController {
      * @param code (인가코드)
      * @return accessToken(JWT)
      */
-    @PostMapping("/login/oauth/{provider}")
-    public HttpEntity<Void> login(@PathVariable String provider, @RequestBody String code){
+    @PostMapping("/oauth/kakao")
+    public HttpEntity<Void> login(@RequestBody String code){
         HttpHeaders headers = new HttpHeaders();
         //1. 인가코드로 카카오 액세스 토큰 반환
         String kakaoAccessToken = kakaoOauthService.getKakaoAccessTokenByCode(code);
@@ -47,13 +47,13 @@ public class OauthController {
      * @param clientAccessToken
      * return 갱신된 accesToken
      */
-    @PostMapping("/auto-login")
+    @PostMapping("/auto")
     public HttpEntity<Void> autoLogin(@RequestHeader(AUTHORIZATION_HEADER) String clientAccessToken){
         //1. accessToken에서 멤버아이디 가져오기
-        Integer memberId = (Integer) jwtTokenService.getPayload(clientAccessToken).get("member_id");
+        Integer memberId = (Integer) jwtTokenService.getPayload(clientAccessToken.substring(7)).get("member_id");
         //2. HttpHeaders 객체에 리프레시 토큰으로 갱신된 액세스 토큰 넣기
         HttpHeaders headers = new HttpHeaders();
-        headers.set(AUTHORIZATION_HEADER, "Bearer " + oauthService.refreshAccessToken(memberId, clientAccessToken.substring(7)));
+        headers.set(AUTHORIZATION_HEADER, "Bearer " + oauthService.refreshAccessToken(memberId));
 
         return ResponseEntity.ok().headers(headers).build();
     }
