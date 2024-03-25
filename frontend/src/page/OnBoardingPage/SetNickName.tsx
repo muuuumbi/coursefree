@@ -7,6 +7,8 @@ import TextBox from '@component/common/TextBox'
 import FlexBox from '@component/layout/FlexBox'
 import Spacing from '@component/layout/Spacing'
 
+import useInput from '@hook/useInput'
+
 export const BottomFixedButtonStyle = css`
   position: fixed;
   max-width: 450px;
@@ -14,6 +16,8 @@ export const BottomFixedButtonStyle = css`
 `
 /** @jsxImportSource @emotion/react */
 export default function SetNickName() {
+  const { state: name, onChange: onChangeNameHandler } = useInput('asdasd')
+  console.log(name)
   return (
     <>
       <FlexBox p="10px" d="column" w="100%">
@@ -25,12 +29,22 @@ export default function SetNickName() {
           다른 사용자에게 보여지게 되는 별명입니다.
         </TextBox>
         <Spacing />
-        <Input autoFocus placeholder="닉네임을 입력해주세요." />
+        <Input
+          autoFocus
+          placeholder="닉네임을 입력해주세요."
+          onChange={onChangeNameHandler}
+        />
         <Spacing />
       </FlexBox>
 
       <Link to="genderAge">
-        <Button full css={BottomFixedButtonStyle}>
+        <Button
+          full
+          css={BottomFixedButtonStyle}
+          onClick={() => {
+            requestNickNameValidCheck(name)
+          }}
+        >
           확인
         </Button>
       </Link>

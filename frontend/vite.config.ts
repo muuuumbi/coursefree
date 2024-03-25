@@ -55,6 +55,7 @@ export default defineConfig({
       { find: '@style', replacement: '/src/style' },
       { find: '@styled', replacement: '/src/styled' },
       { find: '@mocks', replacement: '/src/mocks' },
+      { find: '@context', replacement: '/src/context' },
       { find: 'node_modules', replacement: '/node_modules' },
     ],
   },
