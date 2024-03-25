@@ -1,5 +1,7 @@
+import { OnBoardingUserInfoContext } from '@context/index'
 import { css } from '@emotion/react'
-import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Button from '@component/common/Button'
 import Input from '@component/common/Input'
@@ -16,8 +18,22 @@ export const BottomFixedButtonStyle = css`
 `
 /** @jsxImportSource @emotion/react */
 export default function SetNickName() {
-  const { state: name, onChange: onChangeNameHandler } = useInput('asdasd')
-  console.log(name)
+  const navigate = useNavigate()
+  const { setStep } = useContext(OnBoardingUserInfoContext)
+  const { state: name, onChange: onChangeNameHandler } = useInput<string>('')
+
+  async function nicknameValidCheck(name: string) {
+    try {
+      alert(name)
+      // await requestNickNameValidCheck(name)
+
+      // 가능한 닉네임이므로, 스텝 올리고 다음 단계로 이동
+      setStep(prev => prev + 1)
+      navigate(`./info`)
+    } catch (error) {
+      alert(error)
+    }
+  }
   return (
     <>
       <FlexBox p="10px" d="column" w="100%">
@@ -37,17 +53,15 @@ export default function SetNickName() {
         <Spacing />
       </FlexBox>
 
-      <Link to="genderAge">
-        <Button
-          full
-          css={BottomFixedButtonStyle}
-          onClick={() => {
-            requestNickNameValidCheck(name)
-          }}
-        >
-          확인
-        </Button>
-      </Link>
+      <Button
+        full
+        css={BottomFixedButtonStyle}
+        onClick={() => {
+          nicknameValidCheck(name)
+        }}
+      >
+        확인
+      </Button>
     </>
   )
 }

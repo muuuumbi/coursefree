@@ -1,7 +1,8 @@
 const API_URI = {
-  BASE: 'backend_domain',
+  BASE: 'http://j10a603.p.ssafy.io/api',
   LOGIN: '',
   SINGUP: '',
-  KAKAO_LOGIN: '',
+  KAKAO_LOGIN: '/login/oauth',
+  VALID_CHECK: '/member/check/nickname',
 }
 export default API_URI

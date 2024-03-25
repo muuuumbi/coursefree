@@ -10,27 +10,21 @@ import Spacing from '@component/layout/Spacing'
 /** @jsxImportSource @emotion/react */
 
 export default function OnBoardingPage() {
-  //   const [currentStep, setCurrentStep] = useState([])
-  const [userOnBoardingData, setUserOnBoardingData] = useState({
-    step: 1,
+  const [onBoardingUserInfo, setOnBoardingUserInfo] = useState({
     gender: '',
     ageRange: '',
     mbti: '',
     foodPreference: '',
     moodPreference: '',
   })
+  const [step, setStep] = useState(1)
   return (
     <OnBoardingUserInfoContext.Provider
-      value={{ userOnBoardingData, setUserOnBoardingData }}
+      value={{ onBoardingUserInfo, setOnBoardingUserInfo, step, setStep }}
     >
       <Section>
         <TitleBar title="회원가입" hasBackPage />
-        <ProgressBar
-          max={5}
-          value={userOnBoardingData.step}
-          width={'100%'}
-          height={'10px'}
-        />
+        <ProgressBar max={3} value={step} width={'100%'} height={'10px'} />
         <Spacing />
         <Outlet />
       </Section>

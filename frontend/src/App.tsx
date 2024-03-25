@@ -12,9 +12,7 @@ import MakeCoursePage from '@page/MakeCoursePage'
 import SelectMakingWay from '@page/MakeCoursePage/SelectMakingWay'
 import MyCoursePage from '@page/MyCoursePage'
 import OnBoardingPage from '@page/OnBoardingPage'
-import SetGenderAge from '@page/OnBoardingPage/SetGenderAge'
-import SetMBTI from '@page/OnBoardingPage/SetMBTI'
-import SetMood from '@page/OnBoardingPage/SetMood'
+import SetInfo from '@page/OnBoardingPage/SetInfo'
 import SetNickName from '@page/OnBoardingPage/SetNickName'
 import RecommendPage from '@page/RecommendPage'
 import RecommendResult from '@page/RecommendPage/RecommendResult'
@@ -48,10 +46,7 @@ function App() {
             <Route path="/">
               <Route path="onBoarding" element={<OnBoardingPage />}>
                 <Route index element={<SetNickName />} />
-                <Route path="genderAge" element={<SetGenderAge />} />
-                <Route path="mbti" element={<SetMBTI />} />
-                <Route path="genderAge" element={<SetGenderAge />} />
-                <Route path="mood" element={<SetMood />} />
+                <Route path="info" element={<SetInfo />} />
               </Route>
               <Route index element={<LandingPage />}></Route>
               <Route path="oauth/kakao" element={<KakaoLoginPage />}></Route>
