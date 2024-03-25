@@ -1,68 +1,10 @@
-import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { useRecoilValue } from 'recoil';
 import { selectedDateState, specialDaysState } from '@recoil/logSpecialDaysAtom';
 import { format } from 'date-fns';
+import { JSX } from 'react/jsx-runtime';
+import { Container, DataSet, Photo, Content, ContentUp, ContentDown, DateText, Place, Button, ExpandedContent, ExpandedPlace, ExpandedName, ExpandedBody, Expanded, ExpandedTable, ExpandedTd, ExpandedTh, NoSchedule } from '@styled/component/pages/MyPage/Log/Schedule'
 
-// 스타일드 컴포넌트 정의
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    border: 1px solid #ccc; /* 테두리 추가 */
-`;
-
-const DataSet = styled.div`
-    border: 1px solid #ccc; /* 테두리 추가 */
-    display: flex;
-`;
-
-const Photo = styled.img`
-    margin-right: 20px;
-`;
-
-const Content = styled.div`
-    display: flex;
-`;
-
-const ContentLeft = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-left: 30px;
-    margin-right: 30px;
-    text-align: center;
-    justify-content: center;
-`;
-
-const ContentRight = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-left: 30px;
-`;
-
-const DateText = styled.p`
-    font-weight: bold;
-`;
-
-const Place = styled.p`
-    margin-bottom: 2px;
-`;
-
-const Button = styled.button`
-    margin-bottom: 10px; /* 버튼과 일정 정보 사이의 간격 조절 */
-`;
-
-const ExpandedContent = styled.div`
-    
-border: 1px solid #ccc; /* 테두리 추가 */
-`
-
-const ExpandedPlace = styled.p`
-    margin-bottom: 2px;
-    
-border: 1px solid #ccc; /* 테두리 추가 */
-    cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능하도록 설정 */
-`;
 
 const Schedule = () => {
     const selectedDate = useRecoilValue(selectedDateState); // Recoil 상태 사용
@@ -91,7 +33,13 @@ const Schedule = () => {
 
     // 현재 선택된 날짜에 대한 스케줄 표시
     const scheduleInfo = specialDays[formattedSelectedDate];
-    let scheduleContent;
+    let scheduleContent: string | number | boolean | Iterable<ReactNode> | JSX.Element;
+
+    useEffect(() => {
+        // 날짜가 변경될 때마다 펼쳐진 상태를 초기값으로 설정
+        setIsExpanded(false);
+    }, [selectedDate]); // selectedDate가 변경될 때 useEffect가 실행됨
+
 
     if (scheduleInfo) {
         // 일정이 있는 경우: 더미 데이터로 사진을 설정
@@ -103,10 +51,10 @@ const Schedule = () => {
                 <DataSet>
                     <Photo src={photoUrl} alt="일정 사진" />
                     <Content>
-                        <ContentLeft>
+                        <ContentUp>
                             {station} {'데이트'}
-                        </ContentLeft>
-                        <ContentRight>
+                        </ContentUp>
+                        <ContentDown>
                             {places.map((place, index) => (
                                 <div key={index}>
                                     <Place>
@@ -114,7 +62,7 @@ const Schedule = () => {
                                     </Place>
                                 </div>
                             ))}
-                        </ContentRight>
+                        </ContentDown>
                     </Content>
                 </DataSet>
                 <Button onClick={toggleExpand}>
@@ -125,10 +73,30 @@ const Schedule = () => {
                         {places.map((place, index) => (
                             <div key={index}>
                                 <ExpandedPlace onClick={() => window.open(place.link, '_blank')}>
-                                    {place.name}
-                                    <p>종류: {place.type}</p>
-                                    <p>영업시간: {place.hours}</p>
-                                    <p>전화번호: {place.phone}</p>
+                                    <Photo src={photoUrl} alt="일정 사진" />
+                                    <ExpandedBody>
+                                        <ExpandedName>
+                                            {place.name}
+                                        </ExpandedName>
+                                        <Expanded>
+                                            <ExpandedTable>
+                                                <tbody>
+                                                    <tr>
+                                                        <ExpandedTh>종류</ExpandedTh>
+                                                        <ExpandedTd>{place.type}</ExpandedTd>
+                                                    </tr>
+                                                    <tr>
+                                                        <ExpandedTh>영업시간</ExpandedTh>
+                                                        <ExpandedTd>{place.hours}</ExpandedTd>
+                                                    </tr>
+                                                    <tr>
+                                                        <ExpandedTh>전화번호</ExpandedTh>
+                                                        <ExpandedTd>{place.phone}</ExpandedTd>
+                                                    </tr>
+                                                </tbody>
+                                            </ExpandedTable>
+                                        </Expanded>
+                                    </ExpandedBody>
                                 </ExpandedPlace>
                             </div>
                         ))}
@@ -139,7 +107,9 @@ const Schedule = () => {
     } else {
         // 일정이 없는 경우
         scheduleContent = (
+            <NoSchedule>
             <p>{noSchedule}</p>
+            </NoSchedule>
         );
     }
 
@@ -148,6 +118,7 @@ const Schedule = () => {
             {scheduleContent}
         </div>
     );
+
 };
 
 export default Schedule;

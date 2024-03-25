@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { specialDaysState, selectedDateState } from '@recoil/logSpecialDaysAtom';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import {
-    Header, IconContainer, CalendarContainer, Container, DayHeader, Cell, RegisterButton
+    Header, IconContainer, CalendarContainer, Container, DayHeader, Cell, RegisterButton,DayHeaderOuter
 } from '@styled/component/pages/MyPage/Log/Calander';
 
 const Calendar = () => {
@@ -55,19 +55,21 @@ const Calendar = () => {
             <CalendarContainer>
                 <Header>
                     <span>
-                        <span>{format(currentMonth, 'M')}월</span>
-                        {format(currentMonth, 'yyyy')}
+                        {format(currentMonth, 'yyyy')}년
+                        <span>  {format(currentMonth, 'M')}월</span>
                     </span>
                     <IconContainer>
                         <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} style={{ marginRight: '10px' }} />
                         <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
                     </IconContainer>
                 </Header>
-                <DayHeader>
-                    {['Sun', 'Mon', 'Thu', 'Wed', 'Thrs', 'Fri', 'Sat'].map((day, index) => (
-                        <div key={index}>{day}</div>
-                    ))}
-                </DayHeader>
+                <DayHeaderOuter>
+                    <DayHeader>
+                        {['일', '월', '화', '수', '목', '금', '토'].map((day, index) => (
+                            <div key={index}>{day}</div>
+                        ))}
+                    </DayHeader>
+                </DayHeaderOuter>
                 <RenderCells
                     currentMonth={currentMonth}
                     selectedDate={selectedDate}

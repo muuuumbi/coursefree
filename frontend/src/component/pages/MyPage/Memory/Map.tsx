@@ -2,7 +2,8 @@ import FlexBox from '@component/layout/FlexBox';
 import KakaoMap from '@component/common/KakaoMap';
 import { useState } from 'react';
 import { positions } from '@mocks/dummy';
-import { Container, ImageContainer, ImageWrapper, Image, Button, TagContainer, Tag, CommentContainer, Comment } from '@styled/component/pages/MyPage/Memory/Map';
+import { Container, SectionDate, SectionPlace, GroupWrapper, ItemWrapper, Image, Button, Tag, CommentContainer, Comment, AddCommentInput, AddCommentButton, AddCommentContainer, AddTagContainer, AddTagInput, AddTagButton,NoSelected,Section } from '@styled/component/pages/MyPage/Memory/Map'
+
 
 const Map = () => {
   const [currentSelectPlace, setCurrentSelectPlace] = useState({
@@ -10,12 +11,28 @@ const Map = () => {
     date: '',
     images: [],
     tags: [],
-    comments: []
+    comments: [],
+    isCommentOpen: false, // 코멘트 입력창 열림 상태
+    isTagOpen: false, // 태그 입력창 열림 상태
   });
 
   function onClickMarkerHandler(data: any) {
     setCurrentSelectPlace(data);
   }
+
+  const toggleComment = () => {
+    setCurrentSelectPlace(prevState => ({
+      ...prevState,
+      isCommentOpen: !prevState.isCommentOpen,
+    }));
+  };
+
+  const toggleTag = () => {
+    setCurrentSelectPlace(prevState => ({
+      ...prevState,
+      isTagOpen: !prevState.isTagOpen,
+    }));
+  };
 
   return (
     <Container>
@@ -28,42 +45,52 @@ const Map = () => {
         />
       </FlexBox>
       {currentSelectPlace.title !== '' ? (
-        <div>
-          <p>장소 : {currentSelectPlace.title}</p>
-          <p>날짜 : {currentSelectPlace.date}</p>
-          <p>이미지 :</p>
-          <ImageContainer>
+        <Section>
+          <SectionDate>{currentSelectPlace.date}</SectionDate>
+          <SectionPlace>{currentSelectPlace.title}</SectionPlace>
+          <GroupWrapper>
             {currentSelectPlace.images.map((image, index) => (
-              <ImageWrapper key={index}>
+              <ItemWrapper key={index}>
                 <Image src={image} alt={`image-${index}`} />
-              </ImageWrapper>
+              </ItemWrapper>
             ))}
             {currentSelectPlace.images.length > 0 && (
-              <ImageWrapper>
+              <ItemWrapper>
                 <Button>+</Button>
-              </ImageWrapper>
+              </ItemWrapper>
             )}
-          </ImageContainer>
-          <p>태그 :</p>
-          <TagContainer>
+          </GroupWrapper>
+          <GroupWrapper>
             {currentSelectPlace.tags.map((tag, index) => (
               <Tag key={index}>{tag}</Tag>
             ))}
-            <Tag>+</Tag>
-          </TagContainer>
-          <p>코멘트 :</p>
+            <Tag onClick={toggleTag}>+</Tag>
+          </GroupWrapper>
+          <AddTagContainer show={currentSelectPlace.isTagOpen}>
+            <AddTagInput
+              type="text"
+              placeholder="태그 추가"
+              style={{ display: currentSelectPlace.isTagOpen ? 'inline-block' : 'none' }}
+            />
+            <AddTagButton>추가</AddTagButton>
+          </AddTagContainer>
           <CommentContainer>
             {currentSelectPlace.comments.map((comment, index) => (
               <Comment key={index}>{comment}</Comment>
             ))}
-            <Comment>+</Comment>
+            <Comment onClick={toggleComment}>+</Comment>
           </CommentContainer>
-        </div>
+          <AddCommentContainer show={currentSelectPlace.isCommentOpen}>
+            <AddCommentInput type="text" placeholder="코멘트 추가" />
+            <AddCommentButton>추가</AddCommentButton>
+          </AddCommentContainer>
+        </Section>
       ) : (
-        <p>장소를 선택해 주세요</p>
+        <NoSelected>장소를 선택해 주세요</NoSelected>
       )}
     </Container>
   );
 };
 
 export default Map;
+

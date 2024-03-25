@@ -5,7 +5,10 @@ export const Header = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #f0f0f0;
+    background-color: #ff1493; /* 진한 분홍색 설정 */;
+    font-size: 1.1em; /* 살짝 큰 폰트 사이즈 설정 */
+    font-weight: bold; /* 굵은 텍스트 설정 */
+    color : white;
 `;
 
 export const IconContainer = styled.div`
@@ -28,9 +31,16 @@ export const DayHeader = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 0.5rem;
-    background-color: #f0f0f0;
+    width:92%;
+    margin-left: 1.1rem;
 `;
 
+export const DayHeaderOuter = styled.div`
+    display: flex;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+`;
+    
 export const Cell = styled.div`
     display: flex;
     justify-content: center;
