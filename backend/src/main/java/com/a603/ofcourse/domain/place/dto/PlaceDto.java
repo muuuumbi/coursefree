@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Getter
 public class PlaceDto {
     private String name;
-    private String imageUrl;
+    private String url;
     private Integer reviewCount;
 
     public static PlaceDto of(Place place) {
         return new PlaceDto(
                 place.getName(),
-                place.getImageUrl(),
+                place.getUrl(),
                 place.getReviewCount()
         );
     }
