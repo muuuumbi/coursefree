@@ -22,8 +22,6 @@ services:
   bigdata:
     image: parkseheon/a603-bigdata
     container_name: coursefree-bigdata
-    volume:
-      - /jenkins/workspace/bigdata/bigdata : ./requirements.txt
     ports:
       - 8000:8000
     networks:
