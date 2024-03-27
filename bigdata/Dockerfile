@@ -3,8 +3,6 @@ FROM python:3.8.9
 
 WORKDIR /app
 
-COPY bigdata/requirements.txt ./
-
 RUN python -m pip install --upgrade pip --user
 
 RUN pip freeze > requirements.txt
