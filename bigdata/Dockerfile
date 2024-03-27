@@ -10,7 +10,7 @@ RUN pip freeze > requirements.txt
 # 필요한 패키지 설치
 RUN pip install -r requirements.txt
 
-COPY  coursefree-bigdata : ./requirements.txt bigdata/requirements.txt
+COPY ./requirements.txt bigdata/requirements.txt
 
 COPY . .
 
