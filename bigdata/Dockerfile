@@ -8,7 +8,7 @@ COPY . /app
 WORKDIR /app
 
 # 필요한 패키지 설치
-RUN pip install --no-cache-dir -r ./app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # 컨테이너 실행 명령 설정 (uvicorn으로 FastAPI 앱 실행)
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
