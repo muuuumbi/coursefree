@@ -3,8 +3,6 @@ FROM python:3.8.9
 
 WORKDIR /app
 
-RUN sudo pip install "uvicorn[standard]"
-
 RUN python -m pip install --upgrade pip --user
 
 RUN sudo pip freeze > requirements.txt
