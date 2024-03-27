@@ -5,10 +5,6 @@ WORKDIR /app
 
 COPY ./bigdata/requirements.txt ./requirements.txt
 
-RUN pip uninstall certifi
-
-RUN pip install certifi
-
 # 필요한 패키지 설치
 RUN pip install --no-cache-dir -r requirements.txt
 
