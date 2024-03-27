@@ -5,6 +5,8 @@ WORKDIR /app
 
 COPY bigdata/. .
 
+RUN pip install "uvicorn[standard]"
+
 RUN python -m pip install --upgrade pip --user
 
 RUN pip freeze > requirements.txt
