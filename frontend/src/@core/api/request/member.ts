@@ -1,4 +1,6 @@
-import { baseAxios } from '@api/index'
+import { UserData } from '@type/member'
+
+import { authAxios, baseAxios } from '@api/index'
 import API_URI from '@api/url'
 
 /**
@@ -15,9 +17,15 @@ export const requestAuthorizationCode = (code: string, type: string) => {
 }
 
 export const requestNickNameValidCheck = (name: string) => {
-  return baseAxios.get(`${API_URI.VALID_CHECK}`, {
+  return authAxios.get(`${API_URI.VALID_CHECK}`, {
     params: {
       nickname: name,
     },
+  })
+}
+
+export const requestUserData = (data: UserData) => {
+  return authAxios.post(`${API_URI.USER_INFO}`, {
+    ProfileInfoRequest: data,
   })
 }

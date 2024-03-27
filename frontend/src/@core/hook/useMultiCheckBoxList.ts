@@ -6,14 +6,17 @@ import { useState } from 'react'
  * @param selectLimit : 최대 선택 개수
  * @returns
  */
-export default function useMultiCheckBoxList<T>(checkboxes: T[], selectLimit) {
+export default function useMultiCheckBoxList<T>(
+  checkboxes: T[],
+  selectLimit: number,
+) {
   //특정 순서의 질문이 선택되었는가?
   const [checkboxStates, setCheckboxStates] = useState<boolean[]>(
     Array(checkboxes.length).fill(false),
   )
 
   const [selectCount, setSelectCount] = useState<number>(0)
-  // 각 질문을 클릭할 때 마다 해당 질문이 이미 클릭된 요소라면 선택 해제, 클릭되지 않은 요소라면 클릭!
+
   function onChangeHandler(categoryNumber: number) {
     // 선택 헤제하는 Case
     if (checkboxStates[categoryNumber]) {

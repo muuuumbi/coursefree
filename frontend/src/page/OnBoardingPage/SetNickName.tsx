@@ -1,15 +1,19 @@
-import { OnBoardingUserInfoContext } from '@context/index'
+import { SignUpStepContext } from '@context/index'
 import { css } from '@emotion/react'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Button from '@component/common/Button'
 import Input from '@component/common/Input'
 import TextBox from '@component/common/TextBox'
+import ValidMessage from '@component/common/ValidMessage'
 import FlexBox from '@component/layout/FlexBox'
 import Spacing from '@component/layout/Spacing'
 
+import useDebounce from '@hook/useDebounce'
 import useInput from '@hook/useInput'
+
+import { requestNickNameValidCheck } from '@api/request/member'
 
 export const BottomFixedButtonStyle = css`
   position: fixed;
@@ -19,21 +23,28 @@ export const BottomFixedButtonStyle = css`
 /** @jsxImportSource @emotion/react */
 export default function SetNickName() {
   const navigate = useNavigate()
-  const { setStep } = useContext(OnBoardingUserInfoContext)
+  const { setStep, setNickname } = useContext(SignUpStepContext)
   const { state: name, onChange: onChangeNameHandler } = useInput<string>('')
+  const [isValidNickName, setIsValidNickName] = useState(false)
+  const debouncedName = useDebounce<string>({ value: name, delay: 200 })
 
-  async function nicknameValidCheck(name: string) {
-    try {
-      alert(name)
-      // await requestNickNameValidCheck(name)
-
-      // 가능한 닉네임이므로, 스텝 올리고 다음 단계로 이동
-      setStep(prev => prev + 1)
-      navigate(`./info`)
-    } catch (error) {
-      alert(error)
+  useEffect(() => {
+    async function nicknameValidCheck(name: string) {
+      if (name === '') return
+      try {
+        await requestNickNameValidCheck(name)
+        setIsValidNickName(true)
+      } catch (error) {
+        setIsValidNickName(false)
+      }
     }
-  }
+    nicknameValidCheck(debouncedName)
+  }, [debouncedName])
+
+  /**
+   * 버튼 클릭 시, 다음 페이지로 넘어갑니다
+   */
+
   return (
     <>
       <FlexBox p="10px" d="column" w="100%">
@@ -46,18 +57,28 @@ export default function SetNickName() {
         </TextBox>
         <Spacing />
         <Input
+          value={name}
           autoFocus
           placeholder="닉네임을 입력해주세요."
           onChange={onChangeNameHandler}
         />
         <Spacing />
+        <ValidMessage
+          valid="사용 가능한 닉네임입니다."
+          inValid="이미 존재하는 닉네임입니다."
+          isValid={isValidNickName}
+          show={name.length > 0}
+        />
       </FlexBox>
 
       <Button
+        disabled={!isValidNickName || debouncedName.length === 0}
         full
         css={BottomFixedButtonStyle}
         onClick={() => {
-          nicknameValidCheck(name)
+          setNickname(debouncedName)
+          setStep(prev => prev + 1)
+          navigate(`./info`)
         }}
       >
         확인

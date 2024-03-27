@@ -1,3 +1,3 @@
 import { createContext } from 'react'
 
-export const OnBoardingUserInfoContext = createContext(null)
+export const SignUpStepContext = createContext(null)

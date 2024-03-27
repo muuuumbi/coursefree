@@ -14,6 +14,7 @@ import MyCoursePage from '@page/MyCoursePage'
 import OnBoardingPage from '@page/OnBoardingPage'
 import SetInfo from '@page/OnBoardingPage/SetInfo'
 import SetNickName from '@page/OnBoardingPage/SetNickName'
+import Welcome from '@page/OnBoardingPage/Welcome'
 import RecommendPage from '@page/RecommendPage'
 import RecommendResult from '@page/RecommendPage/RecommendResult'
 import RecommendSearch from '@page/RecommendPage/RecommendSearch'
@@ -47,6 +48,7 @@ function App() {
               <Route path="onBoarding" element={<OnBoardingPage />}>
                 <Route index element={<SetNickName />} />
                 <Route path="info" element={<SetInfo />} />
+                <Route path="welcome" element={<Welcome />} />
               </Route>
               <Route index element={<LandingPage />}></Route>
               <Route path="oauth/kakao" element={<KakaoLoginPage />}></Route>

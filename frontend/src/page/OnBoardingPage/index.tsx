@@ -1,4 +1,4 @@
-import { OnBoardingUserInfoContext } from '@context/index'
+import { SignUpStepContext } from '@context/index'
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
@@ -10,17 +10,11 @@ import Spacing from '@component/layout/Spacing'
 /** @jsxImportSource @emotion/react */
 
 export default function OnBoardingPage() {
-  const [onBoardingUserInfo, setOnBoardingUserInfo] = useState({
-    gender: '',
-    ageRange: '',
-    mbti: '',
-    foodPreference: '',
-    moodPreference: '',
-  })
   const [step, setStep] = useState(1)
+  const [nickname, setNickname] = useState('')
   return (
-    <OnBoardingUserInfoContext.Provider
-      value={{ onBoardingUserInfo, setOnBoardingUserInfo, step, setStep }}
+    <SignUpStepContext.Provider
+      value={{ step, setStep, nickname, setNickname }}
     >
       <Section>
         <TitleBar title="회원가입" hasBackPage />
@@ -28,6 +22,6 @@ export default function OnBoardingPage() {
         <Spacing />
         <Outlet />
       </Section>
-    </OnBoardingUserInfoContext.Provider>
+    </SignUpStepContext.Provider>
   )
 }

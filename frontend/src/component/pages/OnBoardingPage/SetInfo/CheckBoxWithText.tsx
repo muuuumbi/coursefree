@@ -27,7 +27,7 @@ export default memo(function CheckBoxWithText({
       colorScheme="pink"
       onChange={onChange}
     >
-      <TextBox typography="t2" color={color}>
+      <TextBox typography="t4" color={color}>
         {children}
       </TextBox>
     </Checkbox>
