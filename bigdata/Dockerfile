@@ -12,7 +12,7 @@ RUN sudo pip freeze > requirements.txt
 # 필요한 패키지 설치
 RUN sudo pip install -r requirements.txt
 
-COPY ./app ./app
+COPY . .
 
 EXPOSE 8000
 
