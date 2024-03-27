@@ -22,7 +22,7 @@ services:
   bigdata:
     image: parkseheon/a603-bigdata:latest
     container_name: coursefree-bigdata
-    env_file:
+    config_file:
       - config.ini
     ports:
       - 8000:8000
