@@ -60,9 +60,9 @@ public class SecurityConfig {
                 //3. HTTP 요청에 대한 권한 설정
                 .authorizeHttpRequests(authorize -> authorize
                         //3-1. 모든 사용자에게 허용
-                        .requestMatchers("/login/**", "/token/refresh").permitAll()
+                        .requestMatchers("/api/login/**", "/api/token/refresh").permitAll()
                         //3-2. 멤버 역할 사용자에게만 허용
-                        .requestMatchers("/member/**").hasAnyAuthority(Role.MEMBER.getRole())
+                        .requestMatchers("api/member/**").hasAnyAuthority(Role.MEMBER.getRole())
                         //3-3. 나머지는 인증된 사용자에게만 허용
                         .anyRequest().authenticated())
 
