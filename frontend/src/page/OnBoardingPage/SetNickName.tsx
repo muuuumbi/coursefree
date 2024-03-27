@@ -1,6 +1,6 @@
 import { SignUpStepContext } from '@context/index'
 import { css } from '@emotion/react'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Button from '@component/common/Button'
@@ -10,10 +10,9 @@ import ValidMessage from '@component/common/ValidMessage'
 import FlexBox from '@component/layout/FlexBox'
 import Spacing from '@component/layout/Spacing'
 
+import useNickNameValidCheck from '@hook/Member/useNickNameValidCheck'
 import useDebounce from '@hook/useDebounce'
 import useInput from '@hook/useInput'
-
-import { requestNickNameValidCheck } from '@api/request/member'
 
 export const BottomFixedButtonStyle = css`
   position: fixed;
@@ -25,21 +24,8 @@ export default function SetNickName() {
   const navigate = useNavigate()
   const { setStep, setNickname } = useContext(SignUpStepContext)
   const { state: name, onChange: onChangeNameHandler } = useInput<string>('')
-  const [isValidNickName, setIsValidNickName] = useState(false)
   const debouncedName = useDebounce<string>({ value: name, delay: 200 })
-
-  useEffect(() => {
-    async function nicknameValidCheck(name: string) {
-      if (name === '') return
-      try {
-        await requestNickNameValidCheck(name)
-        setIsValidNickName(true)
-      } catch (error) {
-        setIsValidNickName(false)
-      }
-    }
-    nicknameValidCheck(debouncedName)
-  }, [debouncedName])
+  const [isValidNickName] = useNickNameValidCheck(debouncedName)
 
   /**
    * 버튼 클릭 시, 다음 페이지로 넘어갑니다

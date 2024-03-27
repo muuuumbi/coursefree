@@ -23,9 +23,6 @@ export default function SetInfo() {
   const { step, setStep, nickname } = useContext(SignUpStepContext)
   const [gender, setGender] = useState('man')
 
-  const changeGender = (clickedGender: string) => {
-    if (gender !== clickedGender) setGender(clickedGender)
-  }
   const {
     checkboxStates: categories,
     selectCount,
@@ -33,22 +30,23 @@ export default function SetInfo() {
   } = useMultiCheckBoxList<OnBoardingQuestion>(onBoardingQuestions, 3)
 
   const sendUserInfo = async categories => {
-    try {
-      const selected = []
-      categories.forEach((e, i) => {
-        if (e) selected.push(onBoardingQuestions[i]['category'])
-      })
-      const info = {
-        first: selected[0],
-        second: selected[1],
-        third: selected[2],
-      }
+    const selected = []
+    categories.forEach((e, i) => {
+      if (e) selected.push(onBoardingQuestions[i]['category'])
+    })
+    const info = {
+      first: selected[0],
+      second: selected[1],
+      third: selected[2],
+    }
 
-      const requestData: UserData = {
-        name: nickname,
-        gender: gender,
-        preference: info as UserFavoriteInfo,
-      }
+    const requestData: UserData = {
+      name: nickname,
+      gender: gender,
+      preference: info as UserFavoriteInfo,
+    }
+
+    try {
       const { status } = await requestUserData(requestData)
       if (status === 200) {
         setStep(step + 1)
@@ -58,12 +56,15 @@ export default function SetInfo() {
       alert(error)
     }
   }
+
+  const changeGender = (clickedGender: string) => {
+    if (gender !== clickedGender) setGender(clickedGender)
+  }
   return (
     <>
-      {/* 텍스트 */}
       <FlexBox p="10px" d="column" w="100%">
         <TextBox typography="t2" fontWeight="bold">
-          성별과 식사 취향을 알려주세요! <br></br>
+          성별과 식사 취향을 알려주세요! <br />
           3가지 항목을 골라주세요.
         </TextBox>
         <Spacing size="7px" />
