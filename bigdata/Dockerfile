@@ -3,12 +3,12 @@ FROM python:3.8.9
 
 WORKDIR /app
 
+COPY . .
+
 RUN python -m pip install --upgrade pip --user
 
 # 필요한 패키지 설치
-RUN pip install -r bigdata/requirements.txt
-
-COPY . .
+RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
