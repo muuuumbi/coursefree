@@ -1,0 +1,35 @@
+services:
+  backend:
+    image: parkseheon/a603-backend
+    container_name: coursefree
+    env_file:
+      - .env
+    ports:
+      - 8081:8081
+    networks:
+      - coursefree
+  frontend:
+    image: parkseheon/a603-frontend:latest
+    container_name: coursefree-frontend
+    env_file:
+      - .env
+    ports:
+      - 5173:5173
+    stdin_open: true
+    tty: true
+    networks:
+      - coursefree
+  bigdata:
+    image: parkseheon/a603-bigdata:latest
+    container_name: coursefree-bigdata
+    env_file:
+      - config.ini
+    ports:
+      - 8000:8000
+    networks:
+      - coursefree
+
+networks:
+  coursefree:
+    external: true
+
