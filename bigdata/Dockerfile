@@ -3,7 +3,7 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
 
 WORKDIR /app
 
-COPY bigdata/requirements.txt ./requirements.txt
+COPY ./bigdata/requirements.txt ./requirements.txt
 
 # 필요한 패키지 설치
 RUN pip install --no-cache-dir -r requirements.txt
