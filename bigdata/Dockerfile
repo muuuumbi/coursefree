@@ -7,8 +7,10 @@ COPY bigdata/requirements.txt ./
 
 RUN python -m pip install --upgrade pip --user
 
+RUN pip freeze > requirements.txt
+
 # 필요한 패키지 설치
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 
