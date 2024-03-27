@@ -17,28 +17,21 @@ import useMultiCheckBoxList from '@hook/useMultiCheckBoxList'
 
 import { requestUserData } from '@api/request/member'
 
+import arrangeUserFavInfo from '@util/Member/arrangeUserFavInfo'
+
 /** @jsxImportSource @emotion/react */
 export default function SetInfo() {
   const navigate = useNavigate()
   const { step, setStep, nickname } = useContext(SignUpStepContext)
   const [gender, setGender] = useState('man')
-
   const {
     checkboxStates: categories,
     selectCount,
     onChangeHandler,
   } = useMultiCheckBoxList<OnBoardingQuestion>(onBoardingQuestions, 3)
 
-  const sendUserInfo = async categories => {
-    const selected = []
-    categories.forEach((e, i) => {
-      if (e) selected.push(onBoardingQuestions[i]['category'])
-    })
-    const info = {
-      first: selected[0],
-      second: selected[1],
-      third: selected[2],
-    }
+  const sendUserInfo = async (categories, onBoardingQuestions) => {
+    const info = arrangeUserFavInfo(categories, onBoardingQuestions)
 
     const requestData: UserData = {
       name: nickname,
@@ -85,7 +78,7 @@ export default function SetInfo() {
         css={BottomFixedButtonStyle}
         full
         onClick={() => {
-          sendUserInfo(categories)
+          sendUserInfo(categories, onBoardingQuestions)
         }}
       >
         확인
