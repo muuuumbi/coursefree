@@ -1,6 +1,6 @@
 import PlaceInfo from './PlaceInfo'
 
-import KakaoMap from '@component/common/KakaoMap'
+import KakaoMap from '@component/kakaoMap/KakaoMap'
 import TextBox from '@component/common/TextBox'
 import FlexBox from '@component/layout/FlexBox'
 

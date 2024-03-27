@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import Button from '@component/common/Button'
 import Input from '@component/common/Input'
-import KakaoMap from '@component/common/KakaoMap'
+import KakaoMap from '@component/kakaoMap/KakaoMap'
 import TextBox from '@component/common/TextBox'
 import FlexBox from '@component/layout/FlexBox'
 import Spacing from '@component/layout/Spacing'
