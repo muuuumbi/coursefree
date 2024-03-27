@@ -19,6 +19,7 @@ import SelfMakeSearch from '@page/SelfMakePage/SelfMakeSearch'
 import MyPage from '@page/MyPage/index'
 import Log from '@page/MyPage/log'
 import Memory from '@page/MyPage/memory'
+import Setting from '@page/MyPage/setting'
 
 initMockAPI()
 
@@ -79,6 +80,8 @@ function App() {
             <Route path="/mypage/log" element={<Log/>}>
             </Route>
             <Route path="/mypage/memory" element={<Memory/>}>
+            </Route>
+            <Route path="/mypage/setting" element={<Setting/>}>
             </Route>
           </Routes>
         </BrowserRouter>

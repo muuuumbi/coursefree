@@ -26,11 +26,11 @@ const Menu = () => {
         </NavLink>
       </Item>
       <Item>
-        {/* <NavLink to='/mypage/settings' activeClassName='active'> */}
+        <NavLink to='/mypage/setting'>
           <FontAwesomeIcon icon={faGear} size='5x' />
           <br />
           <p>설정</p>
-        {/* </NavLink> */}
+        </NavLink>
       </Item>
     </Container>
   );
