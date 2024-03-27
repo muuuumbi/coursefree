@@ -6,7 +6,7 @@ WORKDIR /app
 RUN python -m pip install --upgrade pip --user
 
 # 필요한 패키지 설치
-RUN pip install -r requirements.txt
+RUN pip install -r bigdata/requirements.txt
 
 COPY . .
 
