@@ -14,8 +14,8 @@ export default function useNickNameValidCheck(debouncedName: string) {
     async function nicknameValidCheck(name: string) {
       if (name === '') return
       try {
-        await requestNickNameValidCheck(name)
-        setIsValidNickName(true)
+        const { status } = await requestNickNameValidCheck(name)
+        if (status === 200) setIsValidNickName(true)
       } catch (error) {
         setIsValidNickName(false)
       }

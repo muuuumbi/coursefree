@@ -19,7 +19,7 @@ export const requestAuthorizationCode = (code: string, type: string) => {
 export const requestNickNameValidCheck = (name: string) => {
   return authAxios.get(`${API_URI.VALID_CHECK}`, {
     params: {
-      nickname: name,
+      nickName: name,
     },
   })
 }

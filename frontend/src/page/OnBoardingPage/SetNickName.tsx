@@ -24,7 +24,7 @@ export default function SetNickName() {
   const navigate = useNavigate()
   const { setStep, setNickname } = useContext(SignUpStepContext)
   const { state: name, onChange: onChangeNameHandler } = useInput<string>('')
-  const debouncedName = useDebounce<string>({ value: name, delay: 200 })
+  const debouncedName = useDebounce<string>({ value: name, delay: 500 })
   const [isValidNickName] = useNickNameValidCheck(debouncedName)
 
   /**
