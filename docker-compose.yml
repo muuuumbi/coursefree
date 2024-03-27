@@ -1,4 +1,3 @@
-// 나중에 프론트, 백 추가
 services:
   bigdata:
     image: parkseheon/a603-bigdata
