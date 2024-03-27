@@ -3,7 +3,7 @@ FROM python:3.8.9
 
 WORKDIR /app
 
-COPY . .
+COPY bigdata/. .
 
 RUN python -m pip install --upgrade pip --user
 
