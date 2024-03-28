@@ -5,12 +5,13 @@ import com.a603.ofcourse.domain.member.domain.enums.Role;
 import com.a603.ofcourse.domain.member.domain.enums.Type;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import com.a603.ofcourse.domain.oauth.dto.KakaoUserInfo;
-import com.a603.ofcourse.domain.oauth.dto.MemberExistWithAccessToken;
 import com.a603.ofcourse.domain.oauth.dto.MemberWithIsExist;
 import com.a603.ofcourse.domain.oauth.dto.request.OauthRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -25,6 +26,7 @@ import java.util.Optional;
  */
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class KakaoOauthService {
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
@@ -53,13 +55,18 @@ public class KakaoOauthService {
      * @return Map<String, Object>
      */
     public Map<String, Object> getMemberAttributesByToken(String accessToken){
+        log.info("URI : {}\nToken : {}\n", USER_INFO_URI, accessToken);
+
         //1. WebClient 생성 -> 리액티브 웹 요청을 만들고 소비할 수 있는 클라이언트
         return webClient
                 .get()
                 //2. 요청할 URI 설정 -> KaKao API의 사용자 정보를 가져오는 엔드포인트
                 .uri(USER_INFO_URI)
                 //3. 요청에 헤더를 추가하여 인증 처리.(액세스 토큰을 Bearer 토근으로 설정하여 인증 수행)
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(accessToken))
+                .headers(headers -> {
+                    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                    headers.setBasicAuth("Bearer " + accessToken);
+                })
                 //4. 설정된 요청을 실행하고 응답을 받음
                 .retrieve()
                 //5. 응답 본문을 Mono(0 또는 1개의 요소를 갖는 비동기 시퀀스)로 변환. 여기서는 Map<String, Object> 타입으로 변환
@@ -79,6 +86,11 @@ public class KakaoOauthService {
         boolean isExist = true;
 
         Map<String, Object> memberAttributesByToken = getMemberAttributesByToken(accessToken);
+
+        memberAttributesByToken.forEach((key, val) -> {
+            System.out.println(key + ":" + val);
+        });
+
         KakaoUserInfo kakaoUserInfo = new KakaoUserInfo(memberAttributesByToken);
         Long longSocialId = kakaoUserInfo.getId();
         Optional<Member> member = memberRepository.findBySocialId(longSocialId);
