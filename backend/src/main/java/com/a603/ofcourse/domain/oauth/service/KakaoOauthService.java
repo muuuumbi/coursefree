@@ -5,10 +5,10 @@ import com.a603.ofcourse.domain.member.domain.enums.Role;
 import com.a603.ofcourse.domain.member.domain.enums.Type;
 import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import com.a603.ofcourse.domain.oauth.dto.KakaoUserInfo;
-import com.a603.ofcourse.domain.oauth.dto.MemberExistWithAccessToken;
 import com.a603.ofcourse.domain.oauth.dto.MemberWithIsExist;
 import com.a603.ofcourse.domain.oauth.dto.request.OauthRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,7 @@ import java.util.Optional;
  */
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class KakaoOauthService {
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
@@ -79,6 +80,11 @@ public class KakaoOauthService {
         boolean isExist = true;
 
         Map<String, Object> memberAttributesByToken = getMemberAttributesByToken(accessToken);
+
+        memberAttributesByToken.forEach((key, val) -> {
+            System.out.println(key + ":" + val);
+        });
+
         KakaoUserInfo kakaoUserInfo = new KakaoUserInfo(memberAttributesByToken);
         Long longSocialId = kakaoUserInfo.getId();
         Optional<Member> member = memberRepository.findBySocialId(longSocialId);
