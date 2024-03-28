@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -66,7 +65,7 @@ public class KakaoOauthService {
                 //3. 요청에 헤더를 추가하여 인증 처리.(액세스 토큰을 Bearer 토근으로 설정하여 인증 수행)
                 .headers(headers -> {
                     headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-                    headers.setBearerAuth(accessToken);
+                    headers.setBasicAuth("Bearer " + accessToken);
                 })
                 //4. 설정된 요청을 실행하고 응답을 받음
                 .retrieve()
