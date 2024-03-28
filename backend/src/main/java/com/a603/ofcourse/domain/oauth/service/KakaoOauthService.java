@@ -54,6 +54,8 @@ public class KakaoOauthService {
      * @return Map<String, Object>
      */
     public Map<String, Object> getMemberAttributesByToken(String accessToken){
+        log.info("URI : {}\nToken : {}\n", USER_INFO_URI, accessToken);
+
         //1. WebClient 생성 -> 리액티브 웹 요청을 만들고 소비할 수 있는 클라이언트
         return webClient
                 .get()
