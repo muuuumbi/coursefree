@@ -1,6 +1,7 @@
 package com.a603.ofcourse.domain.oauth.controller;
 
 import com.a603.ofcourse.domain.oauth.dto.MemberExistWithAccessToken;
+import com.a603.ofcourse.domain.oauth.dto.request.OauthRequest;
 import com.a603.ofcourse.domain.oauth.redis.RefreshToken;
 import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
 import com.a603.ofcourse.domain.oauth.service.KakaoOauthService;
@@ -31,10 +32,10 @@ public class OauthController {
      * @return accessToken(JWT)
      */
     @PostMapping("/oauth/kakao")
-    public HttpEntity<Void> login(@RequestBody String code){
+    public HttpEntity<Void> login(@RequestBody OauthRequest oauthRequest){
         HttpHeaders headers = new HttpHeaders();
         //1. 인가코드로 카카오 액세스 토큰 반환
-        String kakaoAccessToken = kakaoOauthService.getKakaoAccessTokenByCode(code);
+        String kakaoAccessToken = kakaoOauthService.getKakaoAccessTokenByCode(oauthRequest);
 
         //2, 카카오 액세스 토큰으로 우리 서버 토큰 발급
         MemberExistWithAccessToken memberExistWithAccessToken = oauthService.loginWithKakao(kakaoAccessToken);
