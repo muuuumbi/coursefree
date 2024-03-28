@@ -33,6 +33,7 @@ public class OauthController {
      */
     @PostMapping("/oauth/kakao")
     public HttpEntity<Void> login(@RequestBody OauthRequest oauthRequest){
+        log.info("code : {}", oauthRequest.getCode());
         HttpHeaders headers = new HttpHeaders();
         //1. 인가코드로 카카오 액세스 토큰 반환
         String kakaoAccessToken = kakaoOauthService.getKakaoAccessTokenByCode(oauthRequest);
