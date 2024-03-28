@@ -24,6 +24,7 @@ import MyPage from '@page/MyPage/index'
 import Log from '@page/MyPage/log'
 import Memory from '@page/MyPage/memory'
 import Setting from '@page/MyPage/setting'
+import Search from '@page/SearchPage'
 
 // initMockAPI()
 
@@ -80,13 +81,18 @@ function App() {
 
               {/* Favorite */}
             </Route>
-            <Route path="/mypage" element={<MyPage/>}>
+            
+            <Route path="/mypage" element={<MyPage />}>
             </Route>
-            <Route path="/mypage/log" element={<Log/>}>
+            <Route path="/mypage/log" element={<Log />}>
             </Route>
-            <Route path="/mypage/memory" element={<Memory/>}>
+            <Route path="/mypage/memory" element={<Memory />}>
             </Route>
-            <Route path="/mypage/setting" element={<Setting/>}>
+            <Route path="/mypage/setting" element={<Setting />}>
+            </Route>
+
+            
+            <Route path="/search" element={<Search />}>
             </Route>
           </Routes>
         </BrowserRouter>
