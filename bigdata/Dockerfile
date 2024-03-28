@@ -5,14 +5,12 @@ WORKDIR /app
 
 COPY bigdata/. .
 
-RUN pip install "uvicorn[standard]"
-
 RUN python -m pip install --upgrade pip --user
-
-RUN pip freeze > requirements.txt
 
 # 필요한 패키지 설치
 RUN pip install -r requirements.txt
+
+RUN pip install "uvicorn[standard]"
 
 EXPOSE 8000
 
