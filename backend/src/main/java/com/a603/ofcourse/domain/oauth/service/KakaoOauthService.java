@@ -7,6 +7,7 @@ import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import com.a603.ofcourse.domain.oauth.dto.KakaoUserInfo;
 import com.a603.ofcourse.domain.oauth.dto.MemberExistWithAccessToken;
 import com.a603.ofcourse.domain.oauth.dto.MemberWithIsExist;
+import com.a603.ofcourse.domain.oauth.dto.request.OauthRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -100,13 +101,13 @@ public class KakaoOauthService {
     * @param code(인가코드)
     * @return accessToken
     */
-    public String getKakaoAccessTokenByCode(String code){
+    public String getKakaoAccessTokenByCode(OauthRequest oauthRequest){
         //x-www-form-urlencoded 형식으로 보내기 위해 생성
         MultiValueMap<String, String> bodyParams = new LinkedMultiValueMap<>();
         bodyParams.add("grant_type", "authorization_code");
         bodyParams.add("client_id", KAKAO_CLIENT_ID);
         bodyParams.add("redirect_uri", KAKAO_REDIRECT_URL);
-        bodyParams.add("code", code);
+        bodyParams.add("code", oauthRequest.getCode());
 
         Map<String, Object> attributesByCode = webClient.post()
                 //1. 요청할 uri 설정
