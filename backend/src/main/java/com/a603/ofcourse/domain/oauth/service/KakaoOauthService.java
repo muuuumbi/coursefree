@@ -63,7 +63,7 @@ public class KakaoOauthService {
                 //2. 요청할 URI 설정 -> KaKao API의 사용자 정보를 가져오는 엔드포인트
                 .uri(USER_INFO_URI)
                 //3. 요청에 헤더를 추가하여 인증 처리.(액세스 토큰을 Bearer 토근으로 설정하여 인증 수행)
-                .header("Authorization", "bearer " + accessToken)
+                .header("Authorization", "Bearer " + accessToken)
                 //4. 설정된 요청을 실행하고 응답을 받음
                 .retrieve()
                 //5. 응답 본문을 Mono(0 또는 1개의 요소를 갖는 비동기 시퀀스)로 변환. 여기서는 Map<String, Object> 타입으로 변환
