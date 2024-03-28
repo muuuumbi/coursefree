@@ -8,7 +8,6 @@ import numpy as np
 from domain import points
 from domain.points import Points
 from dto.place_dto import PlaceDto
-from dto.recommend_response_dto import RecommendResponseDto
 from sql.query import QueryExecutor
 
 

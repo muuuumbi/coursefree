@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 from domain.place import Place
+from domain.points import Points
 
 
 class PlaceDto(BaseModel):
@@ -10,8 +11,10 @@ class PlaceDto(BaseModel):
     url: str
     restaurant_type: str
     place_category: str
-    latitude: float
-    longitude: float
+    points: Points
+
+    class Config:
+        arbitrary_types_allowed = True
 
     @classmethod
     def from_place(cls, place: Place) -> 'PlaceDto':
@@ -22,6 +25,5 @@ class PlaceDto(BaseModel):
             url=place.url,
             restaurant_type=place.restaurant_type,
             place_category=place.place_category,
-            latitude=place.latitude,
-            longitude=place.longitude,
+            points=Points(place.latitude, place.longitude)
         )
