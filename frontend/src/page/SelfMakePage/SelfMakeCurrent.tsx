@@ -1,4 +1,6 @@
+import { MakingCourseContext } from '@context/index'
 import { css } from '@emotion/react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from '@component/common/Button'
@@ -20,11 +22,10 @@ const StickyMap = css`
 
 /** @jsxImportSource @emotion/react */
 export default function SelfMakeCurrent() {
-  // 현재 포커싱된 place에 따라 카카오맵의 중심 이동
-  // place focusing이 바뀌는 타이밍은 observer로 관찰
-  // observer의 범위, 리스트에 대한 observer등록
-
+  const { dateCourse, station } = useContext(MakingCourseContext)
   const { widthState, ref: measureRef } = useMeasure()
+  // 현재 진행중인 코스 저장
+  // const [courseInfo, setCourseInfo] = useState(0)
   return (
     <>
       <FlexBox j="center" d="column" p="10px" w="100%" ref={measureRef}>
@@ -47,14 +48,15 @@ export default function SelfMakeCurrent() {
             width: ${widthState - 20}px;
           `}
         >
-          <Link to="../search">장소 추가하기</Link>
+          <Link to="../search">장소 추가하러 가기</Link>
         </Button>
       </FlexBox>
       <FlexBox css={StickyMap}>
-        <KakaoMap width="100%" height="200px" />
+        <KakaoMap width="100%" height="200px" dateCourse={dateCourse} />
       </FlexBox>
       <Spacing size="7px" />
-      <SelectedPlaceList />
+      {/* 현재까지 저장된 dateCourse를 넘겨주기 */}
+      <SelectedPlaceList dateCourse={dateCourse} />
     </>
   )
 }

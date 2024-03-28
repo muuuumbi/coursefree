@@ -16,15 +16,21 @@ const kakaoMapContainer = css`
 
 /** @jsxImportSource @emotion/react */
 export default function SelfMakePlaceSearch() {
-  // 현재 사용자가 선택한 장소를 상태로 관리
+  // 현재 지도의 중심 좌표
+  const [centerLatLng, setCenterLatLng] = useState<number[]>([])
+  // 현재 사용자의 지도 레벨
+  const [mapLevel, setMapLevel] = useState()
+  // 현재 사용자가 선택한 장소
   const [currentSelectPlace, setCurrentSelectPlace] = useState({
     title: '',
   })
-  // 현재 사용자가 담아놓은 장소를 상태로 관리
-  // const [SelectedPlaceList, setSelectedPlaceList] = useState<object[]>([])
+  //현재까지 담아놓은 장소들
+  const [placeBasket, setPlaceBasket] = useState([])
+
   function onClickMarkerHandler(data: any) {
     setCurrentSelectPlace(data)
   }
+  //TODO : center 좌표 : 역삼역을 기준으로 mount시 바로 api 호출,
   return (
     <>
       <FlexBox w="100%" j="center" d="column" a="center">
@@ -36,6 +42,7 @@ export default function SelfMakePlaceSearch() {
         <FlexBox w="100%" css={kakaoMapContainer}>
           {/* 태그 슬라이더 넣을 곳 */}
           <CategorySlider />
+          {/* 카카오맵 */}
           <KakaoMap
             width="100%"
             height="100vh"
