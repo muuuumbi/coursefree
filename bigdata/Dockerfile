@@ -1,5 +1,5 @@
 # 베이스 이미지 설정 (Python 3.8 기반의 공식 이미지 사용)
-FROM python:3.8.9
+FROM python:3.11.5
 
 WORKDIR /app
 
