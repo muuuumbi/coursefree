@@ -15,6 +15,7 @@ spring:
       password: ${REDIS_PASSWORD}
 
   elasticsearch:
+    host: localhost
     username: ${ELASTIC_USERNAME}
     password: ${ELASTIC_PASSWORD}
     fingerprint: ${ELASTIC_FINGERPRINT}
