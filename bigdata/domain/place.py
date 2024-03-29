@@ -14,6 +14,5 @@ class Place(Base):
     place_type = Column(String)
     vectors = Column(String)
     place_category = Column(String)
-    review_count = Column(Integer)
     latitude = Column(Float)
     longitude = Column(Float)
