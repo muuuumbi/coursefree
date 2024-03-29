@@ -30,14 +30,12 @@ export default function SelfMakePlaceSearch() {
   const station = JSON.parse(sessionStorage.getItem('station'))
   const [category, setCategory] = useState<string>('RESTAURANT')
 
-  const [level, setLevel] = useState(2)
   const [center, setCenter] = useState({
     lat: station.point.lat,
     lng: station.point.lng,
   })
 
   const debounceSetCenter = debounce(setCenter, 300)
-  const debounceSetLevel = debounce(setLevel, 300)
 
   // 현재 사용자가 선택한 장소
   const [currentSelectPlace, setCurrentSelectPlace] = useState<Place | null>(
@@ -46,7 +44,6 @@ export default function SelfMakePlaceSearch() {
 
   // 장소 클릭 시 장소의 세부 정보를 BottomSheet 형태로 나타냅니다
   function onClickMarkerHandler(place: Place) {
-    console.log(place)
     setCenter(place.points)
     setCurrentSelectPlace(place)
   }
@@ -54,9 +51,9 @@ export default function SelfMakePlaceSearch() {
     return {
       placeCategory: category,
       centerPoints: center,
-      limitDist: level * 100,
+      limitDist: 100,
     }
-  }, [category, center, level])
+  }, [category, center])
   // 최초 마운트 시 지하철역 정보를 바탕으로 api 호출
   const { placeInfoList, isPlaceInfoListLoading } =
     usePlaceInfoQuery(initLocation)
@@ -80,12 +77,12 @@ export default function SelfMakePlaceSearch() {
               width="100%"
               height="100vh"
               padding="0px"
-              onClickMarkerHandler={onClickMarkerHandler}
-              placeList={placeInfoList}
-              center={center}
+              onClickMarkerHandler={onClickMarkerHandler} // 마커 클릭 이벤트에 대한 콜백
+              placeList={placeInfoList} // 장소 조회 api의 응답값
+              center={center} // 지하철역의 좌표가 카카오맵의 중심 좌표가 된다
               setCenter={debounceSetCenter}
-              setLevel={debounceSetLevel}
               hasMarker
+              hasLine={false}
             />
           </FlexBox>
         )}

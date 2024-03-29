@@ -1,5 +1,6 @@
 // Import Swiper React components
 // Import Swiper styles
+import { memo } from 'react'
 import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -7,7 +8,7 @@ import CategoryItem from './CategoryItem'
 
 /** @jsxImportSource @emotion/react */
 
-export default function CategorySlider() {
+function CategorySlider() {
   return (
     <Swiper
       style={{ position: 'absolute', top: '10px', zIndex: '2', width: '100%' }}
@@ -40,3 +41,4 @@ export default function CategorySlider() {
     </Swiper>
   )
 }
+export default memo(CategorySlider)

@@ -1,7 +1,7 @@
 import { Place } from '@type/course'
 
-import PlaceInfoWithOrder from '@component/courseInfo/PlaceInfoWithOrder'
-import ShortPlaceInfo from '@component/courseInfo/ShortPlaceInfo'
+import PlaceInfoWithOrder from '@component/Course/PlaceInfoWithOrder'
+import ShortPlaceInfo from '@component/Course/ShortPlaceInfo'
 import FlexBox from '@component/layout/FlexBox'
 
 type SelectedPlaceList = {

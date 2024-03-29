@@ -28,7 +28,6 @@ interface KakaoMap {
  * @param onCLickMarkerHandler : 마커 클릭 시 발생시킬 이벤트
  * @ ------------------this is optional props--------------------
  * @param setCenter: center좌표 측정하고 상태 관리하는 setter함수
- * @param setLevel : view의 level좌표 측정하고 업데이트하는 setter함수
  */
 export default function KakaoMap({
   width,
@@ -39,28 +38,24 @@ export default function KakaoMap({
   center,
   hasLine,
   hasMarker,
-  setLevel = null,
   setCenter = null,
 }: KakaoMap) {
   const mapRef = useRef<HTMLElement>(null)
-
   const initMap = () => {
     const container = document.getElementById('map')
-    console.log(center)
     const options = {
       center: new window.kakao.maps.LatLng(center.lat, center.lng),
-      level: 2,
+      level: 3,
     }
     const map = new window.kakao.maps.Map(container as HTMLElement, options)
     ;(mapRef as MutableRefObject<any>).current = map
 
     // 카카오맵에 중심좌표 변경 감지 이벤트 등록
     kakao.maps.event.addListener(map, 'center_changed', function () {
-      const level = map.getLevel()
       const latlng = map.getCenter()
       if (setCenter) setCenter({ lat: latlng.getLat(), lng: latlng.getLng() })
-      if (setLevel) setLevel(level)
     })
+
     // 마커 표시
     if (hasMarker && placeList) {
       makeMarker(map, placeList, onClickMarkerHandler)
