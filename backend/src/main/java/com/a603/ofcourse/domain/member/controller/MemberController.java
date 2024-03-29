@@ -1,6 +1,8 @@
 package com.a603.ofcourse.domain.member.controller;
 
+import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.member.dto.request.ProfileInfoRequest;
+import com.a603.ofcourse.domain.member.service.MemberService;
 import com.a603.ofcourse.domain.member.service.ProfileService;
 import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +52,7 @@ public class MemberController {
         //1.멤버아이디 가져오기
         Integer memberId = (Integer) jwtTokenService.getPayload(accessToken.substring(7)).get("member_id");
 
+        profileService.saveMemberProfile(memberId, profileInfoRequest);
         return ResponseEntity.ok().build();
     }
 }

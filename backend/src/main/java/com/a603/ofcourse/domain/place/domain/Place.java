@@ -31,7 +31,7 @@ public class Place {
 
     private String address;
 
-    private String restaurantType;
+    private String placeType;
 
     @Enumerated(EnumType.STRING)
     private PlaceCategory placeCategory;
@@ -56,7 +56,7 @@ public class Place {
             String name,
             Points points,
             String address,
-            String restaurantType,
+            String placeType,
             PlaceCategory placeCategory,
             Integer reviewCount,
             String vector) {
@@ -64,7 +64,7 @@ public class Place {
         this.name = name;
         this.points = points;
         this.address = address;
-        this.restaurantType = restaurantType;
+        this.placeType = placeType;
         this.placeCategory = placeCategory;
         this.reviewCount = reviewCount;
         this.vector = vector;
