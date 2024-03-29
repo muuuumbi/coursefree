@@ -15,6 +15,13 @@ spring:
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
 
+  elasticsearch:
+    username: ${ELASTIC_USERNAME}
+    password: ${ELASTIC_PASSWORD}
+    uris: https://j10a603.p.ssafy.io:9200
+    fingerprint: ${ELASTIC_FINGERPRINT}
+    api-key: ${ELASTIC_API_KEY}
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -32,8 +39,7 @@ spring:
           kakao:
             client-id: ${KAKAO_CLIENT_ID}
             client-secret: ${KAKAO_CLIENT_SECRET}
-#            redirect-uri: "http://localhost:8081/api/login/oauth/kakao"
-            redirect-uri: "http://localhost:5173/oauth/kakao"
+            redirect-uri: "https://j10a603.p.ssafy.io/member-page"
             client-authentication-method: client_secret_post
             authorization-grant-type: authorization_code
             scope:
