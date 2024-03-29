@@ -3,10 +3,10 @@ spring:
     import:
       - optional:file:.dev.env[.properties]
   datasource:
-    url: jdbc:mysql://localhost:3306/coursefree?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: a603
-    password: lmx14987
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   data:
     redis:
@@ -17,7 +17,6 @@ spring:
   elasticsearch:
     username: ${ELASTIC_USERNAME}
     password: ${ELASTIC_PASSWORD}
-    uris: https://localhost:9200
     fingerprint: ${ELASTIC_FINGERPRINT}
     api-key: ${ELASTIC_API_KEY}
 

@@ -18,7 +18,6 @@ spring:
   elasticsearch:
     username: ${ELASTIC_USERNAME}
     password: ${ELASTIC_PASSWORD}
-    uris: https://j10a603.p.ssafy.io:9200
     fingerprint: ${ELASTIC_FINGERPRINT}
     api-key: ${ELASTIC_API_KEY}
 

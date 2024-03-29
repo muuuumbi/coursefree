@@ -47,7 +47,7 @@ public class ElasticConfig {
         credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
         try {
             RestClient restClient = RestClient
-                    .builder(new HttpHost("localhost", 9200, "https"))
+                    .builder(new HttpHost("elasticsearch", 9200, "https"))
                     .setDefaultHeaders(new Header[]{
                             new BasicHeader("Authorization", "ApiKey " + apiKey)
                     })
