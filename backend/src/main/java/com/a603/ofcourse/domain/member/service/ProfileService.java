@@ -1,14 +1,12 @@
 package com.a603.ofcourse.domain.member.service;
 
-<<<<<<< backend/src/main/java/com/a603/ofcourse/domain/member/service/ProfileService.java
 import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.member.domain.Profile;
 import com.a603.ofcourse.domain.member.domain.enums.Gender;
 import com.a603.ofcourse.domain.member.dto.request.Preference;
-=======
 import com.a603.ofcourse.domain.member.domain.NicknameHashMap;
->>>>>>> backend/src/main/java/com/a603/ofcourse/domain/member/service/ProfileService.java
 import com.a603.ofcourse.domain.member.dto.request.ProfileInfoRequest;
+import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import com.a603.ofcourse.domain.member.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +33,7 @@ public class ProfileService {
      */
     public boolean checkNickName(String nickName) {
         return profileRepository.existsByNickname(nickName);
+    }
 
     public boolean isDuplicateNickName(String nickName){
         //데이터베이스에 없고 해쉬맵에도 없으면

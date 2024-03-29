@@ -5,7 +5,6 @@ import com.a603.ofcourse.domain.member.dto.request.ProfileInfoRequest;
 import com.a603.ofcourse.domain.member.service.MemberService;
 import com.a603.ofcourse.domain.member.service.ProfileService;
 import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/member")
 public class MemberController {
     public static final String AUTHORIZATION_HEADER = "Authorization";
+    private final JwtTokenService jwtTokenService;
     private final ProfileService profileService;
     private final MemberService memberService;
 
