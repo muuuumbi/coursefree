@@ -11,7 +11,7 @@ class Place(Base):
     name = Column(String, nullable=False)
     address = Column(String, nullable=False)
     url = Column(String)
-    restaurant_type = Column(String)
+    place_type = Column(String)
     vector = Column(String)
     place_category = Column(String)
     review_count = Column(Integer)

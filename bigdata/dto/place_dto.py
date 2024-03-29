@@ -5,7 +5,7 @@ from domain.points import Points
 
 
 class PlaceDto(BaseModel):
-    place_id: int
+    id: int
     name: str
     address: str
     url: str
@@ -19,11 +19,11 @@ class PlaceDto(BaseModel):
     @classmethod
     def from_place(cls, place: Place) -> 'PlaceDto':
         return cls(
-            place_id=place.place_id,
+            id=place.place_id,
             name=place.name,
             address=place.address,
             url=place.url,
-            restaurant_type=place.restaurant_type,
+            restaurant_type=place.place_type,
             place_category=place.place_category,
             points=Points(place.latitude, place.longitude)
         )
