@@ -1,13 +1,13 @@
 package com.a603.ofcourse.domain.member.domain.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum Role {
     MEMBER("member"),
     ADMIN("admin");
 
-    private String role;
+    private final String value;
 }

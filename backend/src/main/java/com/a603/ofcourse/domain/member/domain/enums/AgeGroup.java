@@ -1,12 +1,10 @@
 package com.a603.ofcourse.domain.member.domain.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum AgeGroup {
     TEEN("10대"),
     TWENTY("20대"),
@@ -15,5 +13,5 @@ public enum AgeGroup {
     FIFTY("50대"),
     ELDERLY("60대이상");
 
-    private String ageGroup;
+    private final String value;
 }

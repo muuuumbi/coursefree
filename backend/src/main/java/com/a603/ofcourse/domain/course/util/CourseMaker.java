@@ -3,7 +3,7 @@ package com.a603.ofcourse.domain.course.util;
 import com.a603.ofcourse.domain.course.dto.request.AddCourseRequestDto;
 import com.a603.ofcourse.domain.place.dto.PlaceDto;
 import com.a603.ofcourse.domain.place.service.PlaceService;
-import com.a603.ofcourse.global.domain.Points;
+import com.a603.ofcourse.global.common.Points;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;

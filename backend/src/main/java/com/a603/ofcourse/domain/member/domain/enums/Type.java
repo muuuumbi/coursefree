@@ -2,11 +2,13 @@ package com.a603.ofcourse.domain.member.domain.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum Type {
     KAKAO("kakao");
 
-    private String type;
+    private final String value;
 }

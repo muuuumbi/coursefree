@@ -38,8 +38,8 @@ public class CourseService {
 
     private final Provider<CourseMaker> courseMakerProvider;
 
-    // TODO: .env 먹여야 함
-    private String courseRecommendationUrl = "http://127.0.0.1:8000/api/recommendations/";
+    @Value("${course.recommendation.url}")
+    private String courseRecommendationUrl;
 
     /**
      * @author 손현조

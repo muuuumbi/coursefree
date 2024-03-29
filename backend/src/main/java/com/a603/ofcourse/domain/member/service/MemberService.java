@@ -21,6 +21,6 @@ public class MemberService {
 
 
     public Member getMemberByToken(String token) {
-        return findById((Integer) jwtTokenService.getPayload(token.substring(7)).get("member_id"));
+        return findById((Integer) jwtTokenService.getPayload(token).get("member_id"));
     }
 }
