@@ -18,6 +18,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -51,20 +54,24 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http) throws Exception{
-        //1. CORS 설정을 비활성화
-        return http.cors(AbstractHttpConfigurer::disable)
+        //1. CORS 설정을 활성화하고 기본값을 사용
+        return http
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
 
                 //2. CSRF 보호를 비활성화
                 .csrf(AbstractHttpConfigurer::disable)
-
+                .authorizeRequests()
+                .anyRequest().permitAll()
+                .and()
                 //3. HTTP 요청에 대한 권한 설정
-                .authorizeHttpRequests(authorize -> authorize
-                        //3-1. 모든 사용자에게 허용
-                        .requestMatchers("/login/**", "/token/refresh").permitAll()
-                        //3-2. 멤버 역할 사용자에게만 허용
-                        .requestMatchers("/member/**").hasAnyAuthority(Role.MEMBER.getRole())
-                        //3-3. 나머지는 인증된 사용자에게만 허용
-                        .anyRequest().authenticated())
+                // .authorizeHttpRequests(authorize -> authorize
+                //         //3-1. 모든 사용자에게 허용
+                //         .requestMatchers("/login/**", "/token/refresh").permitAll()
+                //         //3-2. 멤버 역할 사용자에게만 허용
+                //         .requestMatchers("/member/**").hasAnyAuthority(Role.MEMBER.getRole())
+                //         //3-3. 나머지는 인증된 사용자에게만 허용
+                //         .anyRequest().authenticated())
 
                 //4. 세션 관리를 설정 -> 세션을 사용하지 않고 상태를 유지하는 않는 세션 생성 정책 사용
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -96,5 +103,20 @@ public class SecurityConfig {
                 web.ignoring()
                         .requestMatchers("/**");
 //                        .requestMatchers("/login/**", "/token/refresh");
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.addExposedHeader("*");
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
