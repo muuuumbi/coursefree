@@ -86,3 +86,7 @@ server:
 invite:
   link:
     start: http://j10a603.p.ssafy.io/api/couple/connect/
+
+course:
+  recommendation:
+    url: ${RECOMMENDATION_URL}

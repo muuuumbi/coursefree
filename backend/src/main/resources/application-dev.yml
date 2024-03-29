@@ -84,3 +84,7 @@ server:
 invite:
   link:
     start: http://localhost:8081/couple/connect/
+
+course:
+  recommendation:
+    url: ${RECOMMENDATION_URL}

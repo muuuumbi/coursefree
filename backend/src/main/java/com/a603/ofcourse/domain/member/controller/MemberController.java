@@ -1,6 +1,8 @@
 package com.a603.ofcourse.domain.member.controller;
 
+import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.member.dto.request.ProfileInfoRequest;
+import com.a603.ofcourse.domain.member.service.MemberService;
 import com.a603.ofcourse.domain.member.service.ProfileService;
 import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/member")
 public class MemberController {
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    private final ProfileService profileService;
     private final JwtTokenService jwtTokenService;
+    private final ProfileService profileService;
+    private final MemberService memberService;
 
     /*
     작성자 : 김은비
@@ -23,8 +26,9 @@ public class MemberController {
      * @return 사용 가능하면 OK, 불가하면 CONFLICK
      */
     @GetMapping("/check/nickname")
-    public ResponseEntity<Void> checkNickName(@RequestParam("nickName") String nickName) {
-        if(profileService.checkNickName(nickName)){
+    public ResponseEntity<Void> checkNickName(@RequestParam("nickname") String nickname) {
+        //저장 불가하면
+        if(profileService.isDuplicateNickName(nickname)){
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         return ResponseEntity.ok().build();
@@ -33,10 +37,18 @@ public class MemberController {
     /*
     작성자 : 김은비
     내용 : 닉네임을 해쉬맵에 잠시 저장
-     * @param
-     * @return
+     * @param nickname
+     * @param accessToken
+     * @return 저장 성공하면 OK, 실패하면 CONFLICK
      */
-//    @GetMapping("/transient-save/nickname")
+    @GetMapping("/transient-save/nickname")
+    public ResponseEntity<Void> saveNicknameToHashMap(@RequestParam("nickname") String nickname, @RequestHeader(AUTHORIZATION_HEADER) String accessToken){
+        Integer memberId = jwtTokenService.getMemberId(accessToken);
+        if(!profileService.saveNicknameToHashMap(nickname, memberId)){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        return ResponseEntity.ok().build();
+    }
 
 
     /*
@@ -48,8 +60,9 @@ public class MemberController {
     @PostMapping("/profile-info")
     public ResponseEntity<Void> saveMemberProfile(@RequestHeader(AUTHORIZATION_HEADER) String accessToken, @RequestBody ProfileInfoRequest profileInfoRequest){
         //1.멤버아이디 가져오기
-        Integer memberId = (Integer) jwtTokenService.getPayload(accessToken.substring(7)).get("member_id");
+        Member member = memberService.getMemberByToken(accessToken);
 
+        profileService.saveMemberProfile(member, profileInfoRequest);
         return ResponseEntity.ok().build();
     }
 }
