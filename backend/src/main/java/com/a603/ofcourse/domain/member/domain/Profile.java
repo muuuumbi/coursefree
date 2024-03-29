@@ -1,12 +1,8 @@
 package com.a603.ofcourse.domain.member.domain;
 
-import com.a603.ofcourse.domain.member.domain.enums.AgeGroup;
-import com.a603.ofcourse.domain.member.domain.enums.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.util.Arrays;
 
 @Getter
 @Entity
@@ -22,14 +18,9 @@ public class Profile {
     @Column(name = "nickname", length = 10)
     private String nickname;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
     @Size(max = 256)
     @Column(name = "image", length = 256)
     private String image;
-
-    private String memberVector;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -38,26 +29,10 @@ public class Profile {
     @Builder
     public Profile(
             String nickname,
-            Gender gender,
             String image,
-            String memberVector,
             Member member) {
         this.nickname = nickname;
-        this.gender = gender;
         this.image = image;
-        this.memberVector = memberVector;
         this.member = member;
-    }
-
-    /**
-     * @author 손현조
-     * @date 2024-03-29
-     * @description
-     **/
-    public Double[] getDoubleVector() {
-        return Arrays.stream(this.getMemberVector().replace("[", "").replace("]", "").split(","))
-                .map(String::trim)
-                .map(Double::parseDouble)
-                .toArray(Double[]::new);
     }
 }

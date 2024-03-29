@@ -1,25 +1,32 @@
 package com.a603.ofcourse.domain.place.domain;
 
-import com.a603.ofcourse.global.domain.Points;
+import com.a603.ofcourse.global.common.Points;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "subway")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Subway {
     @Id
-    @Column(name = "subway_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private String line;
+
+    private String stationName;
 
     @Embedded
     private Points points;
 
-    public Subway(Points points) {
+    @Builder
+    public Subway(Integer id, String line, String stationName, Points points) {
+        this.id = id;
+        this.line = line;
+        this.stationName = stationName;
         this.points = points;
     }
 }

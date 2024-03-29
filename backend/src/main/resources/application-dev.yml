@@ -1,19 +1,25 @@
 spring:
   config:
     import:
-      - optional:file:.env[.properties]
+      - optional:file:.dev.env[.properties]
   datasource:
-    url: jdbc:mysql://localhost:3306/coursefree?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: a603
-    password: lmx14987
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   data:
     redis:
-#      host: ${REDIS_HOST}
-      host: localhost
+      host: ${REDIS_HOST}
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
+
+  elasticsearch:
+    username: ${ELASTIC_USERNAME}
+    password: ${ELASTIC_PASSWORD}
+    fingerprint: ${ELASTIC_FINGERPRINT}
+    api-key: ${ELASTIC_API_KEY}
+
 
   jpa:
     hibernate:
@@ -30,7 +36,6 @@ spring:
           kakao:
             client-id: ${KAKAO_CLIENT_ID}
             client-secret: ${KAKAO_CLIENT_SECRET}
-#            redirect-uri: "http://localhost:8081/api/login/oauth/kakao"
             redirect-uri: "http://localhost:5173/oauth/kakao"
             client-authentication-method: client_secret_post
             authorization-grant-type: authorization_code
