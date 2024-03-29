@@ -17,11 +17,14 @@ import java.util.Date;
 /*
 JWT 토큰 생성, 조회 관련 서비스
  */
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
-@Slf4j
 public class JwtTokenService {
+    private static final String MEMBER_ID = "member_id";
+    private static final String COUPLE_ID = "couple_id";
+
     @Value("${jwt.access.token.expiration.seconds}")
     private long accessTokenExpirationInSeconds;
 
@@ -94,7 +97,7 @@ public class JwtTokenService {
                 //header 설정 (토큰 타입)
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 //페이로드를 포함한 클레임
-                .claim("member_id", payload)
+                .claim(MEMBER_ID, payload)
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 //설정한 정보로 토큰을 서명.(key 사용, 서명 알고리즘 선택)
@@ -120,8 +123,8 @@ public class JwtTokenService {
                 //header 설정 (토큰 타입)
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 //페이로드를 포함한 클레임
-                .claim("member_id", memberId)
-                .claim("couple_id", coupleId)
+                .claim(MEMBER_ID, memberId)
+                .claim(COUPLE_ID, coupleId)
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 //설정한 정보로 토큰을 서명.(key 사용, 서명 알고리즘 선택)
@@ -136,13 +139,12 @@ public class JwtTokenService {
      * @return Claims
      */
     public Claims getPayload(String token){
-        String accessToken = token.substring(7);
         try{
             //1. 토큰을 파싱하여 토큰의 페이로드에서 서브젝트(사용자 식별 정보)를 추출
             return Jwts.parserBuilder()
                     .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
                     .build()
-                    .parseClaimsJws(accessToken)
+                    .parseClaimsJws(token.substring(7))
                     .getBody();
             //2. 토큰이 만료되었을 경우
         }catch (ExpiredJwtException e){
@@ -196,27 +198,7 @@ public class JwtTokenService {
      * @return 있으면 true, 없으면 false
      */
     public boolean hasCoupleId(Claims claims){
-        return claims.containsKey("couple_id");
-    }
-
-    /*
-    작성자 : 김은비
-    작성내용 : 클레임에서 커플아이디 추출
-     * @param Claims
-     * @return coupleId
-     */
-    public Integer getCoupleIdFromClaims(Claims claims){
-        return (Integer) claims.get("couple_id");
-    }
-
-    /*
-    작성자 : 김은비
-    작성내용 : 클레임에서 멤버아이디 추출
-     * @param Claims
-     * @return coupleId
-     */
-    public Integer getMemberIdFromClaims(Claims claims){
-        return (Integer) claims.get("member_id");
+        return claims.containsKey(COUPLE_ID);
     }
 
     /*
@@ -226,6 +208,16 @@ public class JwtTokenService {
      * @return memberId
      */
     public Integer getMemberId(String accessToken){
-        return getMemberIdFromClaims(getPayload(accessToken));
+        return (Integer) getPayload(accessToken).get(MEMBER_ID);
+    }
+
+    /**
+     * 커플 ID 추출 함수
+     * @author 이경태
+     * @param accessToken   accessToken of current user
+     * @return coupleId     exported from accessToken
+     */
+    public Integer getCoupleId(String accessToken) {
+        return (Integer) getPayload(accessToken).get(COUPLE_ID);
     }
 }
