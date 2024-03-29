@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public enum AgeGroup {
-    Teen("10대"),
-    Twenty("20대"),
-    Thirty("30대"),
-    Forty("40대"),
-    Fifty("50대"),
-    Elderly("60대이상");
+    TEEN("10대"),
+    TWENTY("20대"),
+    THIRTY("30대"),
+    FORTY("40대"),
+    FIFTY("50대"),
+    ELDERLY("60대이상");
 
     private String ageGroup;
 }

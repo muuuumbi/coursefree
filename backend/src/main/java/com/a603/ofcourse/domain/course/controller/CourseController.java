@@ -26,7 +26,7 @@ public class CourseController {
 
     @PostMapping("/recommendation")
     public ResponseEntity<RecommendationResponse> getRecommendedCourse(
-            @RequestHeader("Authorization") String token, RecommendationRequest request) {
+            @RequestHeader("Authorization") String token, @RequestBody RecommendationRequest request) {
         return ResponseEntity.ok(courseService.recommendCourse(memberService.getMemberByToken(token), request));
     }
 }

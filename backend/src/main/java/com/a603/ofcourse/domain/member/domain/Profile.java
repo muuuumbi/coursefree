@@ -22,10 +22,6 @@ public class Profile {
     @Column(name = "nickname", length = 10)
     private String nickname;
 
-    @Size(max = 8)
-    @Column(name = "age_group", length = 8)
-    private AgeGroup ageGroup;
-
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
@@ -42,22 +38,26 @@ public class Profile {
     @Builder
     public Profile(
             String nickname,
-            AgeGroup ageGroup,
             Gender gender,
             String image,
             String memberVector,
             Member member) {
         this.nickname = nickname;
-        this.ageGroup = ageGroup;
         this.gender = gender;
         this.image = image;
         this.memberVector = memberVector;
         this.member = member;
     }
 
+    /**
+     * @author 손현조
+     * @date 2024-03-29
+     * @description
+     **/
     public Double[] getDoubleVector() {
-        return Arrays.stream(this.getMemberVector().split(","))
-                .map(Double::valueOf)
+        return Arrays.stream(this.getMemberVector().replace("[", "").replace("]", "").split(","))
+                .map(String::trim)
+                .map(Double::parseDouble)
                 .toArray(Double[]::new);
     }
 }

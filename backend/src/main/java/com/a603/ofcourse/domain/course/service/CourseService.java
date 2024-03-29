@@ -15,7 +15,9 @@ import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.place.domain.Place;
 import com.a603.ofcourse.domain.place.dto.PlaceDto;
 import com.a603.ofcourse.domain.place.service.PlaceService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import jakarta.inject.Provider;
 import java.util.*;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -36,7 +39,7 @@ public class CourseService {
     private final Provider<CourseMaker> courseMakerProvider;
 
     // TODO: .env 먹여야 함
-    private String courseRecommendationUrl = "http://j10a603.p.ssafy.io:8000/api/recommendations/";
+    private String courseRecommendationUrl = "http://127.0.0.1:8000/api/recommendations/";
 
     /**
      * @author 손현조
@@ -86,11 +89,17 @@ public class CourseService {
     private String getHashKey(List<Integer> placeIdList) {
         StringBuilder hashKeyBuilder = new StringBuilder();
         for (Integer placeId : placeIdList) {
-            hashKeyBuilder.append(":").append(placeId);
+            hashKeyBuilder.append(placeId).append(":");
         }
+        if (!hashKeyBuilder.isEmpty()) hashKeyBuilder.deleteCharAt(hashKeyBuilder.length() - 1);
         return hashKeyBuilder.toString();
     }
 
+    /**
+     * @author 손현조
+     * @date 2024-03-29
+     * @description 코스에 장소들을 추가한 후 코스를 저장
+     **/
     private void addPlaceInCourse(Course course, List<Integer> placeIdList) {
         for (Integer placeId : placeIdList) {
             Place place = placeService.findById(placeId);

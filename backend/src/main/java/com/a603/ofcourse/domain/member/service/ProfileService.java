@@ -7,15 +7,16 @@ import com.a603.ofcourse.domain.member.dto.request.Preference;
 import com.a603.ofcourse.domain.member.dto.request.ProfileInfoRequest;
 import com.a603.ofcourse.domain.member.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
     private final ProfileRepository profileRepository;
-    private final MemberService memberService;
 
     private static final double HALF_AS_MANY = 1.5;
     private static final double ONCE = 1.0;
@@ -32,8 +33,7 @@ public class ProfileService {
      * @date 2024-03-27
      * @description 프로필 저장
      **/
-    public void saveMemberProfile(Integer memberId, ProfileInfoRequest profileInfoRequest) {
-        Member member = memberService.findById(memberId);
+    public void saveMemberProfile(Member member, ProfileInfoRequest profileInfoRequest) {
         String vector = Arrays.toString(getVector(profileInfoRequest.getPreference()));
         Profile profile = Profile.builder()
                 .member(member)
@@ -51,6 +51,7 @@ public class ProfileService {
      **/
     private Double[] getVector(Preference preference) {
         Double[] vector = new Double[41];
+        Arrays.fill(vector, 0.0);
         String[] preferenceList = {
                 preference.getFirst(),
                 preference.getSecond(),
@@ -64,6 +65,11 @@ public class ProfileService {
         return vector;
     }
 
+    /**
+     * @author 손현조
+     * @date 2024-03-29
+     * @description 사용자 선호도에 따른 벡터 분배
+     **/
     private int[] getIndexes(String preference) {
         return switch (preference) {
             case "맛" -> new int[]{0, 7, 13, 18, 23, 26, 20, 32, 35, 37};
@@ -77,6 +83,11 @@ public class ProfileService {
         };
     }
 
+    /**
+     * @author 손현조
+     * @date 2024-03-29
+     * @description 선호순으로 가중치 부과
+     **/
     private void adjustVectorChange(int cnt, Double[] vector, int[] indexes) {
         switch (cnt) {
             case 0:
@@ -91,6 +102,11 @@ public class ProfileService {
         }
     }
 
+    /**
+     * @author 손현조
+     * @date 2024-03-29
+     * @description 사용자 벡터에 가중치 추가
+     **/
     private void addWeight(Double[] vector, int[] indexes, double weight) {
         for (int index : indexes) {
             vector[index] += weight;
