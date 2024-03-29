@@ -21,7 +21,7 @@ def make_recommendations(search_place_dto):
     similarities = []
     for place in nearby_place_list:
         # 문자열 형태의 벡터를 실수(float) 형태의 배열로 변환
-        place_vector = np.array([float(x) for x in place.vector.split(',')], dtype=np.float32)
+        place_vector = np.array([float(x) for x in place.vectors.split(',')], dtype=np.float32)
         similarity = cosine_similarity(member_vector, place_vector)
         similarities.append((similarity, PlaceDto.from_place(place)))
 
