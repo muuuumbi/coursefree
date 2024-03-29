@@ -46,7 +46,7 @@ public class CourseMaker {
             placeIdList.add(categoryType.get(category).get(index.get(category)).getId());
             index.put(category, index.get(category) + 1);
         }
-        return new AddCourseRequestDto("RECOMMENDED_COURSE", placeIdList);
+        return new AddCourseRequestDto(RECOMMENDED_COURSE, placeIdList);
     }
 
     /**
@@ -60,7 +60,7 @@ public class CourseMaker {
             visMap.put(category, new boolean[5]);
         }
         Permutation(0, new int[size]);
-        return new AddCourseRequestDto("RECOMMENDED_COURSE", secondCourse);
+        return new AddCourseRequestDto(RECOMMENDED_COURSE, secondCourse);
     }
 
     /**

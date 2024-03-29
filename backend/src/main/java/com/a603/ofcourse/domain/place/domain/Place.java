@@ -36,9 +36,7 @@ public class Place {
     @Enumerated(EnumType.STRING)
     private PlaceCategory placeCategory;
 
-    private Integer reviewCount;
-
-    private String vector;
+    private String vectors;
 
     @OneToMany(mappedBy = "place", fetch = FetchType.LAZY)
     private List<CoursePlace> coursePlaceList = new ArrayList<>();
@@ -58,15 +56,13 @@ public class Place {
             String address,
             String placeType,
             PlaceCategory placeCategory,
-            Integer reviewCount,
-            String vector) {
+            String vectors) {
         this.url = url;
         this.name = name;
         this.points = points;
         this.address = address;
         this.placeType = placeType;
         this.placeCategory = placeCategory;
-        this.reviewCount = reviewCount;
-        this.vector = vector;
+        this.vectors = vectors;
     }
 }

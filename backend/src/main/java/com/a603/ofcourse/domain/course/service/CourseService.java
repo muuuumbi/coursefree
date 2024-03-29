@@ -15,7 +15,6 @@ import com.a603.ofcourse.domain.member.domain.Member;
 import com.a603.ofcourse.domain.place.domain.Place;
 import com.a603.ofcourse.domain.place.dto.PlaceDto;
 import com.a603.ofcourse.domain.place.service.PlaceService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
