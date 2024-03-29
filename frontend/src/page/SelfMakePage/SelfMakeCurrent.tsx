@@ -22,7 +22,8 @@ const StickyMap = css`
 
 /** @jsxImportSource @emotion/react */
 export default function SelfMakeCurrent() {
-  const { dateCourse, station } = useContext(MakingCourseContext)
+  const { dateCourse } = useContext(MakingCourseContext)
+  const station = JSON.parse(sessionStorage.getItem('station'))
   const { widthState, ref: measureRef } = useMeasure()
   // 현재 진행중인 코스 저장
   // const [courseInfo, setCourseInfo] = useState(0)
@@ -52,11 +53,19 @@ export default function SelfMakeCurrent() {
         </Button>
       </FlexBox>
       <FlexBox css={StickyMap}>
-        <KakaoMap width="100%" height="200px" dateCourse={dateCourse} />
+        <KakaoMap
+          width="100%"
+          height="200px"
+          placeList={dateCourse.placeList}
+          padding="0px"
+          center={station.point}
+          hasLine
+          hasMarker
+        />
       </FlexBox>
       <Spacing size="7px" />
       {/* 현재까지 저장된 dateCourse를 넘겨주기 */}
-      <SelectedPlaceList dateCourse={dateCourse} />
+      <SelectedPlaceList placeList={dateCourse.placeList} />
     </>
   )
 }

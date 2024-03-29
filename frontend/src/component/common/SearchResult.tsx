@@ -1,7 +1,5 @@
-import { MakingCourseContext } from '@context/index'
 import { css } from '@emotion/react'
 import { Station } from '@type/course'
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import SubwayLineIcon from './SubwayLineIcon'
@@ -19,13 +17,11 @@ const MOCK: Station = {
 }
 /** @jsxImportSource @emotion/react */
 export default function SearchResult() {
-  const { setStation } = useContext(MakingCourseContext)
   return (
     <FlexBox a="center" h="30px" css={Container}>
       <TextBox
         typography="t6"
         onClick={() => {
-          setStation(MOCK)
           sessionStorage.setItem('station', JSON.stringify(MOCK))
         }}
       >

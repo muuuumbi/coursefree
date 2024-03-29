@@ -20,15 +20,11 @@ import Welcome from '@page/OnBoardingPage/Welcome'
 import RecommendPage from '@page/RecommendPage'
 import RecommendResult from '@page/RecommendPage/RecommendResult'
 import RecommendSearch from '@page/RecommendPage/RecommendSearch'
+import Search from '@page/SearchPage'
 import SelfMakePage from '@page/SelfMakePage'
 import SelfMakeCurrent from '@page/SelfMakePage/SelfMakeCurrent'
 import SelfMakePlaceSearch from '@page/SelfMakePage/SelfMakePlaceSearch'
 import SelfMakeSearch from '@page/SelfMakePage/SelfMakeSearch'
-import MyPage from '@page/MyPage/index'
-import Log from '@page/MyPage/log'
-import Memory from '@page/MyPage/memory'
-import Setting from '@page/MyPage/setting'
-import Search from '@page/SearchPage'
 
 // initMockAPI()
 
@@ -82,7 +78,7 @@ function App() {
               </Route>
 
               {/* MyPage */}
-            <Route path="/search" element={<Search/>}></Route>
+              <Route path="/search" element={<Search />}></Route>
 
               {/* Favorite */}
             </Route>
