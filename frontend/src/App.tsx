@@ -25,6 +25,8 @@ import SelfMakeCurrent from '@page/SelfMakePage/SelfMakeCurrent'
 import SelfMakePlaceSearch from '@page/SelfMakePage/SelfMakePlaceSearch'
 import SelfMakeSearch from '@page/SelfMakePage/SelfMakeSearch'
 import Search from '@page/SearchPage'
+import FavoritePage from '@page/FavoritePage'
+import FavoriteDetail from '@page/FavoritePage/FavoriteDetail'
 
 // initMockAPI()
 
@@ -76,11 +78,12 @@ function App() {
                   <Route path="search" element={<SelfMakePlaceSearch />} />
                 </Route>
               </Route>
+              </Route>
 
-              {/* MyPage */}
-
-              {/* Favorite */}
+            <Route path="/favorite" element={<FavoritePage/>}>
             </Route>
+            <Route path="/favorite/:courseId" element={<FavoriteDetail />} />
+
             <Route path="/mypage" element={<MyPage/>}>
             </Route>
             <Route path="/mypage/log" element={<Log/>}>
@@ -88,6 +91,8 @@ function App() {
             <Route path="/mypage/memory" element={<Memory/>}>
             </Route>
             <Route path="/mypage/setting" element={<Setting/>}>
+            </Route>
+            <Route path="/search" element={<Search/>}>
             </Route>
           </Routes>
         </BrowserRouter>
