@@ -64,14 +64,20 @@ public class Course {
     public Course(CourseCategory courseCategory,
                   String title,
                   String imageUrl,
-                  String hashKey) {
+                  String hashKey,
+                  Integer useCount) {
         this.courseCategory = courseCategory;
         this.title = title;
         this.imageUrl = imageUrl;
         this.hashKey = hashKey;
+        this.useCount = useCount;
     }
 
     public void updateHashKey(String hashKey) {
         this.hashKey = hashKey;
+    }
+
+    public void updateUseCount() {
+        this.useCount += 1;
     }
 }

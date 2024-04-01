@@ -63,6 +63,7 @@ public class CourseService {
     private Integer addMyCourse(Member member, Course course) {
         MyCourse myCourse = new MyCourse(member, course);
         myCourseRepository.save(myCourse);
+        course.updateUseCount();
         return course.getId();
     }
 
@@ -75,6 +76,7 @@ public class CourseService {
         Course newCourse = Course.builder()
                 .title(requestDto.getCourseTitle())
                 .hashKey("")
+                .useCount(0)
                 .build();
         newCourse.updateHashKey(hashKey);
         addMyCourse(member, newCourse);
