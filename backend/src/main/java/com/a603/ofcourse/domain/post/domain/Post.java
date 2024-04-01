@@ -2,7 +2,7 @@ package com.a603.ofcourse.domain.post.domain;
 
 import com.a603.ofcourse.domain.course.domain.Course;
 import com.a603.ofcourse.domain.member.domain.Member;
-import com.a603.ofcourse.global.domain.BaseEntity;
+import com.a603.ofcourse.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
