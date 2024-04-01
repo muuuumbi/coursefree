@@ -1,4 +1,5 @@
 # Standard Library
+import logging
 from math import radians, sin, cos, sqrt, atan2
 
 # ThirdParty Library
@@ -33,6 +34,7 @@ def make_recommendations(search_place_dto):
 
     # 반환 형식을 Dictionary 변환
     similarities_dict = [{"similarity": s[0], "place": s[1]} for s in similarities]
+    print(similarities_dict)
     return similarities_dict
 
 
@@ -76,6 +78,8 @@ def cosine_similarity(vector1, vector2):
     dot_product = np.dot(vector1, vector2)
     norm1 = np.linalg.norm(vector1)
     norm2 = np.linalg.norm(vector2)
+    if norm1 * norm2 == 0:
+        return 0
     return dot_product / (norm1 * norm2)
 
 
