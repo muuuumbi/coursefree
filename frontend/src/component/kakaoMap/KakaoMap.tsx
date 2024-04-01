@@ -39,7 +39,6 @@ export default function KakaoMap({
   hasMarker,
   setCenterView = null,
 }: KakaoMap) {
-  console.log(centerView)
   const [kakaoMap, setKakaoMap] = useState(null)
   const [markers, setMarkers] = useState([])
   const container = useRef(null)

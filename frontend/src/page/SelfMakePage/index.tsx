@@ -11,7 +11,6 @@ export default function SelfMakePage() {
     courseTitle: '',
     placeList: [],
   })
-  console.log(dateCourse)
   return (
     <>
       <MakingCourseContext.Provider value={{ dateCourse, setDateCourse }}>

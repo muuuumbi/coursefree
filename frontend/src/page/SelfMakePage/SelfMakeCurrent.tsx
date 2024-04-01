@@ -1,9 +1,12 @@
+import { useDisclosure } from '@chakra-ui/react'
 import { MakingCourseContext } from '@context/index'
 import { css } from '@emotion/react'
-import { Place } from '@type/course'
-import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { DateCourse, Place } from '@type/course'
+import { useContext, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
+import AlertModal from '@component/common/AlertModal'
 import Button from '@component/common/Button'
 import Input from '@component/common/Input'
 import TextBox from '@component/common/TextBox'
@@ -14,34 +17,39 @@ import SelectedPlaceList from '@component/pages/SelfMakePage/SelectedPlaceList'
 
 import useMeasure from '@hook/useMeasure'
 
+import { requestSubmitDateCourse } from '@api/request/course'
+
 const StickyMap = css`
   position: sticky;
   top: 0px;
 `
+const station = JSON.parse(sessionStorage.getItem('station'))
 
 /** @jsxImportSource @emotion/react */
 export default function SelfMakeCurrent() {
-  const { dateCourse } = useContext(MakingCourseContext)
-  const station = JSON.parse(sessionStorage.getItem('station'))
+  const navigate = useNavigate()
+  const { dateCourse, setDateCourse } = useContext(MakingCourseContext)
   const [centerView, setCenterView] = useState({
     center: station.point,
     level: 2,
   })
-  console.log('render')
-  const onClickMarkerHandler = () => {
-    console.log(1)
-  }
+  const onClickMarkerHandler = () => {}
   const onClickPlaceBox = (place: Place) => {
-    console.log(place)
     setCenterView({
       center: { lat: place.points.lat, lng: place.points.lng },
       level: 2,
     })
   }
   const { widthState, ref: measureRef } = useMeasure()
-  // 현재 진행중인 코스 저장
-  // const [courseInfo, setCourseInfo] = useState(0)
 
+  const mutation = useMutation({
+    mutationFn: (dateCourse: DateCourse) => requestSubmitDateCourse(dateCourse),
+    onSuccess: () => {
+      navigate('/favorite')
+    },
+  })
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = useRef()
   return (
     <>
       <FlexBox j="center" d="column" p="10px" w="100%" ref={measureRef}>
@@ -52,10 +60,30 @@ export default function SelfMakeCurrent() {
             <Input
               placeholder="생성할 코스 이름을 입력해주세요"
               width={'250px'}
+              onChange={e => {
+                setDateCourse({
+                  courseTitle: e.target.value,
+                  placeList: dateCourse.placeList,
+                })
+              }}
             />
           </TextBox>
 
-          <Button bgColor="pink400">코스 완성</Button>
+          <Button
+            bgColor="pink400"
+            onClick={() => {
+              if (
+                dateCourse.courseTitle.length > 0 &&
+                dateCourse.placeList.length > 0
+              )
+                mutation.mutate(dateCourse)
+              else {
+                onOpen()
+              }
+            }}
+          >
+            코스 완성
+          </Button>
         </FlexBox>
         <Button
           css={css`
@@ -86,6 +114,14 @@ export default function SelfMakeCurrent() {
         onClickPlaceBox={onClickPlaceBox}
       />
       <Spacing size="50px" />
+      <AlertModal
+        isOpen={isOpen}
+        onClose={onClose}
+        header="정보가 부족해요 ㅠ.ㅠ"
+        body="제목과 코스를 1개 이상 추가해주세요."
+        footer="닫기"
+        cancelRef={cancelRef}
+      />
     </>
   )
 }

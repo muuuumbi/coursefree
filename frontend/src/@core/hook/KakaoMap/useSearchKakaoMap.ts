@@ -18,7 +18,7 @@ export default function useSearchKakaoMap(station: Station) {
     },
     level: 2,
   })
-  const debounceCenterView = debounce(setCenterView, 300)
+  const debounceCenterView = debounce(setCenterView, 500)
   const hidePlaceInfoSheet = () => {
     setCurrentSelectPlace(null)
   }

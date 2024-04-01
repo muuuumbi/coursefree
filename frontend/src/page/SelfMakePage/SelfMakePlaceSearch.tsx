@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import CategorySlider from '@component/kakaoMap/CategorySlider'
 import KakaoMap from '@component/kakaoMap/KakaoMap'
 import FlexBox from '@component/layout/FlexBox'
-import Spacing from '@component/layout/Spacing'
 import PlaceInfoBottomSheet from '@component/pages/SelfMakePage/PlaceInfoBottomSheet'
 import StationTitle from '@component/pages/SelfMakePage/SelfMakePlaceSearch/StationTitle'
 
@@ -57,12 +56,13 @@ export default function SelfMakePlaceSearch() {
   return (
     <>
       <FlexBox w="100%" j="center" d="column" a="center">
-        <Spacing />
         <StationTitle name={station.stationName} />
+
         <FlexBox w="100%" css={kakaoMapContainer}>
           {/* 태그 슬라이더 */}
           <CategorySlider onClick={onClickCategoryHandler} />
           {/* 카카오맵 */}
+
           <KakaoMap
             width="100%"
             height="100vh"

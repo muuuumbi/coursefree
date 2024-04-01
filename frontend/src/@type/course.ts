@@ -16,11 +16,6 @@ export interface DateCourse {
   courseTitle: string
   placeList: Place[]
 }
-export interface Station {
-  line: string[]
-  stationName: string
-  point: LatLng
-}
 
 export interface RequestPlaceInfo {
   place_category: string
