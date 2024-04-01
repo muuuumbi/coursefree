@@ -1,5 +1,6 @@
-import { LatLng, Place } from '@type/course'
-import { CSSProperties, MutableRefObject, useEffect, useRef } from 'react'
+import { Place } from '@type/course'
+import { MapInfo } from '@type/kakaoMap'
+import { CSSProperties, useEffect, useRef, useState } from 'react'
 
 import { makeLine, makeMarker } from '@util/kakaoMap'
 
@@ -7,13 +8,12 @@ interface KakaoMap {
   width: CSSProperties['width']
   height: CSSProperties['height']
   padding: CSSProperties['padding']
-  center: LatLng
   hasLine: boolean
   hasMarker: boolean
   onClickMarkerHandler: any
   placeList: Place[]
-  setCenter?: any
-  setLevel?: any
+  setCenterView?: any
+  centerView?: MapInfo
 }
 
 /**
@@ -25,53 +25,84 @@ interface KakaoMap {
  * @param center : 최초 마운트 시 중심 좌표
  * @param hasLine : 장소와 장소를 잇는 선을 표시할 것인가?
  * @param hasMarker : 장소를 표시하는 마커를 띄우는가?
- * @param onCLickMarkerHandler : 마커 클릭 시 발생시킬 이벤트
- * @ ------------------this is optional props--------------------
- * @param setCenter: center좌표 측정하고 상태 관리하는 setter함수
+ * @param centerView : 지도의 중심,레벨 데이터
+ * @param setCenterView : mapInfo의 debounce setter함수
  */
 export default function KakaoMap({
   width,
   height,
+  padding,
   onClickMarkerHandler,
   placeList,
-  padding,
-  center,
+  centerView,
   hasLine,
   hasMarker,
-  setCenter = null,
+  setCenterView = null,
 }: KakaoMap) {
-  const mapRef = useRef<HTMLElement>(null)
-  const initMap = () => {
-    const container = document.getElementById('map')
+  console.log(centerView)
+  const [kakaoMap, setKakaoMap] = useState(null)
+  const [markers, setMarkers] = useState([])
+  const container = useRef(null)
+
+  function updateMapInfo(map) {
+    const latlng = map.getCenter()
+    const level = map.getLevel()
+
+    setCenterView({
+      center: { lat: latlng.getLat(), lng: latlng.getLng() },
+      level: level,
+    })
+  }
+  const initMap = container => {
     const options = {
-      center: new window.kakao.maps.LatLng(center.lat, center.lng),
-      level: 3,
+      center: new window.kakao.maps.LatLng(
+        centerView.center.lat,
+        centerView.center.lng,
+      ),
+      level: centerView.level,
     }
-    const map = new window.kakao.maps.Map(container as HTMLElement, options)
-    ;(mapRef as MutableRefObject<any>).current = map
+    const map = new window.kakao.maps.Map(container.current, options)
+    setKakaoMap(map)
 
     // 카카오맵에 중심좌표 변경 감지 이벤트 등록
-    kakao.maps.event.addListener(map, 'center_changed', function () {
-      const latlng = map.getCenter()
-      if (setCenter) setCenter({ lat: latlng.getLat(), lng: latlng.getLng() })
-    })
-
-    // 마커 표시
-    if (hasMarker && placeList) {
-      makeMarker(map, placeList, onClickMarkerHandler)
-    }
-    // 선 표시
-    if (hasLine && placeList) makeLine(map, placeList)
+    if (setCenterView)
+      kakao.maps.event.addListener(map, 'center_changed', () =>
+        updateMapInfo(map),
+      )
   }
 
+  // 카카오맵 최초 생성
   useEffect(() => {
-    window.kakao.maps.load(() => initMap())
-  }, [mapRef])
+    window.kakao.maps.load(() => initMap(container))
+  }, [container])
+  useEffect(() => {
+    if (!kakaoMap) return
+    const position = new kakao.maps.LatLng(
+      centerView.center.lat,
+      centerView.center.lng,
+    )
+    kakaoMap.panTo(position)
+  }, [centerView])
+  useEffect(() => {
+    markers.forEach(marker => {
+      marker.setMap(null)
+    })
+    // 마커 표시
+    if (hasMarker && placeList.length) {
+      const arr = makeMarker(kakaoMap, placeList, onClickMarkerHandler)
+      setMarkers(arr)
+    }
+    // 선 표시
+    if (hasLine && placeList.length) {
+      makeLine(kakaoMap, placeList)
+    }
+  }, [kakaoMap, placeList])
 
   return (
     <div
       id="map"
       style={{ width: width, height: height, padding: padding }}
+      ref={container}
     ></div>
   )
 }

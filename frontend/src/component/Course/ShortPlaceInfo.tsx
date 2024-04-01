@@ -1,33 +1,51 @@
 import kiss from '@asset/kiss.jfif'
 import { Image } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Place } from '@type/course'
 
 import Button from '@component/common/Button'
 import TextBox from '@component/common/TextBox'
 import FlexBox from '@component/layout/FlexBox'
 
 interface ShortPlaceInfo {
-  hasDeleteButton: boolean
+  hasButton: boolean
+  buttonText: string
+  onClickButton: () => void
+  place: Place
+  onClickBox?: (place: Place) => void
 }
 
-export default function ShortPlaceInfo({ hasDeleteButton }: ShortPlaceInfo) {
+export default function ShortPlaceInfo({
+  hasButton,
+  buttonText,
+  onClickButton,
+  place,
+  onClickBox,
+}: ShortPlaceInfo) {
   return (
-    <FlexBox w="100%" p="10px" a="center" j="space-between">
+    <FlexBox
+      w="100%"
+      p="10px"
+      a="center"
+      j="space-between"
+      onClick={() => {
+        onClickBox ? onClickBox(place) : null
+      }}
+    >
       {/* 컨텐츠 부분 */}
       <FlexBox>
         {/* 가게 이미지 */}
+
         <Image src={kiss} boxSize="60px" borderRadius="10px" />
         {/* 가게 설명 */}
         <FlexBox d="column" p="10px" h="60px" j="center">
           <TextBox color="pink300" fontWeight="bold" typography="t6">
-            <Link to="">밸런스포케</Link>
+            {place.name}
           </TextBox>
-          <TextBox typography="t7">주소 : 서울 강남구 강남대로 94길 75</TextBox>
-          <TextBox typography="t7">영업시간 : 06:30 ~ 17:30</TextBox>
+          <TextBox typography="t7">주소 : {place.address}5</TextBox>
         </FlexBox>
       </FlexBox>
       {/* 삭제 버튼 부분 */}
-      {hasDeleteButton ? <Button>삭제</Button> : null}
+      {hasButton ? <Button onClick={onClickButton}>{buttonText}</Button> : null}
     </FlexBox>
   )
 }

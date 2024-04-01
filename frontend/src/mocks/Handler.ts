@@ -1,6 +1,5 @@
+import API_URI from '@constant/url'
 import { HttpResponse, delay, http } from 'msw'
-
-import API_URI from '@api/url'
 
 export const handlers = [
   // 이메일 중복 체크 모킹
@@ -21,14 +20,14 @@ export const handlers = [
   http.post(API_URI.BASE + API_URI.PLACE_INFO, async () => {
     await delay(300)
     const response = {
-      place_dto_list: [
+      placeDtoList: [
         {
           id: 1,
           name: '역삼',
           address: '서울시 역삼동 255',
           url: 'www.naver.com',
           placeCategory: '맛집',
-          restaurantType: '식당',
+          placeType: '식당',
           points: { lat: 37.5, lng: 127.031 },
         },
         {
@@ -37,7 +36,7 @@ export const handlers = [
           address: '서울시 역삼동 255',
           url: 'www.naver.com',
           placeCategory: '맛집',
-          restaurantType: '식당',
+          placeType: '식당',
           points: { lat: 37.501, lng: 127.032 },
         },
         {
@@ -46,7 +45,7 @@ export const handlers = [
           address: '서울시 역삼동 255',
           url: 'www.naver.com',
           placeCategory: '맛집',
-          restaurantType: '식당',
+          placeType: '식당',
           points: { lat: 37.502, lng: 127.033 },
         },
         {
@@ -55,7 +54,7 @@ export const handlers = [
           address: '서울시 역삼동 255',
           url: 'www.naver.com',
           placeCategory: '맛집',
-          restaurantType: '식당',
+          placeType: '식당',
           points: { lat: 37.523, lng: 127.034 },
         },
       ],

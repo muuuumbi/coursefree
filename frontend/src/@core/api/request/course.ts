@@ -1,9 +1,9 @@
+import API_URI from '@constant/url'
+import { MapLocation } from '@type/kakaoMap'
+
 import { authAxios } from '..'
 
-import API_URI from '@api/url'
-
-export const requestPlaceInfo = async (data: any) => {
-  console.log('query start')
-  const response = await authAxios.post(`${API_URI.PLACE_INFO}`, data)
-  return response.data
+export const requestPlaceInfo = (data: MapLocation) => {
+  const response = authAxios.post(`${API_URI.PLACE_INFO}`, data)
+  return response
 }

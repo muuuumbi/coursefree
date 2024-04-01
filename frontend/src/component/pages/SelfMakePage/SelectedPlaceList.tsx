@@ -6,15 +6,27 @@ import FlexBox from '@component/layout/FlexBox'
 
 type SelectedPlaceList = {
   placeList: Place[]
+  onClickPlaceBox: (place: Place) => void
 }
 /** @jsxImportSource @emotion/react */
-export default (function SelectedPlaceList({ placeList }: SelectedPlaceList) {
+export default (function SelectedPlaceList({
+  placeList,
+  onClickPlaceBox,
+}: SelectedPlaceList) {
+  const removePlace = () => {}
+
   return (
     <FlexBox a="center" d="column">
-      {placeList.map((_, i) => {
+      {placeList.map((place, i) => {
         return (
           <PlaceInfoWithOrder key={i} order={i + 1}>
-            <ShortPlaceInfo hasDeleteButton />
+            <ShortPlaceInfo
+              hasButton
+              buttonText="삭제"
+              place={place}
+              onClickButton={removePlace}
+              onClickBox={onClickPlaceBox}
+            />
           </PlaceInfoWithOrder>
         )
       })}
