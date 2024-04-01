@@ -17,13 +17,14 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/schedule")
-    public ResponseEntity<Integer> addNewSchedule(
+    public ResponseEntity<Void> addNewSchedule(
             @RequestHeader(AUTHORIZATION) String token,
             @RequestBody AddScheduleRequestDto addScheduleRequestDto
     ) {
+        scheduleService.addNewSchedule(token, addScheduleRequestDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(scheduleService.addNewSchedule(token, addScheduleRequestDto));
+                .build();
     }
 
     @GetMapping("/schedules")
@@ -36,14 +37,26 @@ public class ScheduleController {
                 .body(scheduleService.findScheduleList(token, month));
     }
 
-    @PutMapping("schedule")
+    @PutMapping("/schedule")
     public ResponseEntity<Void> updateSchedule(
             @RequestHeader(AUTHORIZATION) String token,
             @RequestBody UpdateScheduleRequestDto updateScheduleRequestDto
     ) {
-        scheduleService.updateSchedule(updateScheduleRequestDto);
+        scheduleService.updateSchedule(token, updateScheduleRequestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .build();
     }
+
+    @DeleteMapping("/schedule/{scheduleId}")
+    public ResponseEntity<Void> deleteSchedule(
+            @RequestHeader(AUTHORIZATION) String token,
+            @PathVariable int scheduleId
+    ) {
+        scheduleService.deleteSchedule(token, scheduleId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .build();
+    }
+
 }

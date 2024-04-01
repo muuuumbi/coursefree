@@ -31,10 +31,9 @@ public class Schedule {
     @Column(name = "appointment_place", length = 20)
     private String appointmentPlace;
 
-    @Column(name = "shedule_date")
+    @Column(name = "schedule_date")
     private LocalDateTime scheduleDate;
 
-    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'todo'")
     @Enumerated(EnumType.STRING)
     private ScheduleState scheduleState;
 
@@ -63,6 +62,7 @@ public class Schedule {
         this.scheduleTitle = scheduleTitle;
         this.appointmentPlace = appointmentPlace;
         this.scheduleDate = scheduleDate;
+        this.scheduleState = ScheduleState.TODO;
         addRelatedScheduleCourse(course);
         addRelatedScheduleCouple(couple);
     }
@@ -81,6 +81,7 @@ public class Schedule {
 
     public void update(UpdateScheduleRequestDto updateScheduleRequestDto) {
         this.scheduleTitle = updateScheduleRequestDto.getScheduleTitle();
+        this.appointmentPlace = updateScheduleRequestDto.getAppointmentPlace();
         this.scheduleDate = updateScheduleRequestDto.getScheduleDate();
     }
 

@@ -1,6 +1,8 @@
 package com.a603.ofcourse.domain.schedule.service;
 
 import com.a603.ofcourse.domain.couple.domain.Couple;
+import com.a603.ofcourse.domain.couple.exception.CoupleErrorCode;
+import com.a603.ofcourse.domain.couple.exception.CoupleException;
 import com.a603.ofcourse.domain.couple.repository.MemberCoupleRepository;
 import com.a603.ofcourse.domain.course.domain.Course;
 import com.a603.ofcourse.domain.course.exception.CourseErrorCode;
@@ -8,6 +10,9 @@ import com.a603.ofcourse.domain.course.exception.CourseException;
 import com.a603.ofcourse.domain.course.repository.CourseRepository;
 import com.a603.ofcourse.domain.member.exception.MemberErrorCode;
 import com.a603.ofcourse.domain.member.exception.MemberException;
+import com.a603.ofcourse.domain.member.repository.MemberRepository;
+import com.a603.ofcourse.domain.oauth.exception.OauthErrorCode;
+import com.a603.ofcourse.domain.oauth.exception.OauthException;
 import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
 import com.a603.ofcourse.domain.schedule.domain.Schedule;
 import com.a603.ofcourse.domain.schedule.dto.request.AddScheduleRequestDto;
@@ -23,68 +28,89 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-@Slf4j
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final MemberRepository memberRepository;
     private final MemberCoupleRepository memberCoupleRepository;
     private final CourseRepository courseRepository;
     private final JwtTokenService jwtTokenService;
 
     @Transactional
-    public Integer addNewSchedule(String token, AddScheduleRequestDto addScheduleRequestDto) {
+    public void addNewSchedule(String token, AddScheduleRequestDto addScheduleRequestDto) {
         // get memberId from JWT
         Integer memberId = (Integer) jwtTokenService.getPayload(token).get("member_id");
+        log.info("memberId : {}", memberId);
 
         // get couple from MemberCouple table
         Couple couple = memberCoupleRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_DOES_NOT_EXISTS))
+                .orElseThrow(() -> new CoupleException(CoupleErrorCode.NOT_FOUND_ID))
                 .getCouple();
+        log.info("couple : {}", couple.getId());
 
         // get course by courseId
         Course course = courseRepository.findById(addScheduleRequestDto.getCourseId())
                         .orElseThrow(() -> new CourseException(CourseErrorCode.COURSE_NOT_EXIST));
-
+        log.info("course : {}", course.getId());
+        log.info("코스 추가 완료");
         // save new Schedule
-        return scheduleRepository.save(Schedule.builder()
+        scheduleRepository.save(Schedule.builder()
                 .scheduleTitle(addScheduleRequestDto.getScheduleTitle())
                 .appointmentPlace(addScheduleRequestDto.getAppointmentPlace())
                 .scheduleDate(addScheduleRequestDto.getScheduleDate())
                 .course(course)
                 .couple(couple)
-                .build()).getId();
+                .build());
     }
 
     public ScheduleListResponseDto findScheduleList(String token, int month) {
         // get couple id
         int coupleId = jwtTokenService.getCoupleId(token);
+        log.info("couple : {}", coupleId);
 
         // get schedules by coupleId and month
         return ScheduleListResponseDto.builder()
                 .scheduleDetailResponseDtoList(
-                        scheduleRepository.findSchedulesByCoupleIdAndAndScheduleDate_Month(coupleId, month).stream()
+                        scheduleRepository.findByCoupleIdAndMonth(coupleId, month).stream()
                                 .map(Schedule::toResponse)
                                 .toList()
                 ).build();
     }
 
     @Transactional
-    public void updateSchedule(UpdateScheduleRequestDto updateScheduleRequestDto) {
+    public void updateSchedule(String token, UpdateScheduleRequestDto updateScheduleRequestDto) {
+        // get schedule
         Schedule schedule = scheduleRepository.findById(updateScheduleRequestDto.getScheduleId())
                 .orElseThrow(() -> new ScheduleException(ScheduleErrorCode.SCHEDULE_NOT_EXIST));
+
+        // is authorized?
+        if(!schedule.getCouple()
+                .getId().equals(jwtTokenService.getCoupleId(token)))
+            throw new OauthException(OauthErrorCode.UNAUTHORIZED);
 
         // if course is changed
         if(!schedule.getCourse().getId().equals(updateScheduleRequestDto.getCourseId()))
             schedule.setCourse(courseRepository.findById(updateScheduleRequestDto.getCourseId())
                     .orElseThrow(() -> new CourseException(CourseErrorCode.COURSE_NOT_EXIST)));
 
+        // update info
         schedule.update(updateScheduleRequestDto);
     }
 
     @Transactional
-    public void deleteSchedule(int scheduleId) {
+    public void deleteSchedule(String token, int scheduleId) {
+        // get schedule and check is present
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new ScheduleException(ScheduleErrorCode.SCHEDULE_NOT_EXIST));
+
+        // is authorized?
+        if(!schedule.getCouple()
+                .getId().equals(jwtTokenService.getCoupleId(token)))
+            throw new OauthException(OauthErrorCode.UNAUTHORIZED);
+
         scheduleRepository.deleteById(scheduleId);
     }
 }

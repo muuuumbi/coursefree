@@ -1,5 +1,6 @@
 package com.a603.ofcourse.domain.schedule.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,7 @@ public class UpdateScheduleRequestDto {
     private int courseId;
     private String scheduleTitle;
     private String appointmentPlace;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime scheduleDate;
 
     @Builder
