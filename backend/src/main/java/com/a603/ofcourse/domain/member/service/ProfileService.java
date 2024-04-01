@@ -1,12 +1,11 @@
 package com.a603.ofcourse.domain.member.service;
 
 import com.a603.ofcourse.domain.member.domain.Member;
+import com.a603.ofcourse.domain.member.domain.NicknameHashMap;
 import com.a603.ofcourse.domain.member.domain.Profile;
 import com.a603.ofcourse.domain.member.domain.enums.Gender;
 import com.a603.ofcourse.domain.member.dto.request.Preference;
-import com.a603.ofcourse.domain.member.domain.NicknameHashMap;
 import com.a603.ofcourse.domain.member.dto.request.ProfileInfoRequest;
-import com.a603.ofcourse.domain.member.repository.MemberRepository;
 import com.a603.ofcourse.domain.member.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
