@@ -197,8 +197,8 @@ public class JwtTokenService {
      * @param Claims
      * @return 있으면 true, 없으면 false
      */
-    public boolean hasCoupleId(Claims claims){
-        return claims.containsKey(COUPLE_ID);
+    public boolean hasCoupleId(String accessToken){
+        return getPayload(accessToken).containsKey(COUPLE_ID);
     }
 
     /*
