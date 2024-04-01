@@ -3,12 +3,11 @@ package com.a603.ofcourse.domain.schedule.domain;
 import com.a603.ofcourse.domain.couple.domain.Couple;
 import com.a603.ofcourse.domain.course.domain.Course;
 import com.a603.ofcourse.domain.schedule.domain.enums.ScheduleState;
+import com.a603.ofcourse.domain.schedule.dto.request.UpdateScheduleRequestDto;
+import com.a603.ofcourse.domain.schedule.dto.response.ScheduleDetailResponseDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,10 +23,6 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'todo'")
-    @Enumerated(EnumType.STRING)
-    private ScheduleState scheduleState;
-
     @Size(max = 20)
     @Column(name = "schedule_title", length = 20)
     private String scheduleTitle;
@@ -36,9 +31,14 @@ public class Schedule {
     @Column(name = "appointment_place", length = 20)
     private String appointmentPlace;
 
-    @Column(name = "shedule_date")
+    @Column(name = "schedule_date")
     private LocalDateTime scheduleDate;
 
+    @Enumerated(EnumType.STRING)
+    private ScheduleState scheduleState;
+
+    // course 변경
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
@@ -62,8 +62,31 @@ public class Schedule {
         this.scheduleTitle = scheduleTitle;
         this.appointmentPlace = appointmentPlace;
         this.scheduleDate = scheduleDate;
+        this.scheduleState = ScheduleState.TODO;
         addRelatedScheduleCourse(course);
         addRelatedScheduleCouple(couple);
+    }
+
+
+    public ScheduleDetailResponseDto toResponse() {
+        return ScheduleDetailResponseDto.builder()
+                .scheduleId(id)
+                .scheduleTitle(scheduleTitle)
+                .courseId(course.getId())
+                .appointmentPlace(appointmentPlace)
+                .scheduleDate(scheduleDate)
+                .scheduleState(scheduleState)
+                .build();
+    }
+
+    public void update(UpdateScheduleRequestDto updateScheduleRequestDto) {
+        this.scheduleTitle = updateScheduleRequestDto.getScheduleTitle();
+        this.appointmentPlace = updateScheduleRequestDto.getAppointmentPlace();
+        this.scheduleDate = updateScheduleRequestDto.getScheduleDate();
+    }
+
+    public void complete() {
+        this.scheduleState = ScheduleState.COMPLETE;
     }
 
     private void addRelatedScheduleCourse(Course course) {

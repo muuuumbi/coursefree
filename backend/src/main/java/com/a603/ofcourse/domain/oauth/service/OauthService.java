@@ -85,7 +85,7 @@ public class OauthService {
         //redis에서 리프레시 토큰 가져오기
         return authRepository.findById(memberId)
                 //리프레시 토큰이 유효하면 유저 정보로 액세스 토큰 갱신 + 리프레시 토큰 갱신
-                .map(RefreshToken -> getTokens(memberId))
+                .map(refreshToken -> getTokens(memberId))
                 //refreshToken이 없으면 에러 코드 전송
                 .orElseThrow(() -> new OauthException(OauthErrorCode.INVALID_REFRESH_TOKEN));
     }
@@ -100,7 +100,7 @@ public class OauthService {
         //redis에서 리프레시 토큰 가져오기
         return authRepository.findById(memberId)
                 //리프레시 토큰이 유효하면 유저 정보로 액세스 토큰 갱신 + 리프레시 토큰 갱신
-                .map(RefreshToken -> getTokensWithCoupleId(memberId, coupleId))
+                .map(refreshToken -> getTokensWithCoupleId(memberId, coupleId))
                 //refreshToken이 없으면 에러 코드 전송
                 .orElseThrow(() -> new OauthException(OauthErrorCode.INVALID_REFRESH_TOKEN));
     }

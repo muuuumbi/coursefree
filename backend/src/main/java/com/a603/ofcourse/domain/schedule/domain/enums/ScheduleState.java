@@ -9,8 +9,8 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum ScheduleState {
-    COMPLETE("complete"),
-    TODO("todo");
+    COMPLETE("COMPLETE"),
+    TODO("TODO");
 
     private final String value;
 
