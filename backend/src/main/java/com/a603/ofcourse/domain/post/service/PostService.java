@@ -37,8 +37,7 @@ public class PostService {
     @Transactional
     public Integer save(String accessToken, PostRequestDto requestDto){
 
-        Integer memberId = (Integer) jwtTokenService.getPayload(
-                accessToken.substring(7)).get("member_id");
+        Integer memberId = jwtTokenService.getMemberId(accessToken);
 
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new MemberException(MEMBER_DOES_NOT_EXISTS)
@@ -70,8 +69,7 @@ public class PostService {
     /* 게시물 리스트 조회 - 추천 */
     public List<PostResponseDto> findPostListByRecommend(String accessToken){
 
-        Integer memberId = (Integer) jwtTokenService.getPayload(
-                accessToken.substring(7)).get("member_id");
+        Integer memberId = jwtTokenService.getMemberId(accessToken);
 
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new MemberException(MEMBER_DOES_NOT_EXISTS)
