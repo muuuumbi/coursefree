@@ -3,10 +3,10 @@ package com.a603.ofcourse.domain.couple.controller;
 import com.a603.ofcourse.domain.couple.service.CoupleService;
 import com.a603.ofcourse.domain.oauth.service.JwtTokenService;
 import com.a603.ofcourse.domain.oauth.service.OauthService;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,19 +62,20 @@ public class CoupleController {
      */
     @PostMapping("/disconnect")
     public ResponseEntity<Void> disconnectCouple(@RequestHeader(AUTHORIZATION_HEADER) String accessToken){
-        //1. 클레임 가져오기
-        Claims claims = jwtTokenService.getPayload(accessToken);
-        //2. 커플 아이디 뽑아오기
-        Integer coupleId = jwtTokenService.getCoupleIdFromClaims(claims);
+        //1. 커플 아이디 뽑아오기
+        Integer coupleId = jwtTokenService.getCoupleId(accessToken);
         log.info("coupleId : {}", coupleId);
-        //3. 커플 연동 끊기
+        //2. 커플 연동 끊기
         coupleService.disconnectCouple(coupleId);
-        //4. 멤버 아이디 뽑아오기
-        Integer memberId = jwtTokenService.getMemberIdFromClaims(claims);
+        //3. 멤버 아이디 뽑아오기
+        Integer memberId = jwtTokenService.getMemberId(accessToken);
         HttpHeaders headers = new HttpHeaders();
         //5. 멤버 아이디만 있는 액세스토큰으로 갱신
         headers.set(AUTHORIZATION_HEADER, "Bearer " + oauthService.refreshAccessToken(memberId));
 
-        return ResponseEntity.ok().headers(headers).build();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(headers)
+                .build();
     }
 }
