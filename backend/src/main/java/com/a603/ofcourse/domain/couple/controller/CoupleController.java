@@ -29,7 +29,7 @@ public class CoupleController {
     @PostMapping("/generate-link")
     public ResponseEntity<String> generateInviteLink(@RequestHeader(AUTHORIZATION_HEADER) String accessToken) {
         //1. accessToken에서 멤버아이디 가져오기
-        Integer memberId = (Integer) jwtTokenService.getPayload(accessToken).get("member_id");
+        int memberId = jwtTokenService.getMemberId(accessToken);
         return ResponseEntity.ok(coupleService.generateInviteLink(memberId));
     }
 
@@ -41,7 +41,7 @@ public class CoupleController {
     @PostMapping("/connect/exist/{uuid}")
     public ResponseEntity<Void> connectCoupleWithMember(@PathVariable("uuid") String uuid, @RequestHeader(AUTHORIZATION_HEADER) String accessToken){
         //1. accessToken에서 초대받은 멤버아이디 가져오기
-        Integer visitorId = (Integer) jwtTokenService.getPayload(accessToken).get("member_id");
+        Integer visitorId = jwtTokenService.getMemberId(accessToken);
         //2. 초대한 사람의 멤버 아이디 가져오기
         Integer inviterId = coupleService.getInviterIdFromLink(uuid);
         //2. 커플 연동하고 커플 아이디 받아오기
@@ -71,7 +71,7 @@ public class CoupleController {
         Integer memberId = jwtTokenService.getMemberId(accessToken);
         HttpHeaders headers = new HttpHeaders();
         //5. 멤버 아이디만 있는 액세스토큰으로 갱신
-        headers.set(AUTHORIZATION_HEADER, "Bearer " + oauthService.refreshAccessToken(memberId));
+        headers.setBearerAuth(oauthService.refreshAccessToken(memberId));
 
         return ResponseEntity
                 .status(HttpStatus.OK)
