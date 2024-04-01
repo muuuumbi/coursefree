@@ -1,4 +1,4 @@
-package com.a603.ofcourse.global.domain;
+package com.a603.ofcourse.global.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

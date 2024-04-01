@@ -1,7 +1,7 @@
 package com.a603.ofcourse.domain.course.domain;
 
 import com.a603.ofcourse.domain.course.dto.response.CourseReviewResponseDto;
-import com.a603.ofcourse.global.domain.BaseEntity;
+import com.a603.ofcourse.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
