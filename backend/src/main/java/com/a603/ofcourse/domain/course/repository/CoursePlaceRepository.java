@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CoursePlaceRepository extends JpaRepository<CoursePlace, Integer> {
+    List<CoursePlace> findAllByCourseId(int courseId);
 
     @Query("select cp " +
             "from CoursePlace cp " +
