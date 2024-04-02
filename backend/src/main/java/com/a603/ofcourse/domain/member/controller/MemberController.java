@@ -94,16 +94,6 @@ public class MemberController {
 
     /*
     작성자 : 김은비
-    작성내용 : 내가 찜한 코스 상세 정보 가져오기
-     * @param courseId
-     */
-    @GetMapping("/myfavcourse/details")
-    public ResponseEntity<CoursePlaceListResponse> getCoursePlaceList(@RequestParam("courseId") int courseId){
-        return ResponseEntity.ok(CoursePlaceListResponse.toResponse(profileService.getCoursePlaceDetailsList(courseId)));
-    }
-
-    /*
-    작성자 : 김은비
     작성내용 : 프로필 정보 조회
      * @param : accessToken
      */
