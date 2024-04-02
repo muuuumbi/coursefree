@@ -27,3 +27,19 @@ export const requestUserData = (data: UserData) => {
     ProfileInfoRequest: data,
   })
 }
+
+export const requestGenerateLink = () => {
+  return authAxios.post(`${API_URI.GENERATE_LINK}`)
+}
+
+export const requestMyFavCourse = () => {
+  return authAxios.get(`${API_URI.MY_FAV_COURSE}`)
+}
+
+export const requestMyFavCourseDetail = (courseId: string) => {
+  return authAxios.get(`${API_URI.MY_FAV_COURSE_DETAIL}`,{
+    params: {
+      courseId: courseId,
+    }
+  })
+}
