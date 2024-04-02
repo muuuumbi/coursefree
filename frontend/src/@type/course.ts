@@ -16,6 +16,11 @@ export interface DateCourse {
   courseTitle: string
   placeList: Place[]
 }
+export interface DateCourseDetail {
+  title: string
+  placeDtoList: Place[]
+  useCount: number
+}
 
 export interface RequestPlaceInfo {
   place_category: string

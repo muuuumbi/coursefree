@@ -1,5 +1,5 @@
+import QUERY_KEY from '@constant/queryKey'
 import { useQuery } from '@tanstack/react-query'
-import QUERY_KEY from 'src/constant/queryKey'
 
 import { requestCourseDetail } from '@api/request/course'
 

@@ -1,10 +1,11 @@
-import { Badge, Spinner, Stack } from '@chakra-ui/react'
+import { Badge, Stack } from '@chakra-ui/react'
 import { Categories, category, categoryKey } from '@data/category'
 import { Station } from '@type/subway'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
 
+import FullPageLoading from '@component/common/FullPageLoading'
 import SearchAutoComplete from '@component/common/SearchAutoComplete'
 import SearchBar from '@component/common/SearchBar'
 import TextBox from '@component/common/TextBox'
@@ -50,20 +51,19 @@ export default function RecommendSearch() {
       limitDist: 1000,
       categoryList: selectedCategory,
     }
-    console.log(requestData)
     await requestSubmitRecommData(requestData)
       .then(({ data }) => {
         // recoil로 코스 아이디 상태 저장
         setRecommendedCourseId(data)
         setIsLoading(false)
-        navigate('/candidate')
+        navigate('./candidate')
       })
       .catch(error => {
         alert(error)
       })
   }
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <FullPageLoading />
   return (
     <>
       <FlexBox p="10px" d="column">
