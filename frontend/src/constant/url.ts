@@ -12,5 +12,6 @@ const API_URI = {
   COURSE_DETAIL: '/course/details',
   HOT_ARTICLE: '/post/recommend',
   SEARCH_ARTICLE: '/post',
+  ARTICLE_DETAIL: '/post-content',
 }
 export default API_URI

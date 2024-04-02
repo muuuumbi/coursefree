@@ -30,10 +30,6 @@ export const useSearchArticleQuery = ({ articlesPerPage, filter }: Props) => {
         ? undefined
         : nextPage
     },
-    retry: 0,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
   })
   return {
     articleCards,

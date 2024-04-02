@@ -4,6 +4,7 @@ const QUERY_KEY = {
   COURSE_DETAIL: 'courseDetail',
   HOT_ARTICLE: 'hotArticle',
   SEARCH_ARTICLE: 'searchArticle',
+  ARTICLE_DETAIL: 'articleDetail',
 }
 
 export default QUERY_KEY
