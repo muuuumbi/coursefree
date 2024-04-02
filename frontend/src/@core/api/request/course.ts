@@ -18,3 +18,11 @@ export const requestSubmitDateCourse = async (data: DateCourse) => {
 export const requestSubmitRecommData = (data: RecommendData) => {
   return authAxios.post(`${API_URI.RECOMMEND}`, data)
 }
+
+export const requestCourseDetail = async (courseId: number) => {
+  return await authAxios.get(`${API_URI.COURSE_DETAIL}`, {
+    params: {
+      courseId: courseId,
+    },
+  })
+}

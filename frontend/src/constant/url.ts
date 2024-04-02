@@ -9,5 +9,6 @@ const API_URI = {
   SUBMIT_DATECOURSE: '/course/add',
   STATION_AUTOCOMPLETE: '/subway',
   RECOMMEND: '/course/recommendation',
+  COURSE_DETAIL: '/course/details',
 }
 export default API_URI
