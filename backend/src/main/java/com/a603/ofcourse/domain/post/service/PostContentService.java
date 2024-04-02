@@ -37,7 +37,6 @@ public class PostContentService {
         List<PostContent> postContentList = post.getPostContentList();
         List<CoursePlace> coursePlaceList = coursePlaceRepository.findAllByCourseId(post.getCourse().getId());
 
-
         for (int i=0; i<postContentList.size(); i++){
             PostContent postContent = postContentList.get(i);
             Place place = coursePlaceList.get(i).getPlace();
@@ -45,7 +44,8 @@ public class PostContentService {
             postContentInfoList.add(PostContentResponseDto.PostContentInfo
                     .builder()
                     .placeName(place.getName())
-                    .placeImageUrl(place.getName())
+                    .url(place.getUrl())
+                    .placeImageUrl(place.getImageUrl())
                     .title(postContent.getTitle())
                     .content(postContent.getContent())
                     .build()
@@ -54,6 +54,7 @@ public class PostContentService {
 
         return PostContentResponseDto
                 .builder()
+                .postId(postId)
                 .postTitle(post.getTitle())
                 .memberNickname(memberProfile.getNickname())
                 .memberImageUrl(memberProfile.getImage())

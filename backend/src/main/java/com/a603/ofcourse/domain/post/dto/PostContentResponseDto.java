@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 @Builder
 public class PostContentResponseDto {
+    private Integer postId;
     private String postTitle;
     private String memberImageUrl;
     private String memberNickname;
@@ -17,6 +18,7 @@ public class PostContentResponseDto {
     public static class PostContentInfo{
         private String placeName;
         private String placeImageUrl;
+        private String url;
         private String title;
         private String content;
     }

@@ -17,7 +17,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/save")
-    public ResponseEntity<Integer> savePost(@RequestHeader("Authorization") String accessToken, @RequestBody PostRequestDto requestDto){
+    public ResponseEntity<Integer> savePost(@RequestHeader("Authorization") String accessToken,
+                                            @RequestBody PostRequestDto requestDto){
         return ResponseEntity.ok(postService.save(accessToken, requestDto));
     }
 
@@ -27,12 +28,12 @@ public class PostController {
     }
 
     @GetMapping("/recent")
-    public ResponseEntity<List<PostResponseDto>> findPostListByRecent(int offset){
+    public ResponseEntity<List<PostResponseDto>> findPostListByRecent(@RequestParam int offset){
         return ResponseEntity.ok(postService.findPostListByRecent(offset));
     }
 
     @GetMapping("/wish-list")
-    public ResponseEntity<List<PostResponseDto>> findPostListByWishList(int offset){
+    public ResponseEntity<List<PostResponseDto>> findPostListByWishList(@RequestParam int offset){
         return ResponseEntity.ok(postService.findPostListByWishList(offset));
     }
 
