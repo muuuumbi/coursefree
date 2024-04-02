@@ -71,7 +71,7 @@ function App() {
               </Route>
 
               {/* Article */}
-              <Route path="article" element={<ArticleDetailPage />} />
+              <Route path="article/:id" element={<ArticleDetailPage />} />
 
               {/* MyCourse */}
               <Route path="myCourse" element={<MyCoursePage />} />
