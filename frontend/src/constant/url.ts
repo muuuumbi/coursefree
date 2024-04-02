@@ -11,5 +11,6 @@ const API_URI = {
   RECOMMEND: '/course/recommendation',
   COURSE_DETAIL: '/course/details',
   HOT_ARTICLE: '/post/recommend',
+  SEARCH_ARTICLE: '/post',
 }
 export default API_URI

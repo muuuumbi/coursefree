@@ -3,6 +3,7 @@ const QUERY_KEY = {
   STATION_AUTOCOMPLETE: 'stationAutoComplete',
   COURSE_DETAIL: 'courseDetail',
   HOT_ARTICLE: 'hotArticle',
+  SEARCH_ARTICLE: 'searchArticle',
 }
 
 export default QUERY_KEY
