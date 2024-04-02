@@ -15,7 +15,10 @@ export default function SelfMakeSearch() {
   return (
     <>
       <SearchBar placeholder="지하철 역을 입력해주세요." onChange={onChange} />
-      {stationList && <SearchAutoComplete stationList={stationList.data} />}
+
+      {stationList && (
+        <SearchAutoComplete stationList={stationList.data} type="self" />
+      )}
     </>
   )
 }

@@ -13,13 +13,22 @@ const Container = css`
 `
 type Props = {
   stationList: Station[]
+  type: 'self' | 'recommend'
+  onClick?: (station: Station) => void
 }
 /** @jsxImportSource @emotion/react */
-export default function SearchAutoComplete({ stationList }: Props) {
+export default function SearchAutoComplete({
+  stationList,
+  type,
+  onClick,
+}: Props) {
   return (
     <FlexBox d="column" w="100%" css={Container} bgColor="grey">
       {stationList.map(station => {
-        return <SearchResult data={station} />
+        if (type === 'self')
+          return <SearchResult key={station + i} data={station} type={type} />
+        else if (type === 'recommend')
+          return <SearchResult data={station} type={type} onClick={onClick} />
       })}
     </FlexBox>
   )
