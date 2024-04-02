@@ -22,3 +22,8 @@ export interface RequestPlaceInfo {
   center_points: LatLng
   limit_dist: number
 }
+export interface RecommendData {
+  points: LatLng
+  limitDist: number
+  categoryList: Categories[]
+}
