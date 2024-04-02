@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import ArticleDetailPage from '@page/ArticleDetailPage'
+import FavoritePage from '@page/FavoritePage'
+import FavoriteDetail from '@page/FavoritePage/FavoriteDetail'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
@@ -76,16 +78,20 @@ function App() {
                   <Route path="search" element={<SelfMakePlaceSearch />} />
                 </Route>
               </Route>
-
-              {/* MyPage */}
-              <Route path="/search" element={<Search />}></Route>
-
-              {/* Favorite */}
             </Route>
+
+            {/* MyPage */}
+            <Route path="/search" element={<Search />}></Route>
+
+            {/* Favorite */}
+            <Route path="/favorite" element={<FavoritePage />}></Route>
+            <Route path="/favorite/:courseId" element={<FavoriteDetail />} />
+
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route path="/mypage/log" element={<Log />}></Route>
             <Route path="/mypage/memory" element={<Memory />}></Route>
             <Route path="/mypage/setting" element={<Setting />}></Route>
+            <Route path="/search" element={<Search />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
