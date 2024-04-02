@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { Station } from '@type/course'
+import { Station } from '@type/subway'
 import { Link } from 'react-router-dom'
 
 import SubwayLineIcon from './SubwayLineIcon'
@@ -10,24 +10,22 @@ import FlexBox from '@component/layout/FlexBox'
 const Container = css`
   padding: 20px;
 `
-const MOCK: Station = {
-  stationName: '역삼',
-  line: ['2호선', '경의중앙선'],
-  point: { lat: 37.5, lng: 127.03 },
+type Props = {
+  data: Station
 }
 /** @jsxImportSource @emotion/react */
-export default function SearchResult() {
+export default function SearchResult({ data }: Props) {
   return (
     <FlexBox a="center" h="30px" css={Container}>
       <TextBox
         typography="t6"
         onClick={() => {
-          sessionStorage.setItem('station', JSON.stringify(MOCK))
+          sessionStorage.setItem('station', JSON.stringify(data))
         }}
       >
-        <Link to="current">역삼</Link>
+        <Link to="current">{data.stationName}</Link>
       </TextBox>
-      <SubwayLineIcon line="7">2</SubwayLineIcon>
+      <SubwayLineIcon line={data.line[0]}>{data.line[0]}</SubwayLineIcon>
     </FlexBox>
   )
 }

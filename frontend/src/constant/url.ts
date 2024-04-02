@@ -7,5 +7,6 @@ const API_URI = {
   USER_INFO: '/member/join',
   PLACE_INFO: '/place/search',
   SUBMIT_DATECOURSE: '/course/add',
+  STATION_AUTOCOMPLETE: '/subway',
 }
 export default API_URI
