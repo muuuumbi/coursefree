@@ -11,9 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CourseDetailResponseDto {
+    private String title;
+    private Integer useCount;
     private List<PlaceDto> placeDtoList;
 
-    public static CourseDetailResponseDto from(List<PlaceDto> placeDtoList) {
-        return new CourseDetailResponseDto(placeDtoList);
+    public static CourseDetailResponseDto from(String title, Integer useCount, List<PlaceDto> placeDtoList) {
+        return new CourseDetailResponseDto(title, useCount, placeDtoList);
     }
 }

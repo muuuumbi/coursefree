@@ -122,9 +122,12 @@ public class CourseService {
      **/
     public CourseDetailResponseDto getCourseDetail(Integer courseId) {
         Course course = findById(courseId);
-        return CourseDetailResponseDto.from(course.getCoursePlaceList().stream()
-                .map(coursePlace -> PlaceDto.of(coursePlace.getPlace()))
-                .collect(Collectors.toList()));
+        return CourseDetailResponseDto.from(
+                course.getTitle(),
+                course.getUseCount(),
+                course.getCoursePlaceList().stream()
+                        .map(coursePlace -> PlaceDto.of(coursePlace.getPlace()))
+                        .collect(Collectors.toList()));
     }
 
     /**
