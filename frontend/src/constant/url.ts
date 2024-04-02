@@ -10,5 +10,11 @@ const API_URI = {
   STATION_AUTOCOMPLETE: '/subway',
   RECOMMEND: '/course/recommendation',
   COURSE_DETAIL: '/course/details',
+<<<<<<< HEAD
+=======
+  HOT_ARTICLE: '/post/recommend',
+  SEARCH_ARTICLE: '/post',
+  ARTICLE_DETAIL: '/post-content',
+>>>>>>> 0b3029b1a41f4081998bf5df8f60d339391b7e47
 }
 export default API_URI
