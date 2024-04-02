@@ -9,7 +9,7 @@ import FlexBox from '@component/layout/FlexBox'
 interface ShortPlaceInfo {
   hasButton: boolean
   buttonText: string
-  onClickButton: () => void
+  onClickButton: (place: Place) => void
   place: Place
   onClickBox?: (place: Place) => void
 }
@@ -28,6 +28,7 @@ export default function ShortPlaceInfo({
       a="center"
       j="space-between"
       onClick={() => {
+        alert('지도이동함수')
         onClickBox ? onClickBox(place) : null
       }}
     >
@@ -45,7 +46,16 @@ export default function ShortPlaceInfo({
         </FlexBox>
       </FlexBox>
       {/* 삭제 버튼 부분 */}
-      {hasButton ? <Button onClick={onClickButton}>{buttonText}</Button> : null}
+      {hasButton ? (
+        <Button
+          onClick={e => {
+            e.stopPropagation()
+            onClickButton(place)
+          }}
+        >
+          {buttonText}
+        </Button>
+      ) : null}
     </FlexBox>
   )
 }

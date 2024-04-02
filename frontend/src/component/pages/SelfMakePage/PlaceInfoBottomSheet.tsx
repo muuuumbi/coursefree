@@ -20,7 +20,7 @@ export default function PlaceInfoBottomSheet({
   /**
    * 데이트 코스 추가 함수
    */
-  function addPlaceInPlan() {
+  function addPlaceInPlan(place: Place) {
     setDateCourse({
       ...dateCourse,
       placeList: [...dateCourse.placeList, place],

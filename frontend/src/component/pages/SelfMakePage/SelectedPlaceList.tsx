@@ -1,4 +1,6 @@
+import { MakingCourseContext } from '@context/index'
 import { Place } from '@type/course'
+import { useContext } from 'react'
 
 import PlaceInfoWithOrder from '@component/Course/PlaceInfoWithOrder'
 import ShortPlaceInfo from '@component/Course/ShortPlaceInfo'
@@ -8,12 +10,17 @@ type SelectedPlaceList = {
   placeList: Place[]
   onClickPlaceBox: (place: Place) => void
 }
-/** @jsxImportSource @emotion/react */
 export default (function SelectedPlaceList({
   placeList,
   onClickPlaceBox,
 }: SelectedPlaceList) {
-  const removePlace = () => {}
+  const { dateCourse, setDateCourse } = useContext(MakingCourseContext)
+  const removePlace = (place: Place) => {
+    const copy = dateCourse.placeList.filter(
+      (currPlace: Place) => currPlace.id != place.id,
+    )
+    setDateCourse({ ...dateCourse, placeList: copy })
+  }
 
   return (
     <FlexBox a="center" d="column">

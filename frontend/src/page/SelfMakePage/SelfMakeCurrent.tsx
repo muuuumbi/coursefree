@@ -23,10 +23,10 @@ const StickyMap = css`
   position: sticky;
   top: 0px;
 `
-const station = JSON.parse(sessionStorage.getItem('station'))
 
 /** @jsxImportSource @emotion/react */
 export default function SelfMakeCurrent() {
+  const station = JSON.parse(sessionStorage.getItem('station'))
   const navigate = useNavigate()
   const { dateCourse, setDateCourse } = useContext(MakingCourseContext)
   const [centerView, setCenterView] = useState({
