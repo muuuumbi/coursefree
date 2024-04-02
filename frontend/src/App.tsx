@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import ArticleDetailPage from '@page/ArticleDetailPage'
+import FavoritePage from '@page/FavoritePage'
+import FavoriteDetail from '@page/FavoritePage/FavoriteDetail'
 import HomePage from '@page/HomePage'
 import DiscoverArticle from '@page/HomePage/DiscoverArticle'
 import HotArticle from '@page/HomePage/HotArticle'
@@ -20,13 +22,11 @@ import Welcome from '@page/OnBoardingPage/Welcome'
 import RecommendPage from '@page/RecommendPage'
 import RecommendResult from '@page/RecommendPage/RecommendResult'
 import RecommendSearch from '@page/RecommendPage/RecommendSearch'
+import Search from '@page/SearchPage'
 import SelfMakePage from '@page/SelfMakePage'
 import SelfMakeCurrent from '@page/SelfMakePage/SelfMakeCurrent'
 import SelfMakePlaceSearch from '@page/SelfMakePage/SelfMakePlaceSearch'
 import SelfMakeSearch from '@page/SelfMakePage/SelfMakeSearch'
-import Search from '@page/SearchPage'
-import FavoritePage from '@page/FavoritePage'
-import FavoriteDetail from '@page/FavoritePage/FavoriteDetail'
 
 // initMockAPI()
 
@@ -78,7 +78,7 @@ function App() {
                   <Route path="search" element={<SelfMakePlaceSearch />} />
                 </Route>
               </Route>
-              </Route>
+            </Route>
 
             <Route path="/favorite" element={<FavoritePage/>}>
             </Route>
