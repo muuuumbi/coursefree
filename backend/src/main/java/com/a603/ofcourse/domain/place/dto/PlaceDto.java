@@ -15,6 +15,7 @@ public class PlaceDto {
     private String name;
     private String address;
     private String url;
+    private String imageUrl;
     private String placeType;
     private String placeCategory;
     private Points points;
@@ -25,6 +26,7 @@ public class PlaceDto {
                 place.getName(),
                 place.getAddress(),
                 place.getUrl(),
+                place.getImageUrl(),
                 place.getPlaceType(),
                 place.getPlaceCategory().getValue(),
                 place.getPoints()
