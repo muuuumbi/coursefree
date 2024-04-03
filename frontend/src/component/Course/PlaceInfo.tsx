@@ -1,4 +1,3 @@
-import Logo from '@asset/CourseFree.png'
 import { Badge, Image } from '@chakra-ui/react'
 import { Place } from '@type/course'
 
@@ -11,11 +10,10 @@ type Props = {
 
 /** @jsxImportSource @emotion/react */
 export default function PlaceInfo({ place }: Props) {
-  console.log(place)
   return (
     <FlexBox w="100%" p="10px" a="center">
       {/* 가게 이미지 */}
-      <Image src={Logo} boxSize="100px" borderRadius="10px" />
+      <Image src={place.imageUrl} boxSize="100px" borderRadius="10px" />
       {/* 가게 설명 */}
       <FlexBox d="column" p="10px">
         <TextBox
