@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface MyCourseRepository extends JpaRepository<MyCourse, Integer> {
     List<MyCourse> findAllByMemberId(Integer memberId);
+
+    Boolean existsByMemberIdAndCourseId(Integer memberId, Integer courseId);
 }

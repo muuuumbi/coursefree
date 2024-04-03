@@ -13,6 +13,8 @@ public class PostContentResponseDto {
     private String memberImageUrl;
     private String memberNickname;
     private List<PostContentInfo> postContentInfoList;
+    private Integer courseId;
+    private Boolean isHave;
 
     @Data @Builder
     public static class PostContentInfo{

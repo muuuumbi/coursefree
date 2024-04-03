@@ -14,7 +14,8 @@ public class PostContentController {
     private final PostContentService postContentService;
 
     @GetMapping
-    public ResponseEntity<PostContentResponseDto> findPostContentList(@RequestParam int postId){
-        return ResponseEntity.ok(postContentService.findPostContentList(postId));
+    public ResponseEntity<PostContentResponseDto> findPostContentList(@RequestHeader("Authorization") String accessToken,
+                                                                      @RequestParam int postId){
+        return ResponseEntity.ok(postContentService.findPostContentList(accessToken, postId));
     }
 }
