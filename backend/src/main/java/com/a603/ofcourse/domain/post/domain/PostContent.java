@@ -20,7 +20,7 @@ public class PostContent {
     @Column(name="title")
     private String title;
 
-    @Column(name="content", columnDefinition = "LONGTEXT")
+    @Column(name="content", length=1000)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
