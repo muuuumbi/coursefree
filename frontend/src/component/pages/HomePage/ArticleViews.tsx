@@ -32,7 +32,6 @@ export default function ArticleViews() {
   })
 
   if (isLoading) return <FullPageLoading />
-  console.log(articleCards)
   return (
     <ArticleViewsContainer>
       <button
