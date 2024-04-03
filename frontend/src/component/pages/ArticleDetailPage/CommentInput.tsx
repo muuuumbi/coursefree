@@ -1,5 +1,6 @@
 import { Avatar } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import { useRef } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Input from '@component/common/Input'
@@ -25,8 +26,8 @@ type Props = {
 }
 export default function CommentInput({ mutate }: Props) {
   const { id } = useParams()
-  const { state, onChange } = useInput<string>({ data: '' })
-
+  const { state, onChange, reset } = useInput<string>({ data: '' })
+  const ref = useRef(null)
   return (
     <Container
       onClick={e => {
@@ -34,16 +35,23 @@ export default function CommentInput({ mutate }: Props) {
       }}
     >
       <Avatar size="sm" />
-      <Input width="80%" placeholder="댓글을 입력하세요." onChange={onChange} />
+      <Input
+        width="80%"
+        placeholder="댓글을 입력하세요."
+        onChange={onChange}
+        ref={ref}
+      />
       <button>
         <TextBox
           typography="t6"
           color="primary"
           fontWeight={'bold'}
-          onClick={async () => {
+          onClick={() => {
             const idd = parseInt(id)
             const data = { postId: idd, content: state }
-            await mutate(data)
+            ref.current.value = ''
+            reset()
+            mutate(data)
           }}
         >
           등록

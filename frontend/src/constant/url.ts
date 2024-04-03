@@ -21,5 +21,6 @@ const API_URI = {
   MODIFY_PROFILE: '/member/update/profile',
   ARTICLE_COMMENT: '/comment',
   SUBMIT_COMMENT: '/comment/save',
+  ADD_FAVORITE: '/course/add-mycourse',
 }
 export default API_URI
