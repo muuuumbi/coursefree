@@ -1,3 +1,5 @@
+version: '3.0'
+
 services:
   backend:
     image: parkseheon/a603-backend
@@ -23,4 +25,3 @@ services:
 networks:
   coursefree:
     external: true
-
