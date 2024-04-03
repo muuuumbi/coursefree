@@ -71,11 +71,7 @@ function App() {
               </Route>
 
               {/* Article */}
-<<<<<<< HEAD
-              <Route path="article" element={<ArticleDetailPage />} />
-=======
               <Route path="article/:id" element={<ArticleDetailPage />} />
->>>>>>> 0b3029b1a41f4081998bf5df8f60d339391b7e47
 
               {/* MyCourse */}
               <Route path="myCourse" element={<MyCoursePage />} />
