@@ -28,6 +28,7 @@ import SelfMakePage from '@page/SelfMakePage'
 import SelfMakeCurrent from '@page/SelfMakePage/SelfMakeCurrent'
 import SelfMakePlaceSearch from '@page/SelfMakePage/SelfMakePlaceSearch'
 import SelfMakeSearch from '@page/SelfMakePage/SelfMakeSearch'
+import GenerateLink from '@page/MyPage/generateLink'
 
 // initMockAPI()
 
@@ -95,18 +96,22 @@ function App() {
               </Route>
             </Route>
 
-            {/* MyPage */}
-            <Route path="/search" element={<Search />}></Route>
-
-            {/* Favorite */}
-            <Route path="/favorite" element={<FavoritePage />}></Route>
+            <Route path="/favorite" element={<FavoritePage/>}>
+            </Route>
             <Route path="/favorite/:courseId" element={<FavoriteDetail />} />
 
-            <Route path="/mypage" element={<MyPage />}></Route>
-            <Route path="/mypage/log" element={<Log />}></Route>
-            <Route path="/mypage/memory" element={<Memory />}></Route>
-            <Route path="/mypage/setting" element={<Setting />}></Route>
-            <Route path="/search" element={<Search />}></Route>
+            <Route path="/mypage" element={<MyPage/>}>
+            </Route>
+            <Route path="/mypage/log" element={<Log/>}>
+            </Route>
+            <Route path="/mypage/memory" element={<Memory/>}>
+            </Route>
+            <Route path="/mypage/setting" element={<Setting/>}>
+            </Route>
+            <Route path="/search" element={<Search/>}>
+            </Route>
+            <Route path="/generateLink" element={<GenerateLink/>}>
+            </Route>
           </Routes>
         </BrowserRouter>
       </div>
