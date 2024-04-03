@@ -20,8 +20,7 @@ public class PostContent {
     @Column(name="title")
     private String title;
 
-    @Lob
-    @Column(name="content")
+    @Column(name="content", columnDefinition = "LONGTEXT")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
