@@ -42,10 +42,6 @@ public class Course {
     @Column(name = "hash_key", length = 256)
     private String hashKey;
 
-    @OneToOne
-    @JoinColumn(name = "course_characteristic_id")
-    private CourseCharacteristic courseCharacteristic;
-
     @Column(name="use_count")
     private Integer useCount;
 
@@ -84,5 +80,9 @@ public class Course {
 
     public void updateUseCount() {
         this.useCount += 1;
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
