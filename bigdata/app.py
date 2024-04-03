@@ -13,7 +13,7 @@ async def hi():
     return "Hi"
 
 
-@app.post("/api/recommendations")
+@app.post("/data/recommendations")
 async def search(search_place_dto: RecommendRequestDto):
     return make_recommendations(search_place_dto)
 
