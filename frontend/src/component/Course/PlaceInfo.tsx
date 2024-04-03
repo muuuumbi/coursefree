@@ -19,14 +19,14 @@ export default function PlaceInfo({ place }: Props) {
         <TextBox
           color="black"
           fontWeight="bold"
-          typography="t4"
+          typography="t6"
           onClick={() => {
             if (place.url !== ' ') window.open(place.url)
           }}
         >
           {place.name} <Badge colorScheme="pink">{place.placeCategory}</Badge>
         </TextBox>
-        <TextBox>주소 : {place.address}</TextBox>
+        <TextBox typography="t7">주소 : {place.address}</TextBox>
       </FlexBox>
     </FlexBox>
   )
