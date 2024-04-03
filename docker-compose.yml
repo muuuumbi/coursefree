@@ -21,6 +21,13 @@ services:
     tty: true
     networks:
       - coursefree
+  bigdata:
+    image: parkseheon/a603-bigdata
+    container_name: coursefree-bigdata
+    ports:
+      - 8000:8000
+    networks:
+      - coursefree
 
 networks:
   coursefree:
