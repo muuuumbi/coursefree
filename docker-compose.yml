@@ -11,8 +11,6 @@ services:
   frontend:
     image: parkseheon/a603-frontend:latest
     container_name: coursefree-frontend
-    env_file:
-      - .env
     ports:
       - 5173:5173
     stdin_open: true

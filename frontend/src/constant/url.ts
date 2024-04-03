@@ -24,3 +24,4 @@ const API_URI = {
   ADD_FAVORITE: '/course/add-mycourse',
 }
 export default API_URI
+
