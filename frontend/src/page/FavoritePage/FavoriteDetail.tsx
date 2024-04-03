@@ -65,7 +65,7 @@ const FavoriteDetail = () => {
   useEffect(() => {
     requestMyFavCourseDetail(courseId)
       .then((response) => {
-        setCourse(response.data.coursePlaceDetailsList);
+        setCourse(response.data.placeDtoList);
       })
       .catch((error) => {
         console.error('API 호출 에러:', error);
