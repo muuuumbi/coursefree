@@ -10,17 +10,19 @@ public class MemberInfoResponse {
     private boolean isCouple;
     private String coupleNickname;
     private String partnerNickname;
+    private String partnerImage;
 
-    private MemberInfoResponse(String nickname, String image, String gender, boolean isCouple, String coupleNickname, String partnerNickname) {
+    private MemberInfoResponse(String nickname, String image, String gender, boolean isCouple, String coupleNickname, String partnerNickname, String partnerImage) {
         this.nickname = nickname;
         this.image = image;
         this.gender = gender;
         this.isCouple = isCouple;
         this.coupleNickname = coupleNickname;
         this.partnerNickname = partnerNickname;
+        this.partnerImage = partnerImage;
     }
 
-    public static MemberInfoResponse toResponse(String nickname, String imageUrl, String gender, boolean isCouple, String coupleNickname, String partnerName) {
-        return new MemberInfoResponse(nickname, imageUrl, gender, isCouple, coupleNickname, partnerName);
+    public static MemberInfoResponse toResponse(String nickname, String imageUrl, String gender, boolean isCouple, String coupleNickname, String partnerName, String partnerImage) {
+        return new MemberInfoResponse(nickname, imageUrl, gender, isCouple, coupleNickname, partnerName, partnerImage);
     }
 }

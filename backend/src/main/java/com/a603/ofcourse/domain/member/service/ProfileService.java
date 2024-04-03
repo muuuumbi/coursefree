@@ -123,6 +123,7 @@ public class ProfileService {
         AtomicBoolean isCouple = new AtomicBoolean(false);
         AtomicReference<String> coupleNickname = new AtomicReference<>("");
         AtomicReference<String> partnerNickname = new AtomicReference<>("");
+        AtomicReference<String> partnerImage = new AtomicReference<>("");
         memberCoupleRepository.findByMemberId(memberId)
                 .ifPresent(
                         memberCouple -> {
@@ -136,8 +137,10 @@ public class ProfileService {
                                         mc -> {
                                             Integer partnerId = mc.getMember().getId();
                                             if(!partnerId.equals(memberId)){
+                                                Profile partnerProfile = profileRepository.findByMemberId(partnerId);
                                                 //해당 멤버의 이름 셋해주기
-                                                partnerNickname.set(profileRepository.findByMemberId(partnerId).getNickname());
+                                                partnerNickname.set(partnerProfile.getNickname());
+                                                partnerImage.set(partnerProfile.getImage());
                                             }
                                         },
                                         () -> {
@@ -155,7 +158,8 @@ public class ProfileService {
                 profile.getGender().getValue(),
                 isCouple.get(),
                 coupleNickname.get(),
-                partnerNickname.get()
+                partnerNickname.get(),
+                partnerImage.get()
         );
     }
 
