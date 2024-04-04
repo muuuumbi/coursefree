@@ -38,58 +38,43 @@
 - 김은비 : 회원(로그인, 프로필, 찜한 데이트 코스 조회), 커플(커플 연동, 커플 해제)
 - 박세헌 : 게시글, 댓글 API 개발
 - 손현조 : 데이트 코스 생성, 추천 알고리즘, 장소 제공
-- 이경태 :
+- 이경태 : 일정, 검색 자동 완성, 커플 기록, 사진첩
 
 ### INFRA
 
 - 박세헌 : EC2, 도커, nginx를 통해 프로젝트 배포, Jenkins를 통해 CI/CD 구축
+- 이경태 : MySQL, Redis, ELK Stack 환경 구축
 
 ### DATA
 
 - 백진규 : 방문 시설 자료 전처리 및 크롤링, 식당 추천 알고리즘 구현
 
-## 기술 스택
+## 아키텍쳐
 
-![/uploads/79b9617ada50a5b2ebf2709f47fe17c3/%EA%B8%B0%EC%88%A0_%EC%8A%A4%ED%83%9D.PNG](/uploads/79b9617ada50a5b2ebf2709f47fe17c3/%EA%B8%B0%EC%88%A0_%EC%8A%A4%ED%83%9D.PNG)
-
-
+![아키텍처](./exec/architecture/아키텍처.jpg)
 
 ## Build
 
-**Spring**
+```sh
+# clone
+git clone https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A603.git
+cd S10P22A603
 
-```docker
-// 클론 받기
-git clone -branch dev/backend https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A603.git
+##################################
+# 빌드 및 실행 전 아래 파일 필요
+# 1. backend/.env
+# 2. frontend/.env
+# 3. bigdata/config.ini
+##################################
+# build all
+docker-compose up -d
 
-// 도커 build
-(사전에 .env파일을 root 경로에 추가해야함)
-cd S10P22A6
+# only backend build
 docker-compose up -d backend
-```
-
-**React**
-
-```docker
-// 클론 받기
-git clone -branch dev/frontend https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A603.git
-
-// 도커 build
-(사전에 .env파일을 root 경로에 추가해야함)
-cd S10P22A6
+# only frontend build
 docker-compose up -d frontend
-```
-
-**Python**
-
-```docker
-// 클론 받기
-git clone -branch dev/bigdata https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A603.git
-
-// 도커 build
-(사전에 config.ini파일을 root 경로에 추가해야함)
-cd S10P22A6
+# only bigdata build
 docker-compose up -d bigdata
 ```
 
-### * DB(MySql, Redis)와 elk, nginx 설정은 포팅메뉴얼 참고
+### DB(MySql, Redis)와 elk, nginx 설정은 포팅메뉴얼 참고
