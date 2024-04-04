@@ -8,7 +8,7 @@ import { debounce } from '@util/debounce'
 
 export default function useSearchKakaoMap(station: Station) {
   const [markerPlaceList, setMarkerPlaceList] = useState<Place[]>([])
-  const [category, setCategory] = useState<string>('RESTAURANT')
+  const [category, setCategory] = useState<Categories>('RESTAURANT')
   const [currentSelectPlace, setCurrentSelectPlace] = useState<Place | null>(
     null,
   )
@@ -19,7 +19,7 @@ export default function useSearchKakaoMap(station: Station) {
     },
     level: 2,
   })
-  const debounceCenterView = debounce(setCenterView, 500)
+  const debounceCenterView = debounce(setCenterView, 200)
   const hidePlaceInfoSheet = () => {
     setCurrentSelectPlace(null)
   }

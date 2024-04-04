@@ -14,8 +14,17 @@ import { Container } from '@styled/component/layout/Footer'
 interface ArticleFooter {
   onClick: any
   id?: number
+  disabled: boolean
+  onClickLikeHandler: (id) => void
+  courseId: number
 }
-export default memo(function ArticleFooter({ onClick, id }: ArticleFooter) {
+export default memo(function ArticleFooter({
+  onClick,
+  id,
+  disabled,
+  onClickLikeHandler,
+  courseId,
+}: ArticleFooter) {
   return (
     <Container>
       <FlexBox w={'100%'} h="100%" a="center" j="space-around">
@@ -33,7 +42,14 @@ export default memo(function ArticleFooter({ onClick, id }: ArticleFooter) {
           title="댓글"
         />
         <FooterLinkWithIcon icon={faShare} type="share" id={id} title="공유" />
-        <Button>코스찜하기</Button>
+        <Button
+          disabled={disabled}
+          onClick={() => {
+            onClickLikeHandler(courseId)
+          }}
+        >
+          코스찜하기
+        </Button>
       </FlexBox>
     </Container>
   )

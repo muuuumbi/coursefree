@@ -29,7 +29,7 @@ export default function PlaceAvatar({
           color={isSelected ? 'primary' : 'gray'}
           fontWeight={isSelected && 'bold'}
         >
-          {placeName}
+          {placeName.length >= 5 ? placeName.slice(0, 6) + '...' : placeName}
         </TextBox>
       </FlexBox>
       {/* {!isLast && <Stroke />} */}

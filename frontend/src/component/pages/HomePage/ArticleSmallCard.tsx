@@ -1,4 +1,3 @@
-import kiss from '@asset/kiss.jfif'
 import { Image } from '@chakra-ui/react'
 import { ArticleThumbnail } from '@type/article'
 import { Link } from 'react-router-dom'
@@ -13,16 +12,16 @@ type Props = {
 export default function ArticleSmallCard({ data }: Props) {
   return (
     <Link to={`/article/${data.postId}`}>
-      <FlexBox d="column">
+      <FlexBox d="column" a="center" j="center" w="150px">
         <Image
           borderRadius="10px"
-          boxSize="100%"
-          src={kiss}
+          boxSize="150px"
+          src={data.imageUrl}
           alt="Dan Abramov"
         />
         <Spacing size="10px" />
-        <TextBox textAlign="left" fontWeight="bold" typography="t6">
-          {data.title}😀
+        <TextBox textAlign="left" fontWeight="bold" typography="t8">
+          {data.title}
         </TextBox>
         {/* <TextBox textAlign="left" typography="t7" color="gray">
           삼성동쭈꾸
