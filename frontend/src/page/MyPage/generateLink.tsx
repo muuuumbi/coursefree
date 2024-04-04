@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { requestGenerateLink } from '@api/request/member';
 import { authAxios } from '@api/index';
 
 interface ApiResponse {
@@ -24,13 +25,6 @@ function GenerateLink() {
             });
     }, []);
 
-    function requestGenerateLink(): Promise<ApiResponse> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({ data: 'http://generated.link' });
-            }, 2000);
-        });
-    }
 
     function copyLinkToClipboard() {
         navigator.clipboard.writeText(generatedLink)
@@ -66,7 +60,9 @@ function GenerateLink() {
                 <>
                     <p>생성된 링크: {generatedLink}</p>
                     <button onClick={copyLinkToClipboard}>{copied ? '링크 복사됨' : '링크 복사하기'}</button>
+                    <br/>
                     <input type="text" value={inputLink} onChange={(e) => setInputLink(e.target.value)} placeholder="연동하려는 상대의 링크를 붙여넣어주세요" />
+                    <br/>
                     <button onClick={sendPostRequest}>요청 보내기</button>
                 </>
             )}
