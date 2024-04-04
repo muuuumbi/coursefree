@@ -41,13 +41,15 @@ const Users = () => {
       </Couplename>
       <InfoContainer>
         <Item>
-          {memberimage ? (
-            <img src={memberimage} alt="Member Image" />
-          ) : (
-            <FontAwesomeIcon icon={faUserCircle} size='5x' />
-          )}
-          <br />
-          <p>{memberNickname}</p>
+          <>
+            {memberimage ? (
+              <img src={memberimage} alt="Member Image" />
+            ) : (
+              <FontAwesomeIcon icon={faUserCircle} size='5x' />
+            )}
+            <br />
+            <p>{memberNickname}</p>
+          </>
         </Item>
         <Item>
           <FontAwesomeIcon icon={faHeart} size='3x' />
