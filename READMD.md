@@ -52,17 +52,7 @@
 
 ![/uploads/79b9617ada50a5b2ebf2709f47fe17c3/%EA%B8%B0%EC%88%A0_%EC%8A%A4%ED%83%9D.PNG](/uploads/79b9617ada50a5b2ebf2709f47fe17c3/%EA%B8%B0%EC%88%A0_%EC%8A%A4%ED%83%9D.PNG)
 
-## README
 
-### Coursefree
-
-### BE
-
-[Coursefree BE Readme 보러가기](https://lab.ssafy.com/s10-webmobile1-sub2/S10P12A803/-/blob/master/BackEnd/cardian/ReadMe.md?ref_type=heads)
-
-### FE
-
-[Coursefree FE Readme 보러가기](https://lab.ssafy.com/s10-webmobile1-sub2/S10P12A803/-/blob/master/FrontEnd/README.md?ref_type=heads)
 
 ## Build
 
