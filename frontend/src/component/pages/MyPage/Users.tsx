@@ -11,6 +11,7 @@ const Users = () => {
   const [memberNickname, setmemberNickname] = useState([]);
   const [partnerNickname, setpartnerNickname] = useState([]);
   const [memberimage, setmemberimage] = useState<string | null>(null);
+  const [partnerImage, setpartnerImage] = useState<string | null>(null);
   const [coupleNickname, setcoupleNickname] = useState([]);
   const [isCouple, setisCouple] = useState([]);
   useEffect(() => {
@@ -21,6 +22,9 @@ const Users = () => {
         setpartnerNickname(response.data.partnerNickname);
         if (typeof response.data.image === 'string') {
           setmemberimage(response.data.image);
+        }
+        if (typeof response.data.partnerImage === 'string') {
+          setpartnerImage(response.data.partnerImage);
         }
         setcoupleNickname(response.data.coupleNickname);
         setisCouple(response.data.couple);
@@ -50,18 +54,34 @@ const Users = () => {
           <p>{memberNickname}</p>
         </Item>
         <Item>
-          <FontAwesomeIcon icon={faHeart} size='3x' />
+          {isCouple ? (
+            <Link to={'#'}>
+              <FontAwesomeIcon icon={faHeart} size='3x' />
+            </Link>
+          ): (
+            <Link to={'/generate-link'}>
+              <FontAwesomeIcon icon={faHeart} size='3x' />
+            </Link>
+          )}
         </Item>
         <Item>
-          <Link to={isCouple ? '#' : '/generateLink'}> {/* isCouple이 true일 때는 #으로 설정 */}
-            <FontAwesomeIcon icon={faQuestionCircle} size='5x' />
+          {isCouple ? (
+            <>
+              {partnerImage ? (
+                <img src={partnerImage} alt="Partner Image" />
+              ) : (
+                <FontAwesomeIcon icon={faUserCircle} size='5x' />
+              )} 
+              <br />
+              <p>{partnerNickname}</p>
+            </>
+        ) : (
+          <>
+            <FontAwesomeIcon icon={faUserCircle} size='5x' />
             <br />
-            {partnerNickname ? (
-              <p dangerouslySetInnerHTML={{ __html: partnerNickname }} />
-            ) : (
-              <p>상대방을 <br />추가해 주세요</p>
-            )}
-          </Link>
+            <p>상대방을 추가해주세요</p>
+          </>
+        )}
         </Item>
 
       </InfoContainer>
