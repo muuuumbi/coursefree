@@ -58,7 +58,7 @@
 ![정보입력](/uploads/656d86adc417bb4f79c872af2929835b/정보입력.gif)
 
 ### 2. 커플 연결 기능
-<img src="/uploads/0e338bd131b62b7e03e9aed4c28468c8/커플프로필.png" width="200" height="400"/>
+<img src="/uploads/9f3e7c7b4b7d76c85db28f85e7179b31/커플프로필.png" width="200" height="400"/>
 
 ### 3. 코스 제작 기능
 #### 3-1. 직접 제작
