@@ -55,10 +55,10 @@
 
 ## 실행화면
 ### 1. 회원 정보 & 성향 정보 입력
-![정보입력](/uploads/3565b2c1adc83abc6ba9dfe3b0d6b67d/정보입력.mp4)
+![정보입력](/uploads/656d86adc417bb4f79c872af2929835b/정보입력.gif)
 
 ### 2. 커플 연결 기능
-![커플프로필](/uploads/0e338bd131b62b7e03e9aed4c28468c8/커플프로필.png)
+<img src="/uploads/0e338bd131b62b7e03e9aed4c28468c8/커플프로필.png" width="200" height="400"/>
 
 ### 3. 코스 제작 기능
 #### 3-1. 직접 제작
