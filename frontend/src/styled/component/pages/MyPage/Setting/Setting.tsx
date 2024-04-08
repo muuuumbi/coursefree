@@ -78,14 +78,14 @@ export const BottomContainer = styled.div`
   
 `;
 
-export const EditButton = styled.div`
+export const EditButton = styled.button`
   
 `;
 export const FormContainer = styled.div`
   
 `;
-export const FormInput = styled.div`
-  
+export const FormInput = styled.input`
+  background-color: lightpink;
 `;
 export const SaveButton = styled.div`
   
