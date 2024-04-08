@@ -16,6 +16,7 @@ import {
   Couple,
   EditButton,
   FormContainer,
+  FormInput,
   Icon,
   InfoContainer,
   MainContainer,
@@ -60,6 +61,7 @@ const Setting = () => {
   const map = { 남성: 'MALE', 여성: 'FEMALE' }
   // 프로필 수정 함수
   const handleProfileUpdate = () => {
+    handleEditToggle()
     const requestData = {
       nickname: memberNickname,
       image: memberImage,
@@ -110,13 +112,26 @@ const Setting = () => {
           ) : (
             <FontAwesomeIcon icon={faUserCircle} size="5x" />
           )}
-          {/* 수정 버튼 추가 */}
-          <EditButton onClick={handleEditToggle}>
-            <FontAwesomeIcon icon={faEdit} />
-          </EditButton>
         </Icon>
         <Name>
-          <p>{memberNickname}</p>
+          {isEditing ? (
+            <FormContainer>
+              <FormInput
+                type='text'
+                value={memberNickname}
+                placeholder={memberNickname}
+                onChange={e => setMemberNickname(e.target.value)}
+              />
+            <SaveButton onClick={handleProfileUpdate}>저장</SaveButton>
+          </FormContainer>
+          ) : (
+            <p>
+              {memberNickname}
+              <EditButton onClick={handleEditToggle}>
+                <FontAwesomeIcon icon={faEdit} />
+              </EditButton>
+            </p>
+          )}
         </Name>
         <NickName></NickName>
         <Age>
@@ -126,19 +141,6 @@ const Setting = () => {
           {partnerNickname && <p>{partnerNickname}님과 커플이예요</p>}
         </Couple>
       </InfoContainer>
-      {/* 수정 폼 */}
-      {isEditing && (
-        <FormContainer>
-          {/* 폼에 프로필 수정에 필요한 입력 요소들을 추가 */}
-          <input
-            type="text"
-            value={memberNickname}
-            onChange={e => setMemberNickname(e.target.value)}
-          />
-          {/* 나머지 정보에 대해서도 위와 같은 형태로 추가 */}
-          <SaveButton onClick={handleProfileUpdate}>저장</SaveButton>
-        </FormContainer>
-      )}
       <MainContainer>
         <p></p>
         <p></p>
