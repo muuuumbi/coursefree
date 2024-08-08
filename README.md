@@ -55,29 +55,31 @@
 
 ## 실행화면
 ### 1. 회원 정보 & 성향 정보 입력
-![정보입력](/uploads/656d86adc417bb4f79c872af2929835b/정보입력.gif)
+![1_정보입력](https://github.com/user-attachments/assets/18383b26-5bde-47ac-b343-bb5cc20e6ee7)
 
 ### 2. 커플 연결 기능
+![2_커플](https://github.com/user-attachments/assets/e81e0527-9488-44f0-9cac-ea1a235f05af)
+
 <img src="/uploads/9f3e7c7b4b7d76c85db28f85e7179b31/커플프로필.png" width="200" height="400"/>
 
 ### 3. 코스 제작 기능
 #### 3-1. 직접 제작
-![코스제작](/uploads/5cb83c4594afa169d4cdc10b89ce2b55/코스제작.gif)
+![3_1_직접제작](https://github.com/user-attachments/assets/c718887a-b8a9-4c9d-ba1b-26eb993da338)
 
 #### 3-2. 추천 자동 제작 기능
-![코스추천](/uploads/6403473fc2cd015732beace4765f40a9/코스추천.gif)
+![3_2_자동제작](https://github.com/user-attachments/assets/b28d89d9-bdb8-4467-8078-7892d014ba2c)
 
 ### 4. 코스 추천 기능
-![HOT](/uploads/8641cb1f29bb57106849709219dedde9/HOT.gif)
+![4_코스추천](https://github.com/user-attachments/assets/65002baa-cb80-4211-966d-e360c3ca2ca9)
 
 ### 5. 코스 최신순 / 조회순 조회 기능
-![DISCOVER](/uploads/b7916698c5fe3fb8a9a63dddae8adb2a/DISCOVER.gif)
+![5_코스조회](https://github.com/user-attachments/assets/69989b15-1866-4746-b4f8-2c8dde2384eb)
 
 ### 6. 코스 찜 기능
 #### 4와 5번 실행화면에서 확인 가능
 
 ### 7. 내 코스 조회 기능
-![내코스조회](/uploads/39f906117739a6e9c9ce38d7fee6bc1c/내코스조회.gif)
+![7_내코스조회](https://github.com/user-attachments/assets/80cac80f-dbbf-48e7-8aba-468f78cddfa7)
 
 ## Build
 
