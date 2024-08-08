@@ -58,9 +58,7 @@
 ![1_정보입력](https://github.com/user-attachments/assets/18383b26-5bde-47ac-b343-bb5cc20e6ee7)
 
 ### 2. 커플 연결 기능
-![2_커플](https://github.com/user-attachments/assets/e81e0527-9488-44f0-9cac-ea1a235f05af)
-
-<img src="/uploads/9f3e7c7b4b7d76c85db28f85e7179b31/커플프로필.png" width="200" height="400"/>
+<img src="https://github.com/user-attachments/assets/e81e0527-9488-44f0-9cac-ea1a235f05af" width="200" height="400" />
 
 ### 3. 코스 제작 기능
 #### 3-1. 직접 제작
